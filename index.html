@@ -143,11 +143,13 @@
             border-radius: 2px;
             transition: 0.2s;
         }
+
+        /* ===== MOBILE MENU — FULL WIDTH & CENTER ALIGNED ===== */
         .mobile-menu {
             position: fixed;
             top: 0;
-            right: -100%;
-            width: 280px;
+            left: 0;
+            width: 100%;
             height: 100%;
             background: rgba(10, 12, 16, 0.98);
             backdrop-filter: blur(20px);
@@ -155,20 +157,71 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
             gap: 1.5rem;
             padding: 2rem;
-            transition: 0.3s ease;
-            border-left: 2px solid var(--green);
+            transform: translateY(-100%);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             font-family: 'JetBrains Mono', monospace;
+            text-align: center;
         }
+        .mobile-menu.open {
+            transform: translateY(0);
+        }
+
+        .mobile-menu .close-btn {
+            position: absolute;
+            top: 24px;
+            right: 28px;
+            font-size: 2rem;
+            color: var(--text);
+            cursor: pointer;
+            background: none;
+            border: none;
+            line-height: 1;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .mobile-menu .close-btn:hover {
+            color: var(--green);
+            transform: rotate(90deg);
+        }
+
         .mobile-menu a {
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             text-decoration: none;
             color: var(--text);
-            padding: 8px 0;
+            padding: 10px 0;
+            width: 100%;
+            max-width: 320px;
             border-bottom: 1px solid var(--border);
+            transition: 0.25s;
+            font-weight: 500;
+            text-align: center;
         }
-        .mobile-menu.open { right: 0; }
+        .mobile-menu a:hover {
+            color: var(--green);
+            padding-left: 0;
+        }
+
+        .mobile-menu .btn-outline-mobile {
+            border: 1px solid var(--green);
+            background: transparent;
+            padding: 14px 24px;
+            border-radius: 30px;
+            color: var(--green) !important;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 10px;
+            transition: 0.3s;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 320px;
+            border-bottom: 1px solid var(--green);
+        }
+        .mobile-menu .btn-outline-mobile:hover {
+            background: rgba(43, 214, 123, 0.1);
+        }
 
         .hero {
             padding: 40px 0;
@@ -225,15 +278,6 @@
             margin-left: 6px;
             opacity: 0.6;
             letter-spacing: 0.3px;
-        }
-        .terminal-cursor {
-            display: inline-block;
-            width: 6px;
-            height: 14px;
-            background: var(--green);
-            margin-left: 4px;
-            animation: blink 1s step-end infinite;
-            vertical-align: text-bottom;
         }
         @keyframes blink {
             0%, 100% { opacity: 1; }
@@ -846,6 +890,9 @@
         }
         a { text-decoration: none; }
 
+        /* ============================================================
+           RESPONSIVE
+        ============================================================ */
         @media (max-width: 1024px) {
             .hero-inner {
                 grid-template-columns: 1fr;
@@ -893,7 +940,6 @@
             .testimonial-video-wrapper { border-radius: 12px; }
             .nav-inner { padding: 0.9rem 16px; }
             .terminal-top { font-size: 0.55rem; padding: 8px 12px; }
-            .terminal-cursor { width: 4px; height: 10px; }
             .scroll-indicator { display: none; }
             .video-stars svg { width: 14px; height: 14px; }
             .video-caption-text { font-size: 0.75rem; }
@@ -923,13 +969,15 @@
         </div>
     </nav>
 
+    <!-- ===== MOBILE MENU — FULL WIDTH & CENTER ALIGNED ===== -->
     <div class="mobile-menu" id="mobile-overlay">
-        <a href="#work" onclick="toggleMenu()">PROJECTS</a>
-        <a href="#services" onclick="toggleMenu()">EXPERTISE</a>
-        <a href="#approach" onclick="toggleMenu()">STRATEGY</a>
-        <a href="#skills" onclick="toggleMenu()">STACK</a>
-        <a href="#about" onclick="toggleMenu()">PROFILE</a>
-        <a href="mailto:hermo.antonjay.personal@gmail.com">LETS_CONNECT</a>
+        <button class="close-btn" id="mobile-close-btn" aria-label="Close menu">&times;</button>
+        <a href="#work" class="mobile-link">PROJECTS</a>
+        <a href="#services" class="mobile-link">EXPERTISE</a>
+        <a href="#approach" class="mobile-link">STRATEGY</a>
+        <a href="#skills" class="mobile-link">STACK</a>
+        <a href="#about" class="mobile-link">PROFILE</a>
+        <a href="mailto:hermo.antonjay.personal@gmail.com" class="btn-outline-mobile">LETS_CONNECT</a>
     </div>
 
     <main class="container">
@@ -942,8 +990,7 @@
                         <span class="dot red"></span>
                         <span class="dot yellow"></span>
                         <span class="dot"></span>
-                        <span class="terminal-path">developer@notz.dev</span>
-                        <span class="terminal-cursor"></span>
+                        <span class="terminal-path">shopify-developer@notz.dev</span>
                     </div>
 
                     <h1 class="hero-animate delay-2">
@@ -973,7 +1020,6 @@
                             Client Story
                         </span>
 
-                        <!-- ===== YOUTUBE IFRAME EMBED ===== -->
                         <iframe 
                             width="420" 
                             height="345" 
@@ -1193,12 +1239,31 @@
         // ============================================================
         // 2. MOBILE MENU
         // ============================================================
+        const trigger = document.getElementById('mobile-trigger');
+        const overlay = document.getElementById('mobile-overlay');
+        const closeBtn = document.getElementById('mobile-close-btn');
+
         function toggleMenu() {
-            document.getElementById('mobile-overlay').classList.toggle('open');
+            overlay.classList.toggle('open');
+            trigger.classList.toggle('open');
         }
-        document.getElementById('mobile-trigger').addEventListener('click', toggleMenu);
-        document.querySelectorAll('#mobile-overlay a').forEach(link => {
-            link.addEventListener('click', () => document.getElementById('mobile-overlay').classList.remove('open'));
+
+        trigger.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                overlay.classList.remove('open');
+                trigger.classList.remove('open');
+            });
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && overlay.classList.contains('open')) {
+                overlay.classList.remove('open');
+                trigger.classList.remove('open');
+            }
         });
 
         // ============================================================
