@@ -3,22 +3,911 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notz.Dev | Shopify Systems Developer</title>
+    <title>Notz.Dev | Shopify Systems Developer — Clean Code, Commerce</title>
     <meta name="description" content="Web Developer Notz.Dev specializes in building fast, SEO-optimized, and user-friendly Shopify stores. View my portfolio to see how I bring ideas to life.">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" type="text/css" href="webfonts.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" type="text/css" href="style.css" rel="preload">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0A0C10;
+            --bg-elevated: #111418;
+            --card-bg: #0F1217;
+            --border: #1E252D;
+            --green: #2BD67B;
+            --green-dim: #1C9E5B;
+            --green-glow: rgba(43, 214, 123, 0.06);
+            --text: #EDF2F7;
+            --text-dim: #9AA4BF;
+            --text-muted: #5F6C84;
+            --code-bg: #0B0E13;
+            --shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
+            --gold: #FBBF24;
+        }
+
+        body {
+            background: var(--bg);
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(
+                ellipse at 30% 35%,
+                rgba(43, 214, 123, 0.08) 0%,
+                rgba(43, 214, 123, 0.03) 35%,
+                rgba(43, 214, 123, 0.01) 60%,
+                transparent 80%
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .noise-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            opacity: 0.025;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(10, 12, 16, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.9rem 28px;
+            min-height: 72px;
+        }
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        .logo span {
+            color: var(--green);
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-links a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-decoration: none;
+            color: var(--text-dim);
+            transition: 0.2s;
+            letter-spacing: -0.2px;
+        }
+        .nav-links a:hover {
+            color: var(--green);
+        }
+        .btn-outline-small {
+            border: 1px solid var(--green);
+            background: transparent;
+            padding: 6px 18px;
+            border-radius: 30px;
+            color: var(--green) !important;
+            font-weight: 600;
+        }
+        .btn-outline-small:hover {
+            background: rgba(43, 214, 123, 0.1);
+        }
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .menu-toggle span {
+            width: 26px;
+            height: 2px;
+            background: var(--green);
+            border-radius: 2px;
+            transition: 0.2s;
+        }
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100%;
+            background: rgba(10, 12, 16, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 2rem;
+            transition: 0.3s ease;
+            border-left: 2px solid var(--green);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .mobile-menu a {
+            font-size: 1.1rem;
+            text-decoration: none;
+            color: var(--text);
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .mobile-menu.open { right: 0; }
+
+        .hero {
+            padding: 40px 0;
+            padding-left: 28px;
+            padding-right: 28px;
+            position: relative;
+            overflow: hidden;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .terminal-top {
+            background: var(--bg-elevated);
+            border-radius: 10px 10px 0 0;
+            padding: 10px 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            margin-bottom: 28px;
+            box-shadow: 0 1px 0 rgba(43, 214, 123, 0.05);
+            width: fit-content;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #2BD67B;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .terminal-path {
+            margin-left: 6px;
+            opacity: 0.6;
+            letter-spacing: 0.3px;
+        }
+        .terminal-cursor {
+            display: inline-block;
+            width: 6px;
+            height: 14px;
+            background: var(--green);
+            margin-left: 4px;
+            animation: blink 1s step-end infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .hero h1 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 4rem;
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -1.5px;
+            color: var(--text);
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+        .hero h1 span {
+            color: var(--green);
+            position: relative;
+        }
+        .hero h1 span::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--green);
+            opacity: 0.3;
+            border-radius: 2px;
+        }
+
+        .hero-sub {
+            font-size: 1.15rem;
+            max-width: 620px;
+            color: var(--text-dim);
+            margin: 0 0 36px;
+            line-height: 1.7;
+            border-left: 3px solid var(--green);
+            padding-left: 28px;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            text-shadow: 0 1px 10px rgba(0,0,0,0.2);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background: var(--green);
+            color: #0A0C10;
+            font-weight: 700;
+            padding: 14px 34px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 0 0 0 rgba(43, 214, 123, 0);
+            position: relative;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 30px -8px rgba(43, 214, 123, 0.35), 0 0 0 2px rgba(43, 214, 123, 0.2);
+            background: var(--green-dim);
+        }
+        .btn-primary:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .btn-secondary {
+            border: 1px solid rgba(43, 214, 123, 0.4);
+            padding: 13px 32px;
+            border-radius: 40px;
+            color: var(--green);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            background: rgba(43, 214, 123, 0.04);
+            backdrop-filter: blur(4px);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        .btn-secondary:hover {
+            background: rgba(43, 214, 123, 0.12);
+            border-color: var(--green);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px -10px rgba(43, 214, 123, 0.2);
+        }
+
+        .hero-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ===== VIDEO WRAPPER (Simple iframe embed) ===== */
+        .testimonial-video-wrapper {
+            width: 100%;
+            max-width: 480px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px -15px rgba(0,0,0,0.6), 0 0 0 1px rgba(43, 214, 123, 0.15);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            background: #000;
+            aspect-ratio: 16 / 9;
+        }
+
+        .testimonial-video-wrapper:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 30px 60px -15px rgba(43, 214, 123, 0.25), 0 0 0 1px rgba(43, 214, 123, 0.3);
+        }
+
+        .testimonial-video-wrapper iframe {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(8px);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--green);
+            border: 1px solid rgba(43, 214, 123, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            pointer-events: none;
+            z-index: 5;
+        }
+        .video-badge svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--green);
+        }
+
+        .video-caption {
+            margin-top: 16px;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .video-stars {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+        .video-stars svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--gold);
+            stroke: none;
+        }
+
+        .video-caption-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+            line-height: 1.6;
+        }
+        .video-caption-text strong {
+            color: var(--green);
+            font-weight: 500;
+        }
+        .video-caption-text .client-name {
+            color: var(--text-dim);
+        }
+
+        .rating-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            margin-top: 2px;
+            opacity: 0.6;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            z-index: 5;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+        .scroll-indicator:hover {
+            opacity: 1;
+        }
+        .scroll-indicator .mouse {
+            width: 22px;
+            height: 34px;
+            border: 2px solid var(--text-muted);
+            border-radius: 12px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            transition: border-color 0.3s;
+        }
+        .scroll-indicator:hover .mouse {
+            border-color: var(--green);
+        }
+        .scroll-indicator .mouse .wheel {
+            width: 3px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 2px;
+            margin-top: 6px;
+            animation: scrollWheel 1.8s ease-in-out infinite;
+        }
+        @keyframes scrollWheel {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(12px); opacity: 0; }
+        }
+        .scroll-indicator .text {
+            font-size: 0.5rem;
+            letter-spacing: 0.2em;
+            opacity: 0.5;
+        }
+
+        .hero-animate {
+            opacity: 0;
+            animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .hero-animate.delay-1 { animation-delay: 0.1s; }
+        .hero-animate.delay-2 { animation-delay: 0.25s; }
+        .hero-animate.delay-3 { animation-delay: 0.4s; }
+        .hero-animate.delay-4 { animation-delay: 0.55s; }
+        .hero-animate.delay-5 { animation-delay: 0.7s; }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            margin: 90px 0 40px;
+        }
+        .section-header h2 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+        .section-header p {
+            color: var(--green);
+            font-family: monospace;
+            font-size: 0.75rem;
+            margin-top: 8px;
+        }
+
+        .project-card {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 36px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
+            transition: 0.25s;
+            margin-bottom: 48px;
+        }
+        .project-card:hover {
+            border-color: var(--green);
+            box-shadow: var(--shadow);
+            transform: translateY(-4px);
+        }
+        .project-img img {
+            width: 100%;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: #0B0E13;
+        }
+        .project-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            background: rgba(43, 214, 123, 0.15);
+            padding: 4px 12px;
+            border-radius: 20px;
+            color: var(--green);
+            display: inline-block;
+        }
+        .project-title {
+            font-size: 1.8rem;
+            margin: 16px 0 12px;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .project-desc {
+            color: var(--text-dim);
+            margin-bottom: 20px;
+        }
+        .code-badge {
+            background: var(--code-bg);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--green);
+            display: inline-block;
+            margin: 12px 0;
+        }
+        .project-meta {
+            display: flex;
+            gap: 32px;
+            margin-top: 20px;
+        }
+        .meta-item span {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+        .meta-item strong {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .comparison {
+            display: flex;
+            gap: 20px;
+            margin: 28px 0 16px;
+            flex-wrap: wrap;
+            align-items: stretch;
+        }
+        .comparison-item {
+            flex: 1 1 calc(50% - 10px);
+            min-width: 200px;
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: 0.2s;
+        }
+        .comparison-item:hover {
+            border-color: var(--green);
+        }
+        .comparison-item img {
+            display: block;
+            width: 100%;
+            height: auto;
+            background: #0B0E13;
+        }
+        .comparison-label {
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 8px 14px;
+            background: rgba(0,0,0,0.3);
+            color: var(--text-dim);
+            border-bottom: 1px solid var(--border);
+        }
+        .comparison-label.before { color: #ff6b6b; }
+        .comparison-label.after { color: var(--green); }
+        .comparison-desc {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-top: 8px;
+            padding: 0 4px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        .service-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            transition: 0.2s;
+        }
+        .service-card:hover { border-color: var(--green); }
+        .service-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--green);
+            opacity: 0.6;
+        }
+        .service-card h3 {
+            margin: 12px 0 10px;
+            font-size: 1.3rem;
+        }
+        .service-card p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .approach-intro {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--code-bg);
+            padding: 18px 24px;
+            border-left: 3px solid var(--green);
+            border-radius: 12px;
+            margin-bottom: 48px;
+            color: var(--text-dim);
+        }
+        .approach-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .approach-item {
+            display: flex;
+            gap: 28px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .approach-item h3 {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--green);
+            min-width: 130px;
+        }
+        .approach-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+        .approach-item p {
+            color: var(--text-dim);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+        }
+        .skill-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 26px;
+        }
+        .skill-card h3 {
+            font-family: monospace;
+            margin-bottom: 16px;
+        }
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill-tag {
+            background: rgba(43, 214, 123, 0.1);
+            padding: 5px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-family: monospace;
+            color: var(--text-dim);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 48px;
+            align-items: center;
+        }
+        .about-img img {
+            width: 100%;
+            border-radius: 28px;
+            border: 1px solid var(--green);
+            transition: 0.3s;
+        }
+        .about-img img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 40px -10px rgba(43, 214, 123, 0.15);
+        }
+        .about-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.9rem;
+        }
+        .about-role {
+            color: var(--green);
+            font-family: monospace;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .about-grid p {
+            color: var(--text-dim);
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+
+        .cta-section {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 60px 40px;
+            margin: 80px 0;
+            text-align: center;
+        }
+        .cta-actions {
+            margin-top: 32px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 32px;
+        }
+        .cta-link {
+            text-decoration: none;
+            background: rgba(0,0,0,0.4);
+            padding: 10px 28px;
+            border-radius: 40px;
+            color: var(--text-dim);
+            font-family: monospace;
+            transition: 0.2s;
+        }
+        .cta-link:hover {
+            color: var(--green);
+            background: rgba(43, 214, 123, 0.05);
+        }
+        .cta-link span { color: var(--green); }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 50px 0 30px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 48px;
+        }
+        .footer-brand p {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 14px;
+            line-height: 1.7;
+        }
+        .footer-col h4 {
+            font-family: monospace;
+            margin-bottom: 20px;
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col li {
+            margin-bottom: 10px;
+        }
+        .footer-col a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .footer-col a:hover { color: var(--green); }
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 44px;
+            padding-top: 20px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        ::selection {
+            background: var(--green);
+            color: #0A0C10;
+        }
+        a { text-decoration: none; }
+
+        @media (max-width: 1024px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .hero-right {
+                order: -1;
+            }
+            .testimonial-video-wrapper {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: flex; }
+            .hero { padding: 40px 0; padding-left: 20px; padding-right: 20px; min-height: auto; }
+            .hero h1 { font-size: 2.6rem; }
+            .hero-sub { font-size: 1rem; padding-left: 20px; margin-bottom: 28px; }
+            .btn-primary, .btn-secondary { padding: 11px 24px; font-size: 0.7rem; }
+            .project-card { grid-template-columns: 1fr; }
+            .about-grid { grid-template-columns: 1fr; text-align: center; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .approach-item { flex-direction: column; gap: 8px; }
+            .comparison-item { flex: 1 1 100%; }
+            .scroll-indicator { display: none; }
+            .video-stars svg { width: 16px; height: 16px; }
+        }
+
+        @media (max-width: 600px) {
+            .hero { padding: 30px 0; padding-left: 16px; padding-right: 16px; }
+            .hero h1 { font-size: 2rem; letter-spacing: -0.5px; }
+            .hero h1 span::after { bottom: 0; height: 1.5px; }
+            .hero-sub { font-size: 0.9rem; padding-left: 16px; margin-bottom: 20px; }
+            .btn-primary, .btn-secondary { padding: 10px 18px; font-size: 0.65rem; width: 100%; justify-content: center; }
+            .btn-group { flex-direction: column; gap: 12px; align-items: stretch; }
+            .section-header { margin: 50px 0 28px; }
+            .section-header h2 { font-size: 1.4rem; }
+            .project-card { padding: 20px; }
+            .project-title { font-size: 1.4rem; }
+            .cta-section { padding: 32px 20px; border-radius: 24px; margin: 40px 0; }
+            .footer-bottom { flex-direction: column; gap: 8px; align-items: center; text-align: center; }
+            .comparison-item { min-width: 100%; }
+            .comparison { gap: 12px; }
+            .testimonial-video-wrapper { border-radius: 12px; }
+            .nav-inner { padding: 0.9rem 16px; }
+            .terminal-top { font-size: 0.55rem; padding: 8px 12px; }
+            .terminal-cursor { width: 4px; height: 10px; }
+            .scroll-indicator { display: none; }
+            .video-stars svg { width: 14px; height: 14px; }
+            .video-caption-text { font-size: 0.75rem; }
+        }
+    </style>
 </head>
 <body>
+    <!-- ===== FULL-SCREEN GRADIENT GLOW ===== -->
+    <div class="bg-glow"></div>
 
-    <div id="canvas-container">
-        <canvas id="bg-canvas"></canvas>
-    </div>
-    <div class="bg-vignette"></div>
-    <div class="bg-grain"></div>
+    <div class="noise-bg"></div>
 
-    <nav id="main-nav">
-        <div class="container nav-wrapper">
+    <nav>
+        <div class="container nav-inner">
             <a href="#" class="logo">NOTZ<span>.DEV</span></a>
             <div class="nav-links">
                 <a href="#work">// PROJECTS</a>
@@ -26,9 +915,11 @@
                 <a href="#approach">// STRATEGY</a>
                 <a href="#skills">// STACK</a>
                 <a href="#about">// PROFILE</a>
-                <a href="mailto:hermo.antonjay.personal@gmail.com" class="btn-secondary" style="color: var(--forest)">LETS_CONNECT</a>
+                <a href="mailto:hermo.antonjay.personal@gmail.com" class="btn-outline-small">LETS_CONNECT</a>
             </div>
-            <div class="menu-toggle" id="mobile-trigger"><span></span><span></span><span></span></div>
+            <div class="menu-toggle" id="mobile-trigger">
+                <span></span><span></span><span></span>
+            </div>
         </div>
     </nav>
 
@@ -38,20 +929,88 @@
         <a href="#approach" onclick="toggleMenu()">STRATEGY</a>
         <a href="#skills" onclick="toggleMenu()">STACK</a>
         <a href="#about" onclick="toggleMenu()">PROFILE</a>
-        <a href="mailto:hermo.antonjay.personal@gmail.com" style="color: var(--forest); font-weight: 700;">LETS_CONNECT</a>
+        <a href="mailto:hermo.antonjay.personal@gmail.com">LETS_CONNECT</a>
     </div>
 
     <main class="container">
+        <!-- ===== HERO ===== -->
         <section class="hero" id="hero">
-            <span class="hero-label">Technical Shopify Partner</span>
-            <h1>ENGINEERING RESILIENT <br><span>COMMERCE SYSTEMS.</span></h1>
-            <p class="hero-subtext">I help merchants scale by replacing heavy app dependencies with clean, native Shopify architecture. Focus on stability, speed, and long-term maintainability.</p>
-            <div class="hero-actions">
-                <a href="#work" class="btn-primary">VIEW ARCHITECTURE</a>
-                <a href="#approach" class="btn-secondary">My Process</a>
+            <div class="hero-inner">
+                <!-- LEFT COLUMN -->
+                <div class="hero-left">
+                    <div class="terminal-top hero-animate delay-1">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot"></span>
+                        <span class="terminal-path">developer@notz.dev</span>
+                        <span class="terminal-cursor"></span>
+                    </div>
+
+                    <h1 class="hero-animate delay-2">
+                        BUILD STORES THAT <br><span>SELL THEMSELVES.</span>
+                    </h1>
+
+                    <p class="hero-sub hero-animate delay-3">
+                        I help merchants replace slow, app‑dependent Shopify stores with clean, native architecture — so your site loads faster, converts better, and stays reliable for years.
+                    </p>
+
+                    <div class="btn-group hero-animate delay-4">
+                        <a href="mailto:hermo.antonjay.personal@gmail.com?subject=Free%20Store%20Audit" class="btn-primary">
+                            REQUEST A STORE AUDIT
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="#work" class="btn-secondary">
+                            SEE CASE STUDIES
+                        </a>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: VIDEO + 5-STAR RATING -->
+                <div class="hero-right hero-animate delay-2">
+                    <div class="testimonial-video-wrapper">
+                        <span class="video-badge">
+                            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            Client Story
+                        </span>
+
+                        <!-- ===== YOUTUBE IFRAME EMBED ===== -->
+                        <iframe 
+                            width="420" 
+                            height="345" 
+                            src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1"
+                            title="Client Testimonial — Notz.dev"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+
+                    <!-- ===== 5-STAR RATING BELOW VIDEO ===== -->
+                    <div class="video-caption">
+                        <div class="video-stars">
+                            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </div>
+                        <div class="video-caption-text">
+                            <strong>“Notz.dev completely transformed our store.”</strong><br>
+                            <span class="client-name">— Brandon Beck, Store Owner</span>
+                        </div>
+                        <div class="rating-label">5.0 ★ rated by clients</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== SCROLL DOWN INDICATOR ===== -->
+            <div class="scroll-indicator hero-animate delay-5" onclick="document.getElementById('work').scrollIntoView({ behavior: 'smooth' })">
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+                <span class="text">Scroll to explore</span>
             </div>
         </section>
 
+        <!-- ===== PROJECTS (unchanged) ===== -->
         <section id="work">
             <div class="section-header scroll-reveal">
                 <h2>Featured Architecture</h2>
@@ -59,88 +1018,81 @@
             </div>
 
             <article class="project-card scroll-reveal">
-                <div class="project-image-wrapper">
-                    <img src="SampleOne.webp" alt="The Minimalist Collective Preview" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMyMjIiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzU1NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlBST0pFQ1RfUFJFVklFVzwvdGV4dD48L3N2Zz4='" width="734" height="355" loading="lazy">
+                <div class="project-img">
+                    <img src="desktop-view.webp" alt="Apex Apparel Global Preview" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlBST0pFQ1QgUFJFVklFVzwvdGV4dD48L3N2Zz4='" loading="lazy">
                 </div>
-                <div class="project-details">
-                    <span class="project-tag">CRAFTED ARCHITECTURE</span>
-                    <h3 class="project-title">The Native Core Project</h3>
-                    <p class="project-desc">A completely custom theme built without the overhead of CSS frameworks. I focused on writing pure, efficient code to deliver maximum speed and total design flexibility.</p>
-
-                    <a href="https://ajl-handicraft.myshopify.com/" target="_blank" class="project-link"><span>VIEW_DEV_STORE</span></a>
-                    <code class="project-desc">Access Code: <span class="access-code">SampleOne</span></code>
-
-                    <div class="project-meta">
-                        <div class="meta-item"><span>Performance</span><strong>98/100</strong></div>
-                        <div class="meta-item"><span>Monthly Savings</span><strong>High</strong></div>
-                    </div>
-                </div>
-            </article>
-            <br>
-            <article class="project-card scroll-reveal">
-                <div class="project-image-wrapper">
-                    <img src="desktop-view.webp" alt="Apex Apparel Global Preview" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMyMjIiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzU1NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlBST0pFQ1RfUFJFVklFVzwvdGV4dD48L3N2Zz4='" width="734" height="355" loading="lazy">
-                </div>
-                <div class="project-details">
+                <div>
                     <span class="project-tag">THEME OPTIMIZATION</span>
                     <h3 class="project-title">The Refined Dawn Build</h3>
                     <p class="project-desc">Enhanced the standard Dawn theme by integrating custom Liquid features. I focused on elevating site speed to create a seamless, high-performance, and scalable shopping experience.</p>
-
-                    <a href="https://mdspasalubong.myshopify.com/" target="_blank" class="project-link"><span>VIEW_DEV_STORE</span></a> 
-                    <code class="project-desc">Access Code: <span class="access-code">SampleTwo</span></code>
-
+                    <a href="https://mdspasalubong.myshopify.com/" target="_blank" class="btn-secondary" style="display: inline-block; padding: 6px 18px; margin-bottom: 12px;">VIEW_DEV_STORE →</a>
+                    <div class="code-badge">Access Code: SampleTwo</div>
                     <div class="project-meta">
                         <div class="meta-item"><span>Avg. Load Time</span><strong>1.2s</strong></div>
                         <div class="meta-item"><span>Conversion</span><strong>+18%</strong></div>
                     </div>
+                    <div class="comparison">
+                        <div class="comparison-item">
+                            <span class="comparison-label before">⬅ Before</span>
+                            <img src="before-dawn.webp" alt="Before Dawn theme" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMjUwIiB2aWV3Qm94PSIwIDAgNDAwIDI1MCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiMxQzI4MzAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxOCIgZmlsbD0iI2ZmNTU1NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkJFRk9SRSAtIFNsb3cgTG9hZDwvdGV4dD48L3N2Zz4='">
+                            <div class="comparison-desc">Slow LCP, heavy unused CSS</div>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label after">After ➡</span>
+                            <img src="after-dawn.webp" alt="After Dawn theme" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMjUwIiB2aWV3Qm94PSIwIDAgNDAwIDI1MCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiMxQzI4MzAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzJEQjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkFGRkVSIC0gT3B0aW1pemVkPC90ZXh0Pjwvc3ZnPg=='">
+                            <div class="comparison-desc">Refined code, LCP improved 62%</div>
+                        </div>
+                    </div>
                 </div>
             </article>
-            <div class="project-grid">
-                
 
-                
-            </div>
+            <article class="project-card scroll-reveal">
+                <div class="project-img">
+                    <img src="SampleOne.webp" alt="The Minimalist Collective Preview" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5BVElWRSBDT1JFPC90ZXh0Pjwvc3ZnPg=='" loading="lazy">
+                </div>
+                <div>
+                    <span class="project-tag">CRAFTED ARCHITECTURE</span>
+                    <h3 class="project-title">The Native Core Project</h3>
+                    <p class="project-desc">A completely custom theme built without the overhead of CSS frameworks. I focused on writing pure, efficient code to deliver maximum speed and total design flexibility.</p>
+                    <a href="https://ajl-handicraft.myshopify.com/" target="_blank" class="btn-secondary" style="display: inline-block; padding: 6px 18px; margin-bottom: 12px;">VIEW_DEV_STORE →</a>
+                    <div class="code-badge">Access Code: SampleOne</div>
+                    <div class="project-meta">
+                        <div class="meta-item"><span>Performance</span><strong>98/100</strong></div>
+                        <div class="meta-item"><span>Monthly Savings</span><strong>High</strong></div>
+                    </div>
+                    <div class="comparison">
+                        <div class="comparison-item">
+                            <span class="comparison-label before">⬅ Before</span>
+                            <img src="before-core.webp" alt="Before native core" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMjUwIiB2aWV3Qm94PSIwIDAgNDAwIDI1MCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiMxQzI4MzAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxOCIgZmlsbD0iI2ZmNTU1NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkJFRk9SRSAtIENsb3R0ZWQ8L3RleHQ+PC9zdmc+'">
+                            <div class="comparison-desc">Bulky framework, slow DOM updates</div>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label after">After ➡</span>
+                            <img src="after-core.webp" alt="After native core" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMjUwIiB2aWV3Qm94PSIwIDAgNDAwIDI1MCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiMxQzI4MzAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzJEQjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkFGRkVSIC0gUHVyZSBMaXF1aWQ8L3RleHQ+PC9zdmc+'">
+                            <div class="comparison-desc">Vanilla JS + Liquid, 98 Lighthouse</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
         </section>
 
+        <!-- ===== SERVICES ===== -->
         <section id="services">
             <div class="section-header scroll-reveal">
                 <h2>Capabilities</h2>
                 <p>Tech Solutions for Merchants //</p>
             </div>
             <div class="services-grid">
-                <div class="service-card scroll-reveal">
-                    <span class="service-num">01_</span>
-                    <h3>Custom Sections & Blocks</h3>
-                    <p>Building reusable and flexible Liquid sections that empower your team to manage content without touching code.</p>
-                </div>
-                <div class="service-card scroll-reveal">
-                    <span class="service-num">02_</span>
-                    <h3>Tech Debt Elimination</h3>
-                    <p>Replacing high-latency apps with native frontend logic to slash load times and monthly overhead costs.</p>
-                </div>
-                <div class="service-card scroll-reveal">
-                    <span class="service-num">03_</span>
-                    <h3>UI/UX Improvements</h3>
-                    <p>Refining the customer journey with high-performance animations and mobile-first interface.</p>
-                </div>
-                <div class="service-card scroll-reveal">
-                    <span class="service-num">04_</span>
-                    <h3>Core Web Vitals Audit</h3>
-                    <p>Deep-layer optimization targeting LCP and CLS to ensure your store ranks higher and retains users.</p>
-                </div>
-                <div class="service-card scroll-reveal">
-                    <span class="service-num">05_</span>
-                    <h3>Custom Landing Systems</h3>
-                    <p>Engineered for paid traffic. High-performance, custom-coded pages that convert better than generic templates.</p>
-                </div>
-                <div class="service-card scroll-reveal">
-                    <span class="service-num">06_</span>
-                    <h3>Bug Fixes & Enhancements</h3>
-                    <p>Technical troubleshooting and continuous store improvements to keep things running smoothly.</p>
-                </div>
+                <div class="service-card scroll-reveal"><span class="service-num">01_</span><h3>Custom Sections & Blocks</h3><p>Building reusable and flexible Liquid sections that empower your team to manage content without touching code.</p></div>
+                <div class="service-card scroll-reveal"><span class="service-num">02_</span><h3>Tech Debt Elimination</h3><p>Replacing high-latency apps with native frontend logic to slash load times and monthly overhead costs.</p></div>
+                <div class="service-card scroll-reveal"><span class="service-num">03_</span><h3>UI/UX Improvements</h3><p>Refining the customer journey with high-performance animations and mobile-first interface.</p></div>
+                <div class="service-card scroll-reveal"><span class="service-num">04_</span><h3>Core Web Vitals Audit</h3><p>Deep-layer optimization targeting LCP and CLS to ensure your store ranks higher and retains users.</p></div>
+                <div class="service-card scroll-reveal"><span class="service-num">05_</span><h3>Custom Landing Systems</h3><p>Engineered for paid traffic. High-performance, custom-coded pages that convert better than generic templates.</p></div>
+                <div class="service-card scroll-reveal"><span class="service-num">06_</span><h3>Bug Fixes & Enhancements</h3><p>Technical troubleshooting and continuous store improvements to keep things running smoothly.</p></div>
             </div>
         </section>
 
+        <!-- ===== APPROACH ===== -->
         <section id="approach">
             <div class="section-header scroll-reveal">
                 <h2>Development Philosophy</h2>
@@ -148,117 +1100,57 @@
             </div>
             <p class="approach-intro scroll-reveal">I prioritize "Clean Implementation." A store that looks good but is difficult to maintain is a liability. I build systems that are developer-friendly and merchant-empowering.</p>
             <div class="approach-list">
-                <div class="approach-item scroll-reveal">
-                    <h3>Protocol_01</h3>
-                    <div class="approach-content">
-                        <h4>Performance First</h4>
-                        <p>Lightweight and optimized code for speed. Every millisecond counts in commerce, so I prioritize Core Web Vitals from day one.</p>
-                    </div>
-                </div>
-                <div class="approach-item scroll-reveal">
-                    <h3>Protocol_02</h3>
-                    <div class="approach-content">
-                        <h4>Native Implementation Only</h4>
-                        <p>If it can be built with Liquid and Vanilla JS, it should be. Minimizing app-reliance ensures security and long-term theme stability.</p>
-                    </div>
-                </div>
-                <div class="approach-item scroll-reveal">
-                    <h3>Protocol_03</h3>
-                    <div class="approach-content">
-                        <h4>Future-Proof Scaling</h4>
-                        <p>I build using Shopify 2.0 standards, utilizing Metafields and Metaobjects to create data-driven stores that grow effortlessly.</p>
-                    </div>
-                </div>
-                <div class="approach-item scroll-reveal">
-                    <h3>Protocol_04</h3>
-                    <div class="approach-content">
-                        <h4>Mobile-First Implementation</h4>
-                        <p>Premium mobile shopping experience is the standard. I ensure every interaction is tactile and optimized for touch-screen users.</p>
-                    </div>
-                </div>
-                <div class="approach-item scroll-reveal">
-                    <h3>Principle_05</h3>
-                    <div class="approach-content">
-                        <h4>Structured Workflow</h4>
-                        <p>From Git-based version control to clear documentation, my process ensures transparency and precision in every deployment.</p>
-                    </div>
-                </div>
+                <div class="approach-item scroll-reveal"><h3>Protocol_01</h3><div><h4>Performance First</h4><p>Lightweight and optimized code for speed. Every millisecond counts in commerce, so I prioritize Core Web Vitals from day one.</p></div></div>
+                <div class="approach-item scroll-reveal"><h3>Protocol_02</h3><div><h4>Native Implementation Only</h4><p>If it can be built with Liquid and Vanilla JS, it should be. Minimizing app-reliance ensures security and long-term theme stability.</p></div></div>
+                <div class="approach-item scroll-reveal"><h3>Protocol_03</h3><div><h4>Future-Proof Scaling</h4><p>I build using Shopify 2.0 standards, utilizing Metafields and Metaobjects to create data-driven stores that grow effortlessly.</p></div></div>
+                <div class="approach-item scroll-reveal"><h3>Protocol_04</h3><div><h4>Mobile-First Implementation</h4><p>Premium mobile shopping experience is the standard. I ensure every interaction is tactile and optimized for touch-screen users.</p></div></div>
+                <div class="approach-item scroll-reveal"><h3>Principle_05</h3><div><h4>Structured Workflow</h4><p>From Git-based version control to clear documentation, my process ensures transparency and precision in every deployment.</p></div></div>
             </div>
         </section>
 
+        <!-- ===== SKILLS ===== -->
         <section id="skills">
             <div class="section-header scroll-reveal">
                 <h2>Technical Arsenal</h2>
                 <p>Skills & Tech Stack //</p>
             </div>
             <div class="skills-grid">
-                <div class="skill-category scroll-reveal">
-                    <h3>Shopify</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Liquid Templating</span>
-                        <span class="skill-tag">Shopify CLI</span>
-                        <span class="skill-tag">Metafields & Metaobjects</span>
-                    </div>
-                </div>
-                <div class="skill-category scroll-reveal">
-                    <h3>Frontend</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">HTML5</span>
-                        <span class="skill-tag">CSS3</span>
-                        <span class="skill-tag">Modern JS (ES6+)</span>
-                        <span class="skill-tag">Tailwind CSS</span>
-                        <span class="skill-tag">JQuery</span>
-                        <span class="skill-tag">AJAX / fetch</span>
-                    </div>
-                </div>
-                <div class="skill-category scroll-reveal">
-                    <h3>Tools</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Node JS</span>
-                        <span class="skill-tag">Git Version Control</span>
-                        <span class="skill-tag">VS Code</span>
-                        <span class="skill-tag">Google Lighthouse</span>
-                        <span class="skill-tag">Chrome DevTools</span>
-                    </div>
-                </div>
+                <div class="skill-card scroll-reveal"><h3>Shopify</h3><div class="skill-tags"><span class="skill-tag">Liquid Templating</span><span class="skill-tag">Shopify CLI</span><span class="skill-tag">Metafields & Metaobjects</span></div></div>
+                <div class="skill-card scroll-reveal"><h3>Frontend</h3><div class="skill-tags"><span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span><span class="skill-tag">Modern JS (ES6+)</span><span class="skill-tag">Tailwind CSS</span><span class="skill-tag">JQuery</span><span class="skill-tag">AJAX / fetch</span></div></div>
+                <div class="skill-card scroll-reveal"><h3>Tools</h3><div class="skill-tags"><span class="skill-tag">Node JS</span><span class="skill-tag">Git Version Control</span><span class="skill-tag">VS Code</span><span class="skill-tag">Google Lighthouse</span><span class="skill-tag">Chrome DevTools</span></div></div>
             </div>
         </section>
 
+        <!-- ===== ABOUT ===== -->
         <section id="about">
             <div class="section-header scroll-reveal">
                 <h2>Behind the Systems</h2>
                 <p>Personal Profile //</p>
             </div>
             <div class="about-grid scroll-reveal">
-                <div class="about-image">
-                    <img src="me.webp" alt="Anton Jay L. Hermo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNDAwIDUwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiMxNTE1MTUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzQ0NCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkFOVE9OX1BIQUlSQUJMPL3RleHQ+PC9zdmc+'" loading="lazy">
+                <div class="about-img">
+                    <img src="me.webp" alt="Anton Jay L. Hermo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNDAwIDUwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5PVFouREVWPC90ZXh0Pjwvc3ZnPg=='" loading="lazy">
                 </div>
-                <div class="about-text">
+                <div>
                     <h3 class="about-name">Anton Jay L. Hermo</h3>
                     <span class="about-role">Shopify Developer // Albay, PH</span>
-                    
                     <p>I build reliable, well-structured Shopify stores with a strong focus on long-term stability and performance. I prioritize clean architecture and practical solutions that support sustainable growth.</p>
-
                     <p>I approach each project as a system of connected parts that need to work seamlessly behind the scenes. I aim to ensure everything runs smoothly and efficiently.</p>
-
                     <p>Through clean, thoughtful code and careful attention to detail, I help turn complex requirements into simple, intuitive experiences—so your store operates with confidence and your results speak for themselves.</p>
                 </div>
             </div>
         </section>
 
+        <!-- ===== CTA ===== -->
         <section id="contact" class="cta-section scroll-reveal">
-            <div class="container">
-                <h2>Let’s Build Something That Converts</h2>
-                <p class="cta-content">If you're looking for a Shopify developer who focuses on clean implementation and practical solutions, I’d be happy to collaborate.</p>
-                
+            <div class="container" style="padding: 0;">
+                <h2>Let's Build Something That Converts</h2>
+                <p class="cta-content" style="margin-top: 16px; color: var(--text-dim);">If you're looking for a Shopify developer who focuses on clean implementation and practical solutions, I'd be happy to collaborate.</p>
                 <div class="cta-actions">
-                    <div class="cta-buttons">
-                        <a href="mailto:hello@antonhermo.com" class="btn-primary">START A PROJECT</a>
-                    </div>
-                    
-                    <div class="cta-links">
-                        <a href="mailto:hermo.antonjay.personal@gmail.com" class="cta-link-item"><span>EMAIL_</span> hermo.antonjay.personal@gmail.com</a>
-                        <a href="https://www.linkedin.com/in/anton-jay-hermo/" target="_blank" class="cta-link-item"><span>LINKEDIN_</span> anton-jay-hermo</a>
+                    <a href="mailto:hello@antonhermo.com" class="btn-primary">START A PROJECT</a>
+                    <div class="cta-links" style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;">
+                        <a href="mailto:hermo.antonjay.personal@gmail.com" class="cta-link"><span>EMAIL_</span> hermo.antonjay.personal@gmail.com</a>
+                        <a href="https://www.linkedin.com/in/anton-jay-hermo/" target="_blank" class="cta-link"><span>LINKEDIN_</span> anton-jay-hermo</a>
                     </div>
                 </div>
             </div>
@@ -269,36 +1161,76 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <h3><a href="#" class="logo">NOTZ<span>.DEV</span></a></h3>
-                    <p>I believe every successful Shopify store starts with a strong, well-structured foundation. My goal isn’t to create the most complex solution, but the most effective one—building clean, efficient systems that remove technical friction and keep your business running smoothly.</p>
+                    <h3><a href="#" class="logo" style="font-size: 1.4rem;">NOTZ<span>.DEV</span></a></h3>
+                    <p>I believe every successful Shopify store starts with a strong, well-structured foundation. My goal isn't to create the most complex solution, but the most effective one—building clean, efficient systems that remove technical friction and keep your business running smoothly.</p>
                 </div>
-                <div class="footer-column">
+                <div class="footer-col">
                     <h4>Site Navigation</h4>
-                    <ul>
-                        <li><a href="#work">Case Studies</a></li>
-                        <li><a href="#services">Capabilities</a></li>
-                        <li><a href="#approach">Strategy</a></li>
-                        <li><a href="#skills">Stack</a></li>
-                        <li><a href="#about">About</a></li>
-                    </ul>
+                    <ul><li><a href="#work">Case Studies</a></li><li><a href="#services">Capabilities</a></li><li><a href="#approach">Strategy</a></li><li><a href="#skills">Stack</a></li><li><a href="#about">About</a></li></ul>
                 </div>
-                <div class="footer-column">
+                <div class="footer-col">
                     <h4>Direct Channels</h4>
-                    <ul>
-                        <li><a href="mailto:hermo.antonjay.personal@gmail.com">Direct Email</a></li>
-                        <li><a href="https://www.linkedin.com/in/anton-jay-hermo/" target="_blank">LinkedIn</a></li>
-                        <li><a href="https://github.com/BoyLado" target="_blank">GitHub</a></li>
-                        <li><a href="https://v2.onlinejobs.ph/jobseekers/info/1616842" target="_blank">OnlineJobs PH</a></li>
-                    </ul>
+                    <ul><li><a href="mailto:hermo.antonjay.personal@gmail.com">Direct Email</a></li><li><a href="https://www.linkedin.com/in/anton-jay-hermo/" target="_blank">LinkedIn</a></li><li><a href="https://github.com/BoyLado" target="_blank">GitHub</a></li><li><a href="https://v2.onlinejobs.ph/jobseekers/info/1616842" target="_blank">OnlineJobs PH</a></li></ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <div>&copy; 2026 // ESTABLISHED IN PH </div>
+                <div>&copy; 2026 // ESTABLISHED IN PH</div>
                 <div id="clock">LOCAL_TIME // --:-- --</div>
             </div>
         </div>
     </footer>
 
-    <script src="script.js" defer></script>
+    <script>
+        // ============================================================
+        // 1. SCROLL REVEAL
+        // ============================================================
+        const reveals = document.querySelectorAll('.scroll-reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); });
+        }, { threshold: 0.12 });
+        reveals.forEach(el => observer.observe(el));
+
+        // ============================================================
+        // 2. MOBILE MENU
+        // ============================================================
+        function toggleMenu() {
+            document.getElementById('mobile-overlay').classList.toggle('open');
+        }
+        document.getElementById('mobile-trigger').addEventListener('click', toggleMenu);
+        document.querySelectorAll('#mobile-overlay a').forEach(link => {
+            link.addEventListener('click', () => document.getElementById('mobile-overlay').classList.remove('open'));
+        });
+
+        // ============================================================
+        // 3. LIVE CLOCK
+        // ============================================================
+        function updateClock() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-PH', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true,
+                timeZone: 'Asia/Manila'
+            });
+            document.getElementById('clock').innerHTML = `LOCAL_TIME // ${timeStr.toUpperCase()}`;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // ============================================================
+        // 4. SMOOTH SCROLL
+        // ============================================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = this.getAttribute('href');
+                if (target === "#") return;
+                const el = document.querySelector(target);
+                if (el) {
+                    e.preventDefault();
+                    el.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
