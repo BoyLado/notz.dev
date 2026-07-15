@@ -387,9 +387,10 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            width: 100%;
         }
 
-        /* ===== VIDEO WRAPPER (Simple iframe embed) ===== */
+        /* ===== VIDEO WRAPPER ===== */
         .testimonial-video-wrapper {
             width: 100%;
             max-width: 480px;
@@ -442,6 +443,8 @@
             margin-top: 16px;
             text-align: center;
             font-family: 'Inter', sans-serif;
+            width: 100%;
+            max-width: 480px;
         }
 
         .video-stars {
@@ -906,6 +909,19 @@
             }
         }
 
+        /* --- DESKTOP (min-width: 901px) --- */
+        /* On desktop: video first, caption below it */
+        @media (min-width: 901px) {
+            .hero-right .testimonial-video-wrapper {
+                order: 1;
+            }
+            .hero-right .video-caption {
+                order: 2;
+                margin-top: 16px;
+                margin-bottom: 0;
+            }
+        }
+
         @media (max-width: 900px) {
             .nav-links { display: none; }
             .menu-toggle { display: flex; }
@@ -920,6 +936,22 @@
             .comparison-item { flex: 1 1 100%; }
             .scroll-indicator { display: none; }
             .video-stars svg { width: 16px; height: 16px; }
+
+            /* --- MOBILE CHANGES FOR HERO --- */
+            /* 1. Hide terminal top */
+            .terminal-top {
+                display: none;
+            }
+
+            /* 2. Move caption above video: use order */
+            .hero-right .testimonial-video-wrapper {
+                order: 2;
+            }
+            .hero-right .video-caption {
+                order: 1;
+                margin-bottom: 16px;
+                margin-top: 0;
+            }
         }
 
         @media (max-width: 600px) {
@@ -939,8 +971,6 @@
             .comparison { gap: 12px; }
             .testimonial-video-wrapper { border-radius: 12px; }
             .nav-inner { padding: 0.9rem 16px; }
-            .terminal-top { font-size: 0.55rem; padding: 8px 12px; }
-            .scroll-indicator { display: none; }
             .video-stars svg { width: 14px; height: 14px; }
             .video-caption-text { font-size: 0.75rem; }
         }
@@ -969,7 +999,7 @@
         </div>
     </nav>
 
-    <!-- ===== MOBILE MENU — FULL WIDTH & CENTER ALIGNED ===== -->
+    <!-- ===== MOBILE MENU ===== -->
     <div class="mobile-menu" id="mobile-overlay">
         <button class="close-btn" id="mobile-close-btn" aria-label="Close menu">&times;</button>
         <a href="#work" class="mobile-link">PROJECTS</a>
@@ -1013,7 +1043,9 @@
                 </div>
 
                 <!-- RIGHT COLUMN: VIDEO + 5-STAR RATING -->
+                <!-- Desktop: video first, caption below | Mobile: caption first, video below -->
                 <div class="hero-right hero-animate delay-2">
+                    <!-- ===== VIDEO WRAPPER ===== -->
                     <div class="testimonial-video-wrapper">
                         <span class="video-badge">
                             <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -1029,7 +1061,7 @@
                         </iframe>
                     </div>
 
-                    <!-- ===== 5-STAR RATING BELOW VIDEO ===== -->
+                    <!-- ===== VIDEO CAPTION (stars + testimonial) ===== -->
                     <div class="video-caption">
                         <div class="video-stars">
                             <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1056,7 +1088,7 @@
             </div>
         </section>
 
-        <!-- ===== PROJECTS (unchanged) ===== -->
+        <!-- ===== PROJECTS ===== -->
         <section id="work">
             <div class="section-header scroll-reveal">
                 <h2>Featured Architecture</h2>
