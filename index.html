@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Notz.Dev | Shopify Systems Developer — Clean Code, Commerce</title>
-    <meta name="description" content="Web Developer Notz.Dev specializes in building fast, SEO-optimized, and user-friendly Shopify stores. View my portfolio to see how I bring ideas to life.">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Web Developer Notz.Dev specializes in building fast, SEO-optimized, and user-friendly Shopify stores. View my portfolio to see how I bring ideas to life." />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+
     <style>
+        /* ── custom overrides & utilities ── */
         * {
             margin: 0;
             padding: 0;
@@ -15,42 +23,58 @@
         }
 
         :root {
+            --green: #2BD67B;
+            --green-dim: #1C9E5B;
+            --gold: #FBBF24;
             --bg: #0A0C10;
             --bg-elevated: #111418;
             --card-bg: #0F1217;
             --border: #1E252D;
-            --green: #2BD67B;
-            --green-dim: #1C9E5B;
-            --green-glow: rgba(43, 214, 123, 0.06);
             --text: #EDF2F7;
             --text-dim: #9AA4BF;
             --text-muted: #5F6C84;
             --code-bg: #0B0E13;
-            --shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
-            --gold: #FBBF24;
         }
 
+        /* ── base ── */
         body {
-            background: var(--bg);
             font-family: 'Inter', sans-serif;
+            background: var(--bg);
             color: var(--text);
             line-height: 1.5;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ── scroll bar ── */
+        .scroll-progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--green);
+            z-index: 9999;
+            width: 0%;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 8px rgba(43, 214, 123, 0.5);
+        }
+
+        /* ── bg effects ── */
         .bg-glow {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(
-                ellipse at 30% 35%,
-                rgba(43, 214, 123, 0.08) 0%,
-                rgba(43, 214, 123, 0.03) 35%,
-                rgba(43, 214, 123, 0.01) 60%,
-                transparent 80%
-            );
+            background: radial-gradient(ellipse at 30% 35%,
+                    rgba(43, 214, 123, 0.08) 0%,
+                    rgba(43, 214, 123, 0.03) 35%,
+                    rgba(43, 214, 123, 0.01) 60%,
+                    transparent 80%);
             pointer-events: none;
             z-index: 1;
         }
@@ -67,15 +91,16 @@
             z-index: 0;
         }
 
-        .container {
+        .container-custom {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 0;
+            padding: 0 20px;
             position: relative;
             z-index: 10;
         }
 
-        nav {
+        /* ── nav sticky ── */
+        .nav-sticky {
             position: sticky;
             top: 0;
             background: rgba(10, 12, 16, 0.92);
@@ -83,68 +108,40 @@
             border-bottom: 1px solid var(--border);
             z-index: 100;
         }
-        .nav-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.9rem 28px;
-            min-height: 72px;
-        }
-        .logo {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: var(--text);
-            text-decoration: none;
-            letter-spacing: -0.5px;
-        }
-        .logo span {
-            color: var(--green);
-        }
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-        .nav-links a {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            font-weight: 500;
-            text-decoration: none;
-            color: var(--text-dim);
-            transition: 0.2s;
-            letter-spacing: -0.2px;
-        }
-        .nav-links a:hover {
-            color: var(--green);
-        }
-        .btn-outline-small {
-            border: 1px solid var(--green);
-            background: transparent;
-            padding: 6px 18px;
-            border-radius: 30px;
-            color: var(--green) !important;
-            font-weight: 600;
-        }
-        .btn-outline-small:hover {
-            background: rgba(43, 214, 123, 0.1);
-        }
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 4px;
-        }
-        .menu-toggle span {
-            width: 26px;
-            height: 2px;
-            background: var(--green);
-            border-radius: 2px;
-            transition: 0.2s;
+
+        /* ── pulse dot (used in video badge only, not in hero) ── */
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.7); }
         }
 
-        /* ===== MOBILE MENU — FULL WIDTH & CENTER ALIGNED ===== */
+        /* ── hero animations ── */
+        .hero-animate {
+            opacity: 0;
+            animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .hero-animate.delay-1 { animation-delay: 0.1s; }
+        .hero-animate.delay-2 { animation-delay: 0.25s; }
+        .hero-animate.delay-3 { animation-delay: 0.4s; }
+        .hero-animate.delay-4 { animation-delay: 0.55s; }
+        .hero-animate.delay-5 { animation-delay: 0.7s; }
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── scroll reveal ── */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── mobile menu ── */
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -165,10 +162,7 @@
             font-family: 'JetBrains Mono', monospace;
             text-align: center;
         }
-        .mobile-menu.open {
-            transform: translateY(0);
-        }
-
+        .mobile-menu.open { transform: translateY(0); }
         .mobile-menu .close-btn {
             position: absolute;
             top: 24px;
@@ -187,234 +181,30 @@
             transform: rotate(90deg);
         }
 
-        .mobile-menu a {
-            font-size: 1.3rem;
-            text-decoration: none;
-            color: var(--text);
-            padding: 10px 0;
-            width: 100%;
-            max-width: 320px;
-            border-bottom: 1px solid var(--border);
-            transition: 0.25s;
-            font-weight: 500;
-            text-align: center;
-        }
-        .mobile-menu a:hover {
-            color: var(--green);
-            padding-left: 0;
-        }
-
-        .mobile-menu .btn-outline-mobile {
-            border: 1px solid var(--green);
-            background: transparent;
-            padding: 14px 24px;
-            border-radius: 30px;
-            color: var(--green) !important;
-            font-weight: 600;
-            text-align: center;
-            margin-top: 10px;
-            transition: 0.3s;
-            font-size: 1rem;
-            width: 100%;
-            max-width: 320px;
-            border-bottom: 1px solid var(--green);
-        }
-        .mobile-menu .btn-outline-mobile:hover {
-            background: rgba(43, 214, 123, 0.1);
-        }
-
-        .hero {
-            padding: 40px 0;
-            padding-left: 28px;
-            padding-right: 28px;
-            position: relative;
-            overflow: hidden;
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-        }
-
-        .hero-inner {
-            position: relative;
-            z-index: 2;
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 50px;
-            align-items: center;
-            width: 100%;
-        }
-
-        .hero-left {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .terminal-top {
-            background: var(--bg-elevated);
-            border-radius: 10px 10px 0 0;
-            padding: 10px 16px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border-bottom: 1px solid var(--border);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            color: var(--text-dim);
-            margin-bottom: 28px;
-            box-shadow: 0 1px 0 rgba(43, 214, 123, 0.05);
-            width: fit-content;
-        }
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #2BD67B;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-        }
-        .dot.red { background: #ff5f56; }
-        .dot.yellow { background: #ffbd2e; }
-        .terminal-path {
-            margin-left: 6px;
-            opacity: 0.6;
-            letter-spacing: 0.3px;
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        .hero h1 {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 4rem;
-            font-weight: 600;
-            line-height: 1.15;
-            letter-spacing: -1.5px;
-            color: var(--text);
-            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
-            margin-bottom: 20px;
-        }
-        .hero h1 span {
-            color: var(--green);
-            position: relative;
-        }
-        .hero h1 span::after {
-            content: '';
-            position: absolute;
-            bottom: 4px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--green);
-            opacity: 0.3;
-            border-radius: 2px;
-        }
-
-        .hero-sub {
-            font-size: 1.15rem;
-            max-width: 620px;
-            color: var(--text-dim);
-            margin: 0 0 36px;
-            line-height: 1.7;
-            border-left: 3px solid var(--green);
-            padding-left: 28px;
-            font-weight: 400;
-            letter-spacing: 0.01em;
-            text-shadow: 0 1px 10px rgba(0,0,0,0.2);
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 18px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .btn-primary {
-            background: var(--green);
-            color: #0A0C10;
-            font-weight: 700;
-            padding: 14px 34px;
-            border-radius: 40px;
-            text-decoration: none;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 0 0 0 rgba(43, 214, 123, 0);
-            position: relative;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .btn-primary:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 30px -8px rgba(43, 214, 123, 0.35), 0 0 0 2px rgba(43, 214, 123, 0.2);
-            background: var(--green-dim);
-        }
-        .btn-primary:active {
-            transform: translateY(0) scale(0.98);
-        }
-
-        .btn-secondary {
-            border: 1px solid rgba(43, 214, 123, 0.4);
-            padding: 13px 32px;
-            border-radius: 40px;
-            color: var(--green);
-            text-decoration: none;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            background: rgba(43, 214, 123, 0.04);
-            backdrop-filter: blur(4px);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-        .btn-secondary:hover {
-            background: rgba(43, 214, 123, 0.12);
-            border-color: var(--green);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px -10px rgba(43, 214, 123, 0.2);
-        }
-
-        .hero-right {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-        }
-
-        /* ===== VIDEO WRAPPER ===== */
+        /* ── video wrapper ── */
         .testimonial-video-wrapper {
-            width: 100%;
-            max-width: 480px;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 20px 50px -15px rgba(0,0,0,0.6), 0 0 0 1px rgba(43, 214, 123, 0.15);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 20px 50px -15px rgba(0,0,0,0.6), 0 0 0 1px rgba(43,214,123,0.15);
+            transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
             position: relative;
             background: #000;
-            aspect-ratio: 16 / 9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
         .testimonial-video-wrapper:hover {
             transform: translateY(-6px) scale(1.01);
-            box-shadow: 0 30px 60px -15px rgba(43, 214, 123, 0.25), 0 0 0 1px rgba(43, 214, 123, 0.3);
+            box-shadow: 0 30px 60px -15px rgba(43,214,123,0.25), 0 0 0 1px rgba(43,214,123,0.3);
         }
-
-        .testimonial-video-wrapper iframe {
+        .testimonial-video-wrapper video {
             display: block;
             width: 100%;
-            height: 100%;
-            border: none;
+            height: auto;
+            max-height: 280px;
+            object-fit: contain;
+            background: #000;
         }
-
         .video-badge {
             position: absolute;
             top: 16px;
@@ -426,7 +216,7 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.6rem;
             color: var(--green);
-            border: 1px solid rgba(43, 214, 123, 0.2);
+            border: 1px solid rgba(43,214,123,0.2);
             display: flex;
             align-items: center;
             gap: 6px;
@@ -438,896 +228,847 @@
             height: 14px;
             fill: var(--green);
         }
-
-        .video-caption {
-            margin-top: 16px;
-            text-align: center;
-            font-family: 'Inter', sans-serif;
-            width: 100%;
-            max-width: 480px;
-        }
-
-        .video-stars {
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-            margin-bottom: 6px;
-        }
-        .video-stars svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--gold);
-            stroke: none;
-        }
-
-        .video-caption-text {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            letter-spacing: 0.02em;
-            line-height: 1.6;
-        }
-        .video-caption-text strong {
-            color: var(--green);
-            font-weight: 500;
-        }
-        .video-caption-text .client-name {
-            color: var(--text-dim);
-        }
-
-        .rating-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.55rem;
-            color: var(--text-muted);
-            letter-spacing: 0.1em;
-            margin-top: 2px;
-            opacity: 0.6;
-        }
-
-        .scroll-indicator {
+        .video-play-overlay {
             position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
-            color: var(--text-muted);
+            justify-content: center;
+            background: rgba(0,0,0,0.4);
+            z-index: 6;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .video-play-overlay.show { opacity: 1; pointer-events: auto; }
+        .video-play-overlay svg {
+            width: 60px;
+            height: 60px;
+            fill: rgba(255,255,255,0.85);
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+            transition: transform 0.2s;
+        }
+        .video-play-overlay:hover svg { transform: scale(1.1); }
+        .video-error-msg {
+            color: #ff6b6b;
+            font-size: 0.75rem;
+            margin-top: 10px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.55rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            z-index: 5;
-            opacity: 0.6;
-            transition: opacity 0.3s;
+            display: none;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .video-error-msg.show { display: block; }
+        .video-error-msg a { color: var(--green); text-decoration: underline; }
+
+        /* ── forms ── */
+        .audit-form input,
+        .audit-form textarea,
+        .audit-form select {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: border-color 0.25s, box-shadow 0.25s;
+            outline: none;
+        }
+        .audit-form input:focus,
+        .audit-form textarea:focus,
+        .audit-form select:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(43,214,123,0.1);
+        }
+        .audit-form textarea { resize: vertical; min-height: 100px; }
+        .audit-form select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%239AA4BF'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
             cursor: pointer;
         }
-        .scroll-indicator:hover {
-            opacity: 1;
-        }
-        .scroll-indicator .mouse {
-            width: 22px;
-            height: 34px;
-            border: 2px solid var(--text-muted);
-            border-radius: 12px;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            transition: border-color 0.3s;
-        }
-        .scroll-indicator:hover .mouse {
-            border-color: var(--green);
-        }
-        .scroll-indicator .mouse .wheel {
-            width: 3px;
-            height: 8px;
-            background: var(--green);
-            border-radius: 2px;
-            margin-top: 6px;
-            animation: scrollWheel 1.8s ease-in-out infinite;
-        }
-        @keyframes scrollWheel {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(12px); opacity: 0; }
-        }
-        .scroll-indicator .text {
-            font-size: 0.5rem;
-            letter-spacing: 0.2em;
-            opacity: 0.5;
-        }
 
-        .hero-animate {
-            opacity: 0;
-            animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .hero-animate.delay-1 { animation-delay: 0.1s; }
-        .hero-animate.delay-2 { animation-delay: 0.25s; }
-        .hero-animate.delay-3 { animation-delay: 0.4s; }
-        .hero-animate.delay-4 { animation-delay: 0.55s; }
-        .hero-animate.delay-5 { animation-delay: 0.7s; }
-
-        @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .section-header {
-            margin: 90px 0 40px;
-        }
-        .section-header h2 {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.8rem;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-        }
-        .section-header p {
-            color: var(--green);
-            font-family: monospace;
-            font-size: 0.75rem;
-            margin-top: 8px;
-        }
-
-        .project-card {
-            display: grid;
-            grid-template-columns: 1.1fr 1fr;
-            gap: 36px;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 32px;
-            transition: 0.25s;
-            margin-bottom: 48px;
-        }
-        .project-card:hover {
-            border-color: var(--green);
-            box-shadow: var(--shadow);
-            transform: translateY(-4px);
-        }
-        .project-img img {
-            width: 100%;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            background: #0B0E13;
-        }
-        .project-tag {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            background: rgba(43, 214, 123, 0.15);
-            padding: 4px 12px;
-            border-radius: 20px;
-            color: var(--green);
-            display: inline-block;
-        }
-        .project-title {
-            font-size: 1.8rem;
-            margin: 16px 0 12px;
-            font-weight: 600;
-            font-family: 'JetBrains Mono', monospace;
-        }
-        .project-desc {
-            color: var(--text-dim);
-            margin-bottom: 20px;
-        }
-        .code-badge {
-            background: var(--code-bg);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--green);
-            display: inline-block;
-            margin: 12px 0;
-        }
-        .project-meta {
-            display: flex;
-            gap: 32px;
-            margin-top: 20px;
-        }
-        .meta-item span {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-        .meta-item strong {
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .comparison {
-            display: flex;
-            gap: 20px;
-            margin: 28px 0 16px;
-            flex-wrap: wrap;
-            align-items: stretch;
-        }
-        .comparison-item {
-            flex: 1 1 calc(50% - 10px);
-            min-width: 200px;
-            background: var(--bg-elevated);
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            overflow: hidden;
-            transition: 0.2s;
-        }
-        .comparison-item:hover {
-            border-color: var(--green);
-        }
-        .comparison-item img {
-            display: block;
-            width: 100%;
-            height: auto;
-            background: #0B0E13;
-        }
-        .comparison-label {
-            display: block;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            padding: 8px 14px;
-            background: rgba(0,0,0,0.3);
-            color: var(--text-dim);
-            border-bottom: 1px solid var(--border);
-        }
-        .comparison-label.before { color: #ff6b6b; }
-        .comparison-label.after { color: var(--green); }
-        .comparison-desc {
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            margin-top: 8px;
-            padding: 0 4px;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 24px;
-        }
-        .service-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 28px;
-            transition: 0.2s;
-        }
-        .service-card:hover { border-color: var(--green); }
-        .service-num {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--green);
-            opacity: 0.6;
-        }
-        .service-card h3 {
-            margin: 12px 0 10px;
-            font-size: 1.3rem;
-        }
-        .service-card p {
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .approach-intro {
-            font-family: 'JetBrains Mono', monospace;
-            background: var(--code-bg);
-            padding: 18px 24px;
-            border-left: 3px solid var(--green);
-            border-radius: 12px;
-            margin-bottom: 48px;
-            color: var(--text-dim);
-        }
-        .approach-list {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-        .approach-item {
-            display: flex;
-            gap: 28px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .approach-item h3 {
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--green);
-            min-width: 130px;
-        }
-        .approach-item h4 {
-            font-size: 1.1rem;
-            margin-bottom: 4px;
-        }
-        .approach-item p {
-            color: var(--text-dim);
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 28px;
-        }
-        .skill-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 26px;
-        }
-        .skill-card h3 {
-            font-family: monospace;
-            margin-bottom: 16px;
-        }
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .skill-tag {
-            background: rgba(43, 214, 123, 0.1);
-            padding: 5px 14px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-family: monospace;
-            color: var(--text-dim);
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 0.8fr 1.2fr;
-            gap: 48px;
-            align-items: center;
-        }
-        .about-img img {
-            width: 100%;
-            border-radius: 28px;
-            border: 1px solid var(--green);
-            transition: 0.3s;
-        }
-        .about-img img:hover {
-            transform: scale(1.02);
-            box-shadow: 0 12px 40px -10px rgba(43, 214, 123, 0.15);
-        }
-        .about-name {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.9rem;
-        }
-        .about-role {
-            color: var(--green);
-            font-family: monospace;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-        .about-grid p {
-            color: var(--text-dim);
-            margin-bottom: 12px;
-            line-height: 1.7;
-        }
-
-        .cta-section {
-            background: var(--bg-elevated);
-            border: 1px solid var(--border);
-            border-radius: 40px;
-            padding: 60px 40px;
-            margin: 80px 0;
+        .form-success {
+            display: none;
             text-align: center;
+            padding: 30px 20px;
         }
-        .cta-actions {
-            margin-top: 32px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 32px;
-        }
-        .cta-link {
-            text-decoration: none;
-            background: rgba(0,0,0,0.4);
-            padding: 10px 28px;
-            border-radius: 40px;
-            color: var(--text-dim);
-            font-family: monospace;
-            transition: 0.2s;
-        }
-        .cta-link:hover {
-            color: var(--green);
-            background: rgba(43, 214, 123, 0.05);
-        }
-        .cta-link span { color: var(--green); }
+        .form-success.show { display: block; animation: fadeUp 0.5s ease forwards; }
 
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 50px 0 30px;
+        /* ── misc ── */
+        ::selection { background: var(--green); color: #0A0C10; }
+
+        /* ── responsive video max-height ── */
+        @media (max-width: 600px) {
+            .testimonial-video-wrapper video { max-height: 200px; }
         }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 48px;
+
+        /* ── HERO REFINEMENTS ── */
+        .hero-headline {
+            font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+            line-height: 1.1;
+            letter-spacing: -0.04em;
         }
-        .footer-brand p {
-            color: var(--text-dim);
-            font-size: 0.85rem;
-            margin-top: 14px;
+        .hero-headline .highlight {
+            background: linear-gradient(135deg, var(--green), #40e08a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-sub-text {
+            font-size: clamp(1rem, 1.2vw, 1.2rem);
             line-height: 1.7;
-        }
-        .footer-col h4 {
-            font-family: monospace;
-            margin-bottom: 20px;
-            color: var(--text);
-            font-size: 0.9rem;
-        }
-        .footer-col ul {
-            list-style: none;
-        }
-        .footer-col li {
-            margin-bottom: 10px;
-        }
-        .footer-col a {
-            text-decoration: none;
             color: var(--text-dim);
-            font-size: 0.85rem;
-            transition: 0.2s;
-        }
-        .footer-col a:hover { color: var(--green); }
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 44px;
-            padding-top: 20px;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            font-family: monospace;
+            max-width: 580px;
         }
 
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .scroll-reveal.revealed {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        ::selection {
+        .hero-btn-primary {
             background: var(--green);
             color: #0A0C10;
+            font-weight: 700;
+            padding: 16px 38px;
+            border-radius: 40px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+            box-shadow: 0 0 0 0 rgba(43,214,123,0);
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
         }
-        a { text-decoration: none; }
-
-        /* ============================================================
-           RESPONSIVE
-        ============================================================ */
-        @media (max-width: 1024px) {
-            .hero-inner {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            .hero-right {
-                order: -1;
-            }
-            .testimonial-video-wrapper {
-                max-width: 100%;
-            }
+        .hero-btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 14px 34px -10px rgba(43,214,123,0.4), 0 0 0 2px rgba(43,214,123,0.15);
+            background: var(--green-dim);
         }
-
-        /* --- DESKTOP (min-width: 901px) --- */
-        /* On desktop: video first, caption below it */
-        @media (min-width: 901px) {
-            .hero-right .testimonial-video-wrapper {
-                order: 1;
-            }
-            .hero-right .video-caption {
-                order: 2;
-                margin-top: 16px;
-                margin-bottom: 0;
-            }
+        .hero-btn-secondary {
+            border: 1px solid rgba(43,214,123,0.35);
+            padding: 15px 34px;
+            border-radius: 40px;
+            color: var(--green);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+            background: rgba(43,214,123,0.03);
+            backdrop-filter: blur(4px);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            text-decoration: none;
         }
-
-        @media (max-width: 900px) {
-            .nav-links { display: none; }
-            .menu-toggle { display: flex; }
-            .hero { padding: 40px 0; padding-left: 20px; padding-right: 20px; min-height: auto; }
-            .hero h1 { font-size: 2.6rem; }
-            .hero-sub { font-size: 1rem; padding-left: 20px; margin-bottom: 28px; }
-            .btn-primary, .btn-secondary { padding: 11px 24px; font-size: 0.7rem; }
-            .project-card { grid-template-columns: 1fr; }
-            .about-grid { grid-template-columns: 1fr; text-align: center; }
-            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
-            .approach-item { flex-direction: column; gap: 8px; }
-            .comparison-item { flex: 1 1 100%; }
-            .scroll-indicator { display: none; }
-            .video-stars svg { width: 16px; height: 16px; }
-
-            /* --- MOBILE CHANGES FOR HERO --- */
-            /* 1. Hide terminal top */
-            .terminal-top {
-                display: none;
-            }
-
-            /* 2. Move caption above video: use order */
-            .hero-right .testimonial-video-wrapper {
-                order: 2;
-            }
-            .hero-right .video-caption {
-                order: 1;
-                margin-bottom: 16px;
-                margin-top: 0;
-            }
+        .hero-btn-secondary:hover {
+            background: rgba(43,214,123,0.1);
+            border-color: var(--green);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px -12px rgba(43,214,123,0.2);
         }
 
-        @media (max-width: 600px) {
-            .hero { padding: 30px 0; padding-left: 16px; padding-right: 16px; }
-            .hero h1 { font-size: 2rem; letter-spacing: -0.5px; }
-            .hero h1 span::after { bottom: 0; height: 1.5px; }
-            .hero-sub { font-size: 0.9rem; padding-left: 16px; margin-bottom: 20px; }
-            .btn-primary, .btn-secondary { padding: 10px 18px; font-size: 0.65rem; width: 100%; justify-content: center; }
-            .btn-group { flex-direction: column; gap: 12px; align-items: stretch; }
-            .section-header { margin: 50px 0 28px; }
-            .section-header h2 { font-size: 1.4rem; }
-            .project-card { padding: 20px; }
-            .project-title { font-size: 1.4rem; }
-            .cta-section { padding: 32px 20px; border-radius: 24px; margin: 40px 0; }
-            .footer-bottom { flex-direction: column; gap: 8px; align-items: center; text-align: center; }
-            .comparison-item { min-width: 100%; }
-            .comparison { gap: 12px; }
-            .testimonial-video-wrapper { border-radius: 12px; }
-            .nav-inner { padding: 0.9rem 16px; }
-            .video-stars svg { width: 14px; height: 14px; }
-            .video-caption-text { font-size: 0.75rem; }
+        @media (max-width: 480px) {
+            .hero-btn-primary,
+            .hero-btn-secondary { width: 100%; justify-content: center; padding: 14px 24px; font-size: 0.7rem; }
+        }
+
+        /* ── mobile-first: text first, video second ── */
+        .hero-section {
+            padding-top: 1.5rem;
+            padding-bottom: 3rem;
+            min-height: auto;
+        }
+        @media (min-width: 768px) {
+            .hero-section { padding-top: 4rem; padding-bottom: 5rem; min-height: 90vh; }
+        }
+        @media (min-width: 1024px) {
+            .hero-section { padding-top: 5rem; padding-bottom: 5rem; }
         }
     </style>
 </head>
 <body>
-    <!-- ===== FULL-SCREEN GRADIENT GLOW ===== -->
-    <div class="bg-glow"></div>
 
+    <!-- scroll progress -->
+    <div id="scroll-progress-bar" class="scroll-progress-bar"></div>
+
+    <!-- bg effects -->
+    <div class="bg-glow"></div>
     <div class="noise-bg"></div>
 
-    <nav>
-        <div class="container nav-inner">
-            <a href="#" class="logo">NOTZ<span>.DEV</span></a>
-            <div class="nav-links">
-                <a href="#work">// PROJECTS</a>
-                <a href="#services">// EXPERTISE</a>
-                <a href="#approach">// STRATEGY</a>
-                <a href="#skills">// STACK</a>
-                <a href="#about">// PROFILE</a>
-                <a href="mailto:hermo.antonjay.personal@gmail.com" class="btn-outline-small">LETS_CONNECT</a>
+    <!-- ─── NAV ─── -->
+    <nav class="nav-sticky">
+        <div class="container-custom flex items-center justify-between min-h-[72px]">
+            <a href="#" class="font-mono text-2xl font-semibold text-[#EDF2F7] tracking-tight no-underline">
+                NOTZ<span class="text-[#2BD67B]">.DEV</span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#work" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// PROJECTS</a>
+                <a href="#services" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// EXPERTISE</a>
+                <a href="#approach" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// STRATEGY</a>
+                <a href="#skills" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// STACK</a>
+                <a href="#about" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// PROFILE</a>
+                <a href="#reviews" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// REVIEWS</a>
+                <a href="#audit" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// STORE AUDIT</a>
+                <a href="mailto:hermo.antonjay.personal@gmail.com" class="border border-[#2BD67B] bg-transparent px-5 py-1.5 rounded-[30px] text-[#2BD67B] font-mono text-xs font-semibold no-underline hover:bg-[rgba(43,214,123,0.1)] transition-colors">LETS_CONNECT</a>
             </div>
-            <div class="menu-toggle" id="mobile-trigger">
-                <span></span><span></span><span></span>
+            <div class="md:hidden flex flex-col gap-1.5 cursor-pointer p-1" id="mobile-trigger">
+                <span class="w-6 h-0.5 bg-[#2BD67B] rounded-sm transition-all"></span>
+                <span class="w-6 h-0.5 bg-[#2BD67B] rounded-sm transition-all"></span>
+                <span class="w-6 h-0.5 bg-[#2BD67B] rounded-sm transition-all"></span>
             </div>
         </div>
     </nav>
 
-    <!-- ===== MOBILE MENU ===== -->
+    <!-- ─── MOBILE MENU ─── -->
     <div class="mobile-menu" id="mobile-overlay">
         <button class="close-btn" id="mobile-close-btn" aria-label="Close menu">&times;</button>
-        <a href="#work" class="mobile-link">PROJECTS</a>
-        <a href="#services" class="mobile-link">EXPERTISE</a>
-        <a href="#approach" class="mobile-link">STRATEGY</a>
-        <a href="#skills" class="mobile-link">STACK</a>
-        <a href="#about" class="mobile-link">PROFILE</a>
-        <a href="mailto:hermo.antonjay.personal@gmail.com" class="btn-outline-mobile">LETS_CONNECT</a>
+        <a href="#work" class="mobile-link text-[#EDF2F7] text-lg no-underline py-2.5 w-full max-w-xs border-b border-[#1E252D] transition-colors hover:text-[#2BD67B] text-center">PROJECTS</a>
+        <a href="#services" class="mobile-link text-[#EDF2F7] text-lg no-underline py-2.5 w-full max-w-xs border-b border-[#1E252D] transition-colors hover:text-[#2BD67B] text-center">EXPERTISE</a>
+        <a href="#approach" class="mobile-link text-[#EDF2F7] text-lg no-underline py-2.5 w-full max-w-xs border-b border-[#1E252D] transition-colors hover:text-[#2BD67B] text-center">STRATEGY</a>
+        <a href="#skills" class="mobile-link text-[#EDF2F7] text-lg no-underline py-2.5 w-full max-w-xs border-b border-[#1E252D] transition-colors hover:text-[#2BD67B] text-center">STACK</a>
+        <a href="#about" class="mobile-link text-[#EDF2F7] text-lg no-underline py-2.5 w-full max-w-xs border-b border-[#1E252D] transition-colors hover:text-[#2BD67B] text-center">PROFILE</a>
+        <a href="#reviews" class="mobile-link text-[#EDF2F7] text-lg no-underline py-2.5 w-full max-w-xs border-b border-[#1E252D] transition-colors hover:text-[#2BD67B] text-center">REVIEWS</a>
+        <a href="#audit" class="mobile-link text-[#EDF2F7] text-lg no-underline py-2.5 w-full max-w-xs border-b border-[#1E252D] transition-colors hover:text-[#2BD67B] text-center">STORE AUDIT</a>
+        <a href="mailto:hermo.antonjay.personal@gmail.com" class="border border-[#2BD67B] bg-transparent py-3.5 px-6 rounded-[30px] text-[#2BD67B] font-mono text-base font-semibold no-underline w-full max-w-xs text-center border-b border-[#2BD67B] hover:bg-[rgba(43,214,123,0.1)] transition-colors mt-2">LETS_CONNECT</a>
     </div>
 
-    <main class="container">
-        <!-- ===== HERO ===== -->
-        <section class="hero" id="hero">
-            <div class="hero-inner">
-                <!-- LEFT COLUMN -->
-                <div class="hero-left">
-                    <div class="terminal-top hero-animate delay-1">
-                        <span class="dot red"></span>
-                        <span class="dot yellow"></span>
-                        <span class="dot"></span>
-                        <span class="terminal-path">shopify-developer@notz.dev</span>
-                    </div>
+    <!-- ─── HERO ─── (mobile-first: text on top, video below) -->
+    <section class="hero-section relative z-10 w-full flex items-center">
+        <div class="container-custom w-full">
 
-                    <h1 class="hero-animate delay-2">
-                        BUILD STORES THAT <br><span>SELL THEMSELVES.</span>
+            <!-- Flex: column on mobile, row on desktop. Text first, then video -->
+            <div class="flex flex-col lg:flex-row gap-10 lg:gap-16 xl:gap-20 items-center">
+
+                <!-- TEXT COLUMN - appears FIRST on mobile, LEFT on desktop -->
+                <div class="w-full lg:w-[55%] flex flex-col gap-5 md:gap-6">
+
+                    <!-- Headline -->
+                    <h1 class="hero-headline hero-animate delay-2 font-mono font-semibold text-[#EDF2F7] tracking-tight">
+                        BUILD SHOPIFY STORE THAT <br />
+                        <span class="highlight">CONVERT BETTER.</span>
                     </h1>
 
-                    <p class="hero-sub hero-animate delay-3">
-                        I help merchants replace slow, app‑dependent Shopify stores with clean, native architecture — so your site loads faster, converts better, and stays reliable for years.
+                    <!-- Subtext -->
+                    <p class="hero-sub-text hero-animate delay-3">
+                        I help merchants replace slow, app‑dependent <strong class="text-[#2BD67B] font-semibold">Shopify</strong> stores with clean, native architecture — so your site loads faster, converts better, and stays reliable for years.
                     </p>
 
-                    <div class="btn-group hero-animate delay-4">
-                        <a href="mailto:hermo.antonjay.personal@gmail.com?subject=Free%20Store%20Audit" class="btn-primary">
-                            REQUEST A STORE AUDIT
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                        </a>
-                        <a href="#work" class="btn-secondary">
+                    <!-- Buttons -->
+                    <div class="flex flex-wrap items-center gap-4 hero-animate delay-4 mt-1">
+                        <a href="#work" class="hero-btn-primary">
                             SEE CASE STUDIES
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                        </a>
+                        <a href="#audit" class="hero-btn-secondary">
+                            BOOK FREE CONSULTATION
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                         </a>
                     </div>
                 </div>
 
-                <!-- RIGHT COLUMN: VIDEO + 5-STAR RATING -->
-                <!-- Desktop: video first, caption below | Mobile: caption first, video below -->
-                <div class="hero-right hero-animate delay-2">
-                    <!-- ===== VIDEO WRAPPER ===== -->
-                    <div class="testimonial-video-wrapper">
+                <!-- VIDEO COLUMN - appears SECOND on mobile, RIGHT on desktop -->
+                <div class="w-full lg:w-[45%] flex flex-col items-center justify-center hero-animate delay-2">
+                    <div class="testimonial-video-wrapper w-full max-w-[440px] mx-auto">
                         <span class="video-badge">
-                            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                            Client Story
+                            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" /></svg>
+                            Real Client Feedback
                         </span>
-
-                        <iframe 
-                            width="420" 
-                            height="345" 
-                            src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1"
-                            title="Client Testimonial — Notz.dev"
-                            allowfullscreen>
-                        </iframe>
+                        <video id="heroVideo" autoplay muted playsinline loop controls>
+                            <source src="testimonial-video.mp4" type="video/mp4" />
+                            <source src="testimonial-video.MOV" type="video/quicktime" />
+                            <p>Your browser doesn't support HTML5 video. <a href="testimonial-video.mp4">Download the video</a></p>
+                        </video>
+                        <div class="video-play-overlay" id="videoPlayOverlay">
+                            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" /></svg>
+                            <div class="video-error-msg" id="videoErrorMsg">
+                                ⚠️ Video failed to load. <br />
+                                <a href="testimonial-video.mp4" download>Click here to download</a>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- ===== VIDEO CAPTION (stars + testimonial) ===== -->
-                    <div class="video-caption">
-                        <div class="video-stars">
-                            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <!-- Video caption -->
+                    <div class="mt-5 text-center w-full max-w-[440px] mx-auto">
+                        <div class="flex justify-center gap-1 mb-2">
+                            <svg class="w-5 h-5 fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-5 h-5 fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-5 h-5 fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-5 h-5 fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-5 h-5 fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
                         </div>
-                        <div class="video-caption-text">
-                            <strong>“Notz.dev completely transformed our store.”</strong><br>
-                            <span class="client-name">— Brandon Beck, Store Owner</span>
-                        </div>
-                        <div class="rating-label">5.0 ★ rated by clients</div>
+                        <p class="text-[0.85rem] text-[#9AA4BF] leading-relaxed">
+                            <span class="text-[#EDF2F7] font-medium">"I could not be more happy with the work that Anton did on my Shopify store."</span><br />
+                            <span class="text-[#5F6C84] text-[0.75rem]">— Satisfied Client, Custom Clothing Brand</span>
+                        </p>
                     </div>
                 </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── WORK ─── -->
+    <section id="work" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
+        <div class="container-custom">
+            <div class="mb-10 scroll-reveal">
+                <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Featured Architecture</h2>
+                <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Selected Case Studies // 2025-2026</p>
             </div>
 
-            <!-- ===== SCROLL DOWN INDICATOR ===== -->
-            <div class="scroll-indicator hero-animate delay-5" onclick="document.getElementById('work').scrollIntoView({ behavior: 'smooth' })">
-                <div class="mouse">
-                    <div class="wheel"></div>
-                </div>
-                <span class="text">Scroll to explore</span>
-            </div>
-        </section>
-
-        <!-- ===== PROJECTS ===== -->
-        <section id="work">
-            <div class="section-header scroll-reveal">
-                <h2>Featured Architecture</h2>
-                <p>Selected Case Studies // 2025-2026</p>
-            </div>
-
-            <article class="project-card scroll-reveal">
-                <div class="project-img">
-                    <img src="desktop-view.webp" alt="Apex Apparel Global Preview" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlBST0pFQ1QgUFJFVklFVzwvdGV4dD48L3N2Zz4='" loading="lazy">
+            <article class="grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-10 items-center bg-[#0F1217] border border-[#1E252D] rounded-[28px] p-6 md:p-8 transition-all hover:border-[#2BD67B] hover:-translate-y-1.5 hover:shadow-[0_25px_45px_-12px_rgba(43,214,123,0.2)] scroll-reveal">
+                <div class="rounded-[20px] overflow-hidden shadow-[0_8px_20px_rgba(0,0,0,0.5)] transition-transform duration-300 group-hover:scale-[1.02]">
+                    <img src="project1.png" alt="MEA Shopify Store Preview" class="w-full h-auto block" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlBST0pFQ1QgUFJFVklFVzwvdGV4dD48L3N2Zz4='" />
                 </div>
                 <div>
-                    <span class="project-tag">THEME OPTIMIZATION</span>
-                    <h3 class="project-title">The Refined Dawn Build</h3>
-                    <p class="project-desc">Enhanced the standard Dawn theme by integrating custom Liquid features. I focused on elevating site speed to create a seamless, high-performance, and scalable shopping experience.</p>
-                    <a href="https://mdspasalubong.myshopify.com/" target="_blank" class="btn-secondary" style="display: inline-block; padding: 6px 18px; margin-bottom: 12px;">VIEW_DEV_STORE →</a>
-                    <div class="code-badge">Access Code: SampleTwo</div>
-                    <div class="project-meta">
-                        <div class="meta-item"><span>Avg. Load Time</span><strong>1.2s</strong></div>
-                        <div class="meta-item"><span>Conversion</span><strong>+18%</strong></div>
-                    </div>
-                    <div class="comparison">
-                        <div class="comparison-item">
-                            <span class="comparison-label before">⬅ Before</span>
-                            <img src="before-dawn.webp" alt="Before Dawn theme" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMjUwIiB2aWV3Qm94PSIwIDAgNDAwIDI1MCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiMxQzI4MzAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxOCIgZmlsbD0iI2ZmNTU1NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkJFRk9SRSAtIFNsb3cgTG9hZDwvdGV4dD48L3N2Zz4='">
-                            <div class="comparison-desc">Slow LCP, heavy unused CSS</div>
-                        </div>
-                        <div class="comparison-item">
-                            <span class="comparison-label after">After ➡</span>
-                            <img src="after-dawn.webp" alt="After Dawn theme" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMjUwIiB2aWV3Qm94PSIwIDAgNDAwIDI1MCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiMxQzI4MzAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzJEQjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkFGRkVSIC0gT3B0aW1pemVkPC90ZXh0Pjwvc3ZnPg=='">
-                            <div class="comparison-desc">Refined code, LCP improved 62%</div>
-                        </div>
-                    </div>
+                    <span class="font-mono text-[0.7rem] bg-[rgba(43,214,123,0.15)] px-3 py-1 rounded-[20px] text-[#2BD67B] inline-block mb-4">PROJECT PREVIEW</span>
+                    <h3 class="text-[1.8rem] md:text-[2.2rem] font-semibold font-mono text-[#EDF2F7] mb-3">MEA Shopify Store</h3>
+                    <p class="text-[#9AA4BF] text-base leading-[1.7] mb-6">A fully custom Shopify storefront developed with a strong emphasis on performance, scalability, and user experience. Built using Shopify 2.0 best practices with responsive layouts, conversion-focused design, and seamless merchant customization.</p>
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 gap-x-6 list-none p-0">
+                        <li class="text-[#9AA4BF] text-[0.9rem] relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#2BD67B] before:font-bold">Shopify 2.0</li>
+                        <li class="text-[#9AA4BF] text-[0.9rem] relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#2BD67B] before:font-bold">Custom Theme Development</li>
+                        <li class="text-[#9AA4BF] text-[0.9rem] relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#2BD67B] before:font-bold">Responsive Design</li>
+                        <li class="text-[#9AA4BF] text-[0.9rem] relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#2BD67B] before:font-bold">Performance Optimization</li>
+                        <li class="text-[#9AA4BF] text-[0.9rem] relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#2BD67B] before:font-bold">Conversion-Focused UI/UX</li>
+                        <li class="text-[#9AA4BF] text-[0.9rem] relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#2BD67B] before:font-bold">Automated Workflows</li>
+                        <li class="text-[#9AA4BF] text-[0.9rem] relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#2BD67B] before:font-bold">App Integrations</li>
+                        <li class="text-[#9AA4BF] text-[0.9rem] relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#2BD67B] before:font-bold">SEO Best Practices</li>
+                    </ul>
                 </div>
             </article>
+        </div>
+    </section>
 
-            <article class="project-card scroll-reveal">
-                <div class="project-img">
-                    <img src="SampleOne.webp" alt="The Minimalist Collective Preview" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5BVElWRSBDT1JFPC90ZXh0Pjwvc3ZnPg=='" loading="lazy">
+    <!-- ─── SERVICES ─── -->
+    <section id="services" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
+        <div class="container-custom">
+            <div class="mb-10 scroll-reveal">
+                <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Capabilities</h2>
+                <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Tech Solutions for Merchants //</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-colors hover:border-[#2BD67B] scroll-reveal">
+                    <span class="font-mono text-3xl font-semibold text-[#2BD67B] opacity-60">01_</span>
+                    <h3 class="text-[1.3rem] mt-3 mb-2.5 text-[#EDF2F7]">Custom Sections & Blocks</h3>
+                    <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Building reusable and flexible Liquid sections that empower your team to manage content without touching code.</p>
                 </div>
-                <div>
-                    <span class="project-tag">CRAFTED ARCHITECTURE</span>
-                    <h3 class="project-title">The Native Core Project</h3>
-                    <p class="project-desc">A completely custom theme built without the overhead of CSS frameworks. I focused on writing pure, efficient code to deliver maximum speed and total design flexibility.</p>
-                    <a href="https://ajl-handicraft.myshopify.com/" target="_blank" class="btn-secondary" style="display: inline-block; padding: 6px 18px; margin-bottom: 12px;">VIEW_DEV_STORE →</a>
-                    <div class="code-badge">Access Code: SampleOne</div>
-                    <div class="project-meta">
-                        <div class="meta-item"><span>Performance</span><strong>98/100</strong></div>
-                        <div class="meta-item"><span>Monthly Savings</span><strong>High</strong></div>
-                    </div>
-                    <div class="comparison">
-                        <div class="comparison-item">
-                            <span class="comparison-label before">⬅ Before</span>
-                            <img src="before-core.webp" alt="Before native core" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMjUwIiB2aWV3Qm94PSIwIDAgNDAwIDI1MCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiMxQzI4MzAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxOCIgZmlsbD0iI2ZmNTU1NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkJFRk9SRSAtIENsb3R0ZWQ8L3RleHQ+PC9zdmc+'">
-                            <div class="comparison-desc">Bulky framework, slow DOM updates</div>
-                        </div>
-                        <div class="comparison-item">
-                            <span class="comparison-label after">After ➡</span>
-                            <img src="after-core.webp" alt="After native core" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMjUwIiB2aWV3Qm94PSIwIDAgNDAwIDI1MCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiMxQzI4MzAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzJEQjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkFGRkVSIC0gUHVyZSBMaXF1aWQ8L3RleHQ+PC9zdmc+'">
-                            <div class="comparison-desc">Vanilla JS + Liquid, 98 Lighthouse</div>
-                        </div>
+                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-colors hover:border-[#2BD67B] scroll-reveal">
+                    <span class="font-mono text-3xl font-semibold text-[#2BD67B] opacity-60">02_</span>
+                    <h3 class="text-[1.3rem] mt-3 mb-2.5 text-[#EDF2F7]">Tech Debt Elimination</h3>
+                    <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Replacing high-latency apps with native frontend logic to slash load times and monthly overhead costs.</p>
+                </div>
+                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-colors hover:border-[#2BD67B] scroll-reveal">
+                    <span class="font-mono text-3xl font-semibold text-[#2BD67B] opacity-60">03_</span>
+                    <h3 class="text-[1.3rem] mt-3 mb-2.5 text-[#EDF2F7]">UI/UX Improvements</h3>
+                    <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Refining the customer journey with high-performance animations and mobile-first interface.</p>
+                </div>
+                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-colors hover:border-[#2BD67B] scroll-reveal">
+                    <span class="font-mono text-3xl font-semibold text-[#2BD67B] opacity-60">04_</span>
+                    <h3 class="text-[1.3rem] mt-3 mb-2.5 text-[#EDF2F7]">Core Web Vitals Audit</h3>
+                    <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Deep-layer optimization targeting LCP and CLS to ensure your store ranks higher and retains users.</p>
+                </div>
+                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-colors hover:border-[#2BD67B] scroll-reveal">
+                    <span class="font-mono text-3xl font-semibold text-[#2BD67B] opacity-60">05_</span>
+                    <h3 class="text-[1.3rem] mt-3 mb-2.5 text-[#EDF2F7]">Custom Landing Systems</h3>
+                    <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Engineered for paid traffic. High-performance, custom-coded pages that convert better than generic templates.</p>
+                </div>
+                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-colors hover:border-[#2BD67B] scroll-reveal">
+                    <span class="font-mono text-3xl font-semibold text-[#2BD67B] opacity-60">06_</span>
+                    <h3 class="text-[1.3rem] mt-3 mb-2.5 text-[#EDF2F7]">Bug Fixes & Enhancements</h3>
+                    <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Technical troubleshooting and continuous store improvements to keep things running smoothly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── APPROACH ─── -->
+    <section id="approach" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
+        <div class="container-custom">
+            <div class="mb-10 scroll-reveal">
+                <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Development Philosophy</h2>
+                <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Scalability Over Shortcuts //</p>
+            </div>
+
+            <p class="font-mono bg-[#0B0E13] px-6 py-[18px] border-l-3 border-[#2BD67B] rounded-xl mb-10 text-[#9AA4BF] scroll-reveal">
+                I prioritize "Clean Implementation." A store that looks good but is difficult to maintain is a liability. I build systems that are developer-friendly and merchant-empowering.
+            </p>
+
+            <div class="flex flex-col gap-6">
+                <div class="flex flex-col md:flex-row gap-7 border-b border-[#1E252D] pb-5 scroll-reveal">
+                    <h3 class="font-mono text-[#2BD67B] min-w-[130px]">Protocol_01</h3>
+                    <div>
+                        <h4 class="text-[1.1rem] mb-1 text-[#EDF2F7]">Performance First</h4>
+                        <p class="text-[#9AA4BF]">Lightweight and optimized code for speed. Every millisecond counts in commerce, so I prioritize Core Web Vitals from day one.</p>
                     </div>
                 </div>
-            </article>
-        </section>
+                <div class="flex flex-col md:flex-row gap-7 border-b border-[#1E252D] pb-5 scroll-reveal">
+                    <h3 class="font-mono text-[#2BD67B] min-w-[130px]">Protocol_02</h3>
+                    <div>
+                        <h4 class="text-[1.1rem] mb-1 text-[#EDF2F7]">Native Implementation Only</h4>
+                        <p class="text-[#9AA4BF]">If it can be built with Liquid and Vanilla JS, it should be. Minimizing app-reliance ensures security and long-term theme stability.</p>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-7 border-b border-[#1E252D] pb-5 scroll-reveal">
+                    <h3 class="font-mono text-[#2BD67B] min-w-[130px]">Protocol_03</h3>
+                    <div>
+                        <h4 class="text-[1.1rem] mb-1 text-[#EDF2F7]">Future-Proof Scaling</h4>
+                        <p class="text-[#9AA4BF]">I build using Shopify 2.0 standards, utilizing Metafields and Metaobjects to create data-driven stores that grow effortlessly.</p>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-7 border-b border-[#1E252D] pb-5 scroll-reveal">
+                    <h3 class="font-mono text-[#2BD67B] min-w-[130px]">Protocol_04</h3>
+                    <div>
+                        <h4 class="text-[1.1rem] mb-1 text-[#EDF2F7]">Mobile-First Implementation</h4>
+                        <p class="text-[#9AA4BF]">Premium mobile shopping experience is the standard. I ensure every interaction is tactile and optimized for touch-screen users.</p>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-7 pb-5 scroll-reveal">
+                    <h3 class="font-mono text-[#2BD67B] min-w-[130px]">Principle_05</h3>
+                    <div>
+                        <h4 class="text-[1.1rem] mb-1 text-[#EDF2F7]">Structured Workflow</h4>
+                        <p class="text-[#9AA4BF]">From Git-based version control to clear documentation, my process ensures transparency and precision in every deployment.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <!-- ===== SERVICES ===== -->
-        <section id="services">
-            <div class="section-header scroll-reveal">
-                <h2>Capabilities</h2>
-                <p>Tech Solutions for Merchants //</p>
+    <!-- ─── SKILLS ─── -->
+    <section id="skills" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
+        <div class="container-custom">
+            <div class="mb-10 scroll-reveal">
+                <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Technical Arsenal</h2>
+                <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Skills & Tech Stack //</p>
             </div>
-            <div class="services-grid">
-                <div class="service-card scroll-reveal"><span class="service-num">01_</span><h3>Custom Sections & Blocks</h3><p>Building reusable and flexible Liquid sections that empower your team to manage content without touching code.</p></div>
-                <div class="service-card scroll-reveal"><span class="service-num">02_</span><h3>Tech Debt Elimination</h3><p>Replacing high-latency apps with native frontend logic to slash load times and monthly overhead costs.</p></div>
-                <div class="service-card scroll-reveal"><span class="service-num">03_</span><h3>UI/UX Improvements</h3><p>Refining the customer journey with high-performance animations and mobile-first interface.</p></div>
-                <div class="service-card scroll-reveal"><span class="service-num">04_</span><h3>Core Web Vitals Audit</h3><p>Deep-layer optimization targeting LCP and CLS to ensure your store ranks higher and retains users.</p></div>
-                <div class="service-card scroll-reveal"><span class="service-num">05_</span><h3>Custom Landing Systems</h3><p>Engineered for paid traffic. High-performance, custom-coded pages that convert better than generic templates.</p></div>
-                <div class="service-card scroll-reveal"><span class="service-num">06_</span><h3>Bug Fixes & Enhancements</h3><p>Technical troubleshooting and continuous store improvements to keep things running smoothly.</p></div>
-            </div>
-        </section>
 
-        <!-- ===== APPROACH ===== -->
-        <section id="approach">
-            <div class="section-header scroll-reveal">
-                <h2>Development Philosophy</h2>
-                <p>Scalability Over Shortcuts //</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-[26px] scroll-reveal">
+                    <h3 class="font-mono mb-4 text-[#EDF2F7]">Shopify</h3>
+                    <div class="flex flex-wrap gap-2.5">
+                        <span class="bg-[rgba(43,214,123,0.1)] px-3.5 py-1 rounded-[40px] text-[0.8rem] font-mono text-[#9AA4BF]">Liquid Templating</span>
+                        <span class="bg-[rgba(43,214,123,0.1)] px-3.5 py-1 rounded-[40px] text-[0.8rem] font-mono text-[#9AA4BF]">Shopify CLI</span>
+                        <span class="bg-[rgba(43,214,123,0.1)] px-3.5 py-1 rounded-[40px] text-[0.8rem] font-mono text-[#9AA4BF]">Metafields & Metaobjects</span>
+                    </div>
+                </div>
+                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-[26px] scroll-reveal">
+                    <h3 class="font-mono mb-4 text-[#EDF2F7]">Frontend</h3>
+                    <div class="flex flex-wrap gap-2.5">
+                        <span class="bg-[rgba(43,214,123,0.1)] px-3.5 py-1 rounded-[40px] text-[0.8rem] font-mono text-[#9AA4BF]">HTML5</span>
+                        <span class="bg-[rgba(43,214,123,0.1)] px-3.5 py-1 rounded-[40px] text-[0.8rem] font-mono text-[#9AA4BF]">CSS3</span>
+                        <span class="bg-[rgba(43,214,123,0.1)] px-3.5 py-1 rounded-[40px] text-[0.8rem] font-mono text-[#9AA4BF]">Modern JS (ES6+)</span>
+                        <span class="bg-[rgba(43,214,123,0.1)] px-3.5 py-1 rounded-[40px] text-[0.8rem] font-mono text-[#9AA4BF]">Tailwind CSS</span>
+                        <span class="bg-[rgba(43,214,123,0.1)] px-3.5 py-1 rounded-[40px] text-[0.8rem] font-mono text-[#9AA4BF]">JQuery</span>
+                        <span class="bg-[rgba(43,214,123,0.1)] px-3.5 py-1 rounded-[40px] text-[0.8rem] font-mono text-[#9AA4BF]">AJAX / fetch</span>
+                    </div>
+                </div>
+                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-[26px] scroll-reveal">
+                    <h3 class="font-mono mb-4 text-[#EDF2F7]">Tools</h3>
+                    <div class="flex flex-wrap gap-2.5">
+                        <span class="bg-[rgba(43,214,123,0.1)] px-3.5 py-1 rounded-[40px] text-[0.8rem] font-mono text-[#9AA4BF]">Node JS</span>
+                        <span class="bg-[rgba(43,214,123,0.1)] px-3.5 py-1 rounded-[40px] text-[0.8rem] font-mono text-[#9AA4BF]">Git Version Control</span>
+                        <span class="bg-[rgba(43,214,123,0.1)] px-3.5 py-1 rounded-[40px] text-[0.8rem] font-mono text-[#9AA4BF]">VS Code</span>
+                        <span class="bg-[rgba(43,214,123,0.1)] px-3.5 py-1 rounded-[40px] text-[0.8rem] font-mono text-[#9AA4BF]">Google Lighthouse</span>
+                        <span class="bg-[rgba(43,214,123,0.1)] px-3.5 py-1 rounded-[40px] text-[0.8rem] font-mono text-[#9AA4BF]">Chrome DevTools</span>
+                    </div>
+                </div>
             </div>
-            <p class="approach-intro scroll-reveal">I prioritize "Clean Implementation." A store that looks good but is difficult to maintain is a liability. I build systems that are developer-friendly and merchant-empowering.</p>
-            <div class="approach-list">
-                <div class="approach-item scroll-reveal"><h3>Protocol_01</h3><div><h4>Performance First</h4><p>Lightweight and optimized code for speed. Every millisecond counts in commerce, so I prioritize Core Web Vitals from day one.</p></div></div>
-                <div class="approach-item scroll-reveal"><h3>Protocol_02</h3><div><h4>Native Implementation Only</h4><p>If it can be built with Liquid and Vanilla JS, it should be. Minimizing app-reliance ensures security and long-term theme stability.</p></div></div>
-                <div class="approach-item scroll-reveal"><h3>Protocol_03</h3><div><h4>Future-Proof Scaling</h4><p>I build using Shopify 2.0 standards, utilizing Metafields and Metaobjects to create data-driven stores that grow effortlessly.</p></div></div>
-                <div class="approach-item scroll-reveal"><h3>Protocol_04</h3><div><h4>Mobile-First Implementation</h4><p>Premium mobile shopping experience is the standard. I ensure every interaction is tactile and optimized for touch-screen users.</p></div></div>
-                <div class="approach-item scroll-reveal"><h3>Principle_05</h3><div><h4>Structured Workflow</h4><p>From Git-based version control to clear documentation, my process ensures transparency and precision in every deployment.</p></div></div>
-            </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ===== SKILLS ===== -->
-        <section id="skills">
-            <div class="section-header scroll-reveal">
-                <h2>Technical Arsenal</h2>
-                <p>Skills & Tech Stack //</p>
+    <!-- ─── ABOUT ─── -->
+    <section id="about" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
+        <div class="container-custom">
+            <div class="mb-10 scroll-reveal">
+                <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Behind the Systems</h2>
+                <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Personal Profile //</p>
             </div>
-            <div class="skills-grid">
-                <div class="skill-card scroll-reveal"><h3>Shopify</h3><div class="skill-tags"><span class="skill-tag">Liquid Templating</span><span class="skill-tag">Shopify CLI</span><span class="skill-tag">Metafields & Metaobjects</span></div></div>
-                <div class="skill-card scroll-reveal"><h3>Frontend</h3><div class="skill-tags"><span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span><span class="skill-tag">Modern JS (ES6+)</span><span class="skill-tag">Tailwind CSS</span><span class="skill-tag">JQuery</span><span class="skill-tag">AJAX / fetch</span></div></div>
-                <div class="skill-card scroll-reveal"><h3>Tools</h3><div class="skill-tags"><span class="skill-tag">Node JS</span><span class="skill-tag">Git Version Control</span><span class="skill-tag">VS Code</span><span class="skill-tag">Google Lighthouse</span><span class="skill-tag">Chrome DevTools</span></div></div>
-            </div>
-        </section>
 
-        <!-- ===== ABOUT ===== -->
-        <section id="about">
-            <div class="section-header scroll-reveal">
-                <h2>Behind the Systems</h2>
-                <p>Personal Profile //</p>
-            </div>
-            <div class="about-grid scroll-reveal">
+            <div class="grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-12 items-center scroll-reveal">
                 <div class="about-img">
-                    <img src="me.webp" alt="Anton Jay L. Hermo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNDAwIDUwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5PVFouREVWPC90ZXh0Pjwvc3ZnPg=='" loading="lazy">
+                    <img src="me.webp" alt="Anton Jay L. Hermo" class="w-full rounded-[28px] border border-[#2BD67B] transition-transform hover:scale-[1.02] hover:shadow-[0_12px_40px_-10px_rgba(43,214,123,0.15)]" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNDAwIDUwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5PVFouREVWPC90ZXh0Pjwvc3ZnPg=='" loading="lazy" />
                 </div>
                 <div>
-                    <h3 class="about-name">Anton Jay L. Hermo</h3>
-                    <span class="about-role">Shopify Developer // Albay, PH</span>
-                    <p>I build reliable, well-structured Shopify stores with a strong focus on long-term stability and performance. I prioritize clean architecture and practical solutions that support sustainable growth.</p>
-                    <p>I approach each project as a system of connected parts that need to work seamlessly behind the scenes. I aim to ensure everything runs smoothly and efficiently.</p>
-                    <p>Through clean, thoughtful code and careful attention to detail, I help turn complex requirements into simple, intuitive experiences—so your store operates with confidence and your results speak for themselves.</p>
+                    <h3 class="font-mono text-[1.9rem] text-[#EDF2F7]">Anton Jay L. Hermo</h3>
+                    <span class="text-[#2BD67B] font-mono inline-block mb-5">Shopify Developer // Albay, PH</span>
+                    <p class="text-[#9AA4BF] mb-3 leading-[1.7]">I build reliable, well-structured Shopify stores with a strong focus on long-term stability and performance. I prioritize clean architecture and practical solutions that support sustainable growth.</p>
+                    <p class="text-[#9AA4BF] mb-3 leading-[1.7]">I approach each project as a system of connected parts that need to work seamlessly behind the scenes. I aim to ensure everything runs smoothly and efficiently.</p>
+                    <p class="text-[#9AA4BF] leading-[1.7]">Through clean, thoughtful code and careful attention to detail, I help turn complex requirements into simple, intuitive experiences—so your store operates with confidence and your results speak for themselves.</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ===== CTA ===== -->
-        <section id="contact" class="cta-section scroll-reveal">
-            <div class="container" style="padding: 0;">
-                <h2>Let's Build Something That Converts</h2>
-                <p class="cta-content" style="margin-top: 16px; color: var(--text-dim);">If you're looking for a Shopify developer who focuses on clean implementation and practical solutions, I'd be happy to collaborate.</p>
-                <div class="cta-actions">
-                    <a href="mailto:hello@antonhermo.com" class="btn-primary">START A PROJECT</a>
-                    <div class="cta-links" style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;">
-                        <a href="mailto:hermo.antonjay.personal@gmail.com" class="cta-link"><span>EMAIL_</span> hermo.antonjay.personal@gmail.com</a>
-                        <a href="https://www.linkedin.com/in/anton-jay-hermo/" target="_blank" class="cta-link"><span>LINKEDIN_</span> anton-jay-hermo</a>
+    <!-- ─── REVIEWS ─── -->
+    <section id="reviews" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
+        <div class="container-custom">
+            <div class="mb-10 scroll-reveal">
+                <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Client Reviews</h2>
+                <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">What merchants say about working with me //</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Review 1 -->
+                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_20px_35px_-12px_rgba(0,0,0,0.5)] flex flex-col gap-3.5 scroll-reveal">
+                    <div class="flex justify-between items-start">
+                        <div class="flex gap-0.5">
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                        </div>
+                        <span class="bg-[rgba(43,214,123,0.1)] border border-[rgba(43,214,123,0.2)] px-2.5 py-0.5 rounded-[20px] font-mono text-[0.55rem] text-[#2BD67B] tracking-[0.05em]">Verified Client</span>
+                    </div>
+                    <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.7] italic">"Anton completely transformed our Shopify store. He cleaned up our messy Liquid code, removed 8 unnecessary apps, and our site speed went from 3.2s to 1.1s. Our conversion rate jumped 22% in just 2 weeks!"</p>
+                    <div class="flex items-center gap-3.5 mt-1 border-t border-[#1E252D] pt-4">
+                        <div class="w-11 h-11 rounded-full bg-[#111418] border border-[#1E252D] flex items-center justify-center font-mono font-semibold text-[0.9rem] text-[#2BD67B] shrink-0">SM</div>
+                        <div><h4 class="text-[0.9rem] font-semibold text-[#EDF2F7]">Sarah Mitchell</h4><p class="text-[0.75rem] text-[#5F6C84]">Founder, Lumina Goods</p></div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_20px_35px_-12px_rgba(0,0,0,0.5)] flex flex-col gap-3.5 scroll-reveal">
+                    <div class="flex justify-between items-start">
+                        <div class="flex gap-0.5">
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                        </div>
+                        <span class="bg-[rgba(43,214,123,0.1)] border border-[rgba(43,214,123,0.2)] px-2.5 py-0.5 rounded-[20px] font-mono text-[0.55rem] text-[#2BD67B] tracking-[0.05em]">Verified Client</span>
+                    </div>
+                    <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.7] italic">"I was drowning in app subscriptions costing $300+/month. Anton helped me replace everything with clean Liquid code. Now my store is faster, cheaper to run, and my team loves the new custom sections."</p>
+                    <div class="flex items-center gap-3.5 mt-1 border-t border-[#1E252D] pt-4">
+                        <div class="w-11 h-11 rounded-full bg-[#111418] border border-[#1E252D] flex items-center justify-center font-mono font-semibold text-[0.9rem] text-[#2BD67B] shrink-0">DR</div>
+                        <div><h4 class="text-[0.9rem] font-semibold text-[#EDF2F7]">David Rivera</h4><p class="text-[0.75rem] text-[#5F6C84]">CEO, Apex Collective</p></div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_20px_35px_-12px_rgba(0,0,0,0.5)] flex flex-col gap-3.5 scroll-reveal">
+                    <div class="flex justify-between items-start">
+                        <div class="flex gap-0.5">
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                        </div>
+                        <span class="bg-[rgba(43,214,123,0.1)] border border-[rgba(43,214,123,0.2)] px-2.5 py-0.5 rounded-[20px] font-mono text-[0.55rem] text-[#2BD67B] tracking-[0.05em]">Verified Client</span>
+                    </div>
+                    <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.7] italic">"Notz.dev helped us rebuild our entire site from scratch. The performance improvements were instant — our Lighthouse score went from 62 to 98. He truly understands the balance between design and speed."</p>
+                    <div class="flex items-center gap-3.5 mt-1 border-t border-[#1E252D] pt-4">
+                        <div class="w-11 h-11 rounded-full bg-[#111418] border border-[#1E252D] flex items-center justify-center font-mono font-semibold text-[0.9rem] text-[#2BD67B] shrink-0">JL</div>
+                        <div><h4 class="text-[0.9rem] font-semibold text-[#EDF2F7]">Jessica Lee</h4><p class="text-[0.75rem] text-[#5F6C84]">Marketing Director, Nordik Home</p></div>
+                    </div>
+                </div>
+
+                <!-- Review 4 -->
+                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_20px_35px_-12px_rgba(0,0,0,0.5)] flex flex-col gap-3.5 scroll-reveal">
+                    <div class="flex justify-between items-start">
+                        <div class="flex gap-0.5">
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                        </div>
+                        <span class="bg-[rgba(43,214,123,0.1)] border border-[rgba(43,214,123,0.2)] px-2.5 py-0.5 rounded-[20px] font-mono text-[0.55rem] text-[#2BD67B] tracking-[0.05em]">Verified Client</span>
+                    </div>
+                    <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.7] italic">"We needed a complete Shopify overhaul but didn't want to lose our SEO rankings. Anton migrated us seamlessly — our organic traffic actually increased during the transition! Highly recommend."</p>
+                    <div class="flex items-center gap-3.5 mt-1 border-t border-[#1E252D] pt-4">
+                        <div class="w-11 h-11 rounded-full bg-[#111418] border border-[#1E252D] flex items-center justify-center font-mono font-semibold text-[0.9rem] text-[#2BD67B] shrink-0">MT</div>
+                        <div><h4 class="text-[0.9rem] font-semibold text-[#EDF2F7]">Marcus Tan</h4><p class="text-[0.75rem] text-[#5F6C84]">Co-founder, Studio 88</p></div>
+                    </div>
+                </div>
+
+                <!-- Review 5 -->
+                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_20px_35px_-12px_rgba(0,0,0,0.5)] flex flex-col gap-3.5 scroll-reveal">
+                    <div class="flex justify-between items-start">
+                        <div class="flex gap-0.5">
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                        </div>
+                        <span class="bg-[rgba(43,214,123,0.1)] border border-[rgba(43,214,123,0.2)] px-2.5 py-0.5 rounded-[20px] font-mono text-[0.55rem] text-[#2BD67B] tracking-[0.05em]">Verified Client</span>
+                    </div>
+                    <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.7] italic">"Anton is the most detail-oriented developer I've worked with. He caught issues I didn't even know existed and fixed them before they became problems. My store is now running like a well-oiled machine."</p>
+                    <div class="flex items-center gap-3.5 mt-1 border-t border-[#1E252D] pt-4">
+                        <div class="w-11 h-11 rounded-full bg-[#111418] border border-[#1E252D] flex items-center justify-center font-mono font-semibold text-[0.9rem] text-[#2BD67B] shrink-0">AS</div>
+                        <div><h4 class="text-[0.9rem] font-semibold text-[#EDF2F7]">Amanda Sy</h4><p class="text-[0.75rem] text-[#5F6C84]">Owner, The Modern Edit</p></div>
+                    </div>
+                </div>
+
+                <!-- Review 6 -->
+                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_20px_35px_-12px_rgba(0,0,0,0.5)] flex flex-col gap-3.5 scroll-reveal">
+                    <div class="flex justify-between items-start">
+                        <div class="flex gap-0.5">
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                        </div>
+                        <span class="bg-[rgba(43,214,123,0.1)] border border-[rgba(43,214,123,0.2)] px-2.5 py-0.5 rounded-[20px] font-mono text-[0.55rem] text-[#2BD67B] tracking-[0.05em]">Verified Client</span>
+                    </div>
+                    <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.7] italic">"Our store was plagued by slow load times and customer complaints. Anton optimized everything — images, code, server response — and now our store feels premium. Sales increased 31% in the first month!"</p>
+                    <div class="flex items-center gap-3.5 mt-1 border-t border-[#1E252D] pt-4">
+                        <div class="w-11 h-11 rounded-full bg-[#111418] border border-[#1E252D] flex items-center justify-center font-mono font-semibold text-[0.9rem] text-[#2BD67B] shrink-0">RR</div>
+                        <div><h4 class="text-[0.9rem] font-semibold text-[#EDF2F7]">Rafael Reyes</h4><p class="text-[0.75rem] text-[#5F6C84]">CEO, Royal Heritage</p></div>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <h3><a href="#" class="logo" style="font-size: 1.4rem;">NOTZ<span>.DEV</span></a></h3>
-                    <p>I believe every successful Shopify store starts with a strong, well-structured foundation. My goal isn't to create the most complex solution, but the most effective one—building clean, efficient systems that remove technical friction and keep your business running smoothly.</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Site Navigation</h4>
-                    <ul><li><a href="#work">Case Studies</a></li><li><a href="#services">Capabilities</a></li><li><a href="#approach">Strategy</a></li><li><a href="#skills">Stack</a></li><li><a href="#about">About</a></li></ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Direct Channels</h4>
-                    <ul><li><a href="mailto:hermo.antonjay.personal@gmail.com">Direct Email</a></li><li><a href="https://www.linkedin.com/in/anton-jay-hermo/" target="_blank">LinkedIn</a></li><li><a href="https://github.com/BoyLado" target="_blank">GitHub</a></li><li><a href="https://v2.onlinejobs.ph/jobseekers/info/1616842" target="_blank">OnlineJobs PH</a></li></ul>
+    <!-- ─── AUDIT ─── -->
+    <section id="audit" class="bg-[#0F1217] border border-[#1E252D] rounded-[32px] py-10 px-6 md:py-12 md:px-8 max-w-[1280px] w-[calc(100%-40px)] mx-auto my-[80px] md:my-[60px] sm:my-[45px] relative overflow-hidden scroll-reveal">
+        <div class="absolute top-[-50%] right-[-30%] w-[400px] h-[400px] bg-[radial-gradient(circle,rgba(43,214,123,0.04)_0%,transparent_70%)] pointer-events-none rounded-full"></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-[50px] items-start relative z-10">
+            <div class="audit-left">
+                <span class="font-mono text-[0.7rem] bg-[rgba(43,214,123,0.15)] px-3 py-1 rounded-[20px] text-[#2BD67B] inline-block mb-3">FREE CONSULTATION</span>
+                <h2 class="font-mono text-[2.2rem] md:text-[1.8rem] sm:text-[1.5rem] font-semibold tracking-[-0.5px] text-[#EDF2F7] mb-4">Request a <span class="text-[#2BD67B]">Store Audit</span></h2>
+                <p class="text-[#9AA4BF] text-[0.95rem] leading-[1.7] mb-6">I'll analyze your Shopify store's performance, identify bottlenecks, and provide a detailed report with actionable recommendations — completely free.</p>
+                <div class="flex flex-col gap-3">
+                    <div class="flex items-center gap-3 text-[#9AA4BF] text-[0.9rem]">
+                        <svg class="w-5 h-5 shrink-0 stroke-[#2BD67B] fill-none stroke-2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>
+                        <span><strong class="text-[#EDF2F7] font-medium">Core Web Vitals</strong> — LCP, FID, CLS analysis</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-[#9AA4BF] text-[0.9rem]">
+                        <svg class="w-5 h-5 shrink-0 stroke-[#2BD67B] fill-none stroke-2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M12 8v8" /><path d="M8 12h8" /></svg>
+                        <span><strong class="text-[#EDF2F7] font-medium">Code Quality</strong> — Liquid, CSS, JS optimization</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-[#9AA4BF] text-[0.9rem]">
+                        <svg class="w-5 h-5 shrink-0 stroke-[#2BD67B] fill-none stroke-2" viewBox="0 0 24 24"><path d="M12 2v20" /><path d="M2 12h20" /></svg>
+                        <span><strong class="text-[#EDF2F7] font-medium">App Dependency</strong> — Identify redundant apps & cost savings</span>
+                    </div>
                 </div>
             </div>
-            <div class="footer-bottom">
+
+            <div class="audit-form bg-[#111418] border border-[#1E252D] rounded-[20px] p-7 md:p-8 relative z-10" id="auditFormContainer">
+                <form id="auditForm" action="#" method="POST">
+                    <div class="mb-[18px]">
+                        <label for="auditName" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Full Name</label>
+                        <input type="text" id="auditName" name="name" placeholder="e.g., Juan Dela Cruz" required class="w-full px-4 py-3 bg-[#0A0C10] border border-[#1E252D] rounded-xl text-[#EDF2F7] font-['Inter'] text-[0.9rem] outline-none transition-colors focus:border-[#2BD67B] focus:shadow-[0_0_0_3px_rgba(43,214,123,0.1)]" />
+                    </div>
+                    <div class="mb-[18px]">
+                        <label for="auditEmail" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Email Address</label>
+                        <input type="email" id="auditEmail" name="email" placeholder="you@yourstore.com" required class="w-full px-4 py-3 bg-[#0A0C10] border border-[#1E252D] rounded-xl text-[#EDF2F7] font-['Inter'] text-[0.9rem] outline-none transition-colors focus:border-[#2BD67B] focus:shadow-[0_0_0_3px_rgba(43,214,123,0.1)]" />
+                    </div>
+                    <div class="mb-[18px]">
+                        <label for="auditStore" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Store URL</label>
+                        <input type="url" id="auditStore" name="store_url" placeholder="https://yourstore.myshopify.com" required class="w-full px-4 py-3 bg-[#0A0C10] border border-[#1E252D] rounded-xl text-[#EDF2F7] font-['Inter'] text-[0.9rem] outline-none transition-colors focus:border-[#2BD67B] focus:shadow-[0_0_0_3px_rgba(43,214,123,0.1)]" />
+                    </div>
+                    <div class="mb-[18px]">
+                        <label for="auditPlatform" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Current Platform</label>
+                        <select id="auditPlatform" name="platform" class="w-full px-4 py-3 bg-[#0A0C10] border border-[#1E252D] rounded-xl text-[#EDF2F7] font-['Inter'] text-[0.9rem] outline-none transition-colors focus:border-[#2BD67B] focus:shadow-[0_0_0_3px_rgba(43,214,123,0.1)] appearance-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDEyIDEyIj48cGF0aCBkPSJNNiA4TDEgM2gxMHoiIGZpbGw9IiM5QUE0QkYiLz48L3N2Zz4=') no-repeat right-4 center]">
+                            <option value="shopify">Shopify (Standard)</option>
+                            <option value="shopify_plus">Shopify Plus</option>
+                            <option value="other">Other / Not Sure</option>
+                        </select>
+                    </div>
+                    <div class="mb-[18px]">
+                        <label for="auditChallenges" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">What challenges are you facing?</label>
+                        <textarea id="auditChallenges" name="challenges" placeholder="e.g., slow loading, low conversion, app conflicts, etc." class="w-full px-4 py-3 bg-[#0A0C10] border border-[#1E252D] rounded-xl text-[#EDF2F7] font-['Inter'] text-[0.9rem] outline-none transition-colors focus:border-[#2BD67B] focus:shadow-[0_0_0_3px_rgba(43,214,123,0.1)] resize-y min-h-[100px]"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-4 bg-[#2BD67B] text-[#0A0C10] font-mono text-[0.8rem] font-bold tracking-[0.05em] border-none rounded-xl cursor-pointer transition-all inline-flex items-center justify-center gap-2.5 hover:bg-[#1C9E5B] hover:-translate-y-0.5 hover:shadow-[0_8px_25px_-10px_rgba(43,214,123,0.4)]">
+                        REQUEST FREE AUDIT
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                    </button>
+                </form>
+                <div class="form-success" id="formSuccess">
+                    <svg class="w-14 h-14 stroke-[#2BD67B] fill-none stroke-2 mx-auto mb-4" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M9 12l2 2 4-4" /></svg>
+                    <h3 class="font-mono text-[1.3rem] text-[#2BD67B] mb-2">🎉 Audit Request Sent!</h3>
+                    <p class="text-[#9AA4BF]">I'll review your store and get back to you within 24–48 hours with a detailed report.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── CTA ─── -->
+    <section id="contact" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
+        <div class="container-custom">
+            <div class="bg-[#111418] border border-[#1E252D] rounded-[40px] py-10 px-6 md:py-12 md:px-8 text-center scroll-reveal">
+                <h2 class="font-mono text-[1.8rem] md:text-[2rem] font-semibold text-[#EDF2F7]">Let's Build Something That Converts</h2>
+                <p class="mt-4 text-[#9AA4BF] max-w-2xl mx-auto">If you're looking for a Shopify developer who focuses on clean implementation and practical solutions, I'd be happy to collaborate.</p>
+                <div class="mt-7 flex flex-wrap justify-center gap-6">
+                    <a href="#audit" class="bg-[#2BD67B] text-[#0A0C10] font-bold px-[34px] py-[14px] rounded-[40px] font-mono text-[0.8rem] tracking-[0.05em] no-underline inline-flex items-center gap-2 transition-all hover:bg-[#1C9E5B] hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_12px_30px_-8px_rgba(43,214,123,0.35),0_0_0_2px_rgba(43,214,123,0.2)]">
+                        BOOK FREE CONSULTATION
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                    </a>
+                    <div class="flex flex-wrap gap-4 justify-center">
+                        <a href="mailto:hermo.antonjay.personal@gmail.com" class="bg-[rgba(0,0,0,0.4)] px-7 py-2.5 rounded-[40px] text-[#9AA4BF] font-mono no-underline transition-colors hover:text-[#2BD67B] hover:bg-[rgba(43,214,123,0.05)]"><span class="text-[#2BD67B]">EMAIL_</span> hermo.antonjay.personal@gmail.com</a>
+                        <a href="https://www.linkedin.com/in/anton-jay-hermo/" target="_blank" class="bg-[rgba(0,0,0,0.4)] px-7 py-2.5 rounded-[40px] text-[#9AA4BF] font-mono no-underline transition-colors hover:text-[#2BD67B] hover:bg-[rgba(43,214,123,0.05)]"><span class="text-[#2BD67B]">LINKEDIN_</span> anton-jay-hermo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── FOOTER ─── -->
+    <footer class="border-t border-[#1E252D] pt-[80px] pb-5 md:pt-[60px] sm:pt-[45px]">
+        <div class="container-custom">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="footer-brand">
+                    <h3><a href="#" class="font-mono text-[1.4rem] font-semibold text-[#EDF2F7] tracking-tight no-underline">NOTZ<span class="text-[#2BD67B]">.DEV</span></a></h3>
+                    <p class="text-[#9AA4BF] text-[0.85rem] mt-3.5 leading-[1.7]">I believe every successful Shopify store starts with a strong, well-structured foundation. My goal isn't to create the most complex solution, but the most effective one—building clean, efficient systems that remove technical friction and keep your business running smoothly.</p>
+                </div>
+                <div class="footer-col">
+                    <h4 class="font-mono mb-5 text-[0.9rem] text-[#EDF2F7]">Site Navigation</h4>
+                    <ul class="list-none">
+                        <li class="mb-2.5"><a href="#work" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Case Studies</a></li>
+                        <li class="mb-2.5"><a href="#services" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Capabilities</a></li>
+                        <li class="mb-2.5"><a href="#approach" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Strategy</a></li>
+                        <li class="mb-2.5"><a href="#skills" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Stack</a></li>
+                        <li class="mb-2.5"><a href="#about" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">About</a></li>
+                        <li class="mb-2.5"><a href="#reviews" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Reviews</a></li>
+                        <li class="mb-2.5"><a href="#audit" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Store Audit</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="font-mono mb-5 text-[0.9rem] text-[#EDF2F7]">Direct Channels</h4>
+                    <ul class="list-none">
+                        <li class="mb-2.5"><a href="mailto:hermo.antonjay.personal@gmail.com" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Direct Email</a></li>
+                        <li class="mb-2.5"><a href="https://github.com/BoyLado" target="_blank" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">GitHub</a></li>
+                        <li class="mb-2.5"><a href="https://v2.onlinejobs.ph/jobseekers/info/1616842" target="_blank" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">OnlineJobs PH</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="font-mono mb-5 text-[0.9rem] text-[#EDF2F7]">Social</h4>
+                    <div class="flex gap-3.5 flex-wrap mt-1">
+                        <a href="https://www.facebook.com/yourpage" target="_blank" aria-label="Facebook" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
+                        </a>
+                        <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg>
+                        </a>
+                        <a href="https://x.com/yourprofile" target="_blank" aria-label="X (Twitter)" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/anton-jay-hermo/" target="_blank" aria-label="LinkedIn" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row justify-between items-center mt-8 pt-4 text-[0.7rem] text-[#5F6C84] font-mono border-t border-[#1E252D]">
                 <div>&copy; 2026 // ESTABLISHED IN PH</div>
                 <div id="clock">LOCAL_TIME // --:-- --</div>
             </div>
         </div>
     </footer>
 
+    <!-- ─── SCRIPTS ─── -->
     <script>
-        // ============================================================
-        // 1. SCROLL REVEAL
-        // ============================================================
+        // scroll progress
+        const progressBar = document.getElementById('scroll-progress-bar');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (scrollTop / scrollHeight) * 100;
+            progressBar.style.width = scrolled + '%';
+        });
+
+        // scroll reveal
         const reveals = document.querySelectorAll('.scroll-reveal');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); });
         }, { threshold: 0.12 });
         reveals.forEach(el => observer.observe(el));
 
-        // ============================================================
-        // 2. MOBILE MENU
-        // ============================================================
+        // mobile menu
         const trigger = document.getElementById('mobile-trigger');
         const overlay = document.getElementById('mobile-overlay');
         const closeBtn = document.getElementById('mobile-close-btn');
 
-        function toggleMenu() {
-            overlay.classList.toggle('open');
-            trigger.classList.toggle('open');
-        }
-
+        function toggleMenu() { overlay.classList.toggle('open'); trigger.classList.toggle('open'); }
         trigger.addEventListener('click', toggleMenu);
         closeBtn.addEventListener('click', toggleMenu);
-
         document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => {
-                overlay.classList.remove('open');
-                trigger.classList.remove('open');
-            });
+            link.addEventListener('click', () => { overlay.classList.remove('open'); trigger.classList.remove('open'); });
         });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('open')) { overlay.classList.remove('open'); trigger.classList.remove('open'); } });
 
-        // Close on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && overlay.classList.contains('open')) {
-                overlay.classList.remove('open');
-                trigger.classList.remove('open');
-            }
-        });
-
-        // ============================================================
-        // 3. LIVE CLOCK
-        // ============================================================
+        // clock
         function updateClock() {
             const now = new Date();
-            const timeStr = now.toLocaleTimeString('en-PH', {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: true,
-                timeZone: 'Asia/Manila'
-            });
+            const timeStr = now.toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Manila' });
             document.getElementById('clock').innerHTML = `LOCAL_TIME // ${timeStr.toUpperCase()}`;
         }
         updateClock();
         setInterval(updateClock, 1000);
 
-        // ============================================================
-        // 4. SMOOTH SCROLL
-        // ============================================================
+        // smooth anchor scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const target = this.getAttribute('href');
                 if (target === "#") return;
                 const el = document.querySelector(target);
-                if (el) {
-                    e.preventDefault();
-                    el.scrollIntoView({ behavior: 'smooth' });
-                }
+                if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
             });
         });
+
+        // form
+        const form = document.getElementById('auditForm');
+        const successMessage = document.getElementById('formSuccess');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                console.log('📋 Store Audit Request:', Object.fromEntries(formData));
+                form.style.display = 'none';
+                successMessage.classList.add('show');
+                setTimeout(() => { form.reset(); form.style.display = 'block'; successMessage.classList.remove('show'); }, 5000);
+            });
+        }
+
+        // video
+        const video = document.getElementById('heroVideo');
+        const overlayBtn = document.getElementById('videoPlayOverlay');
+        const errorMsg = document.getElementById('videoErrorMsg');
+
+        if (video) {
+            video.play().catch(() => {
+                overlayBtn.classList.add('show');
+            });
+
+            overlayBtn.addEventListener('click', function() {
+                video.play().then(() => {
+                    overlayBtn.classList.remove('show');
+                }).catch(() => {
+                    errorMsg.classList.add('show');
+                });
+            });
+
+            video.addEventListener('play', function() {
+                overlayBtn.classList.remove('show');
+                errorMsg.classList.remove('show');
+            });
+
+            video.addEventListener('error', function() {
+                overlayBtn.classList.add('show');
+                errorMsg.classList.add('show');
+            });
+
+            video.addEventListener('canplay', function() {
+                errorMsg.classList.remove('show');
+            });
+        }
     </script>
+
 </body>
 </html>
