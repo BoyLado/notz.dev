@@ -120,7 +120,7 @@
             opacity: 0;
             animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        .hero-animate.delay-1 { animation-delay: 0.1s; }
+        .hero-animate.delay-1 { animation-delay: 0.05s; }
         .hero-animate.delay-2 { animation-delay: 0.25s; }
         .hero-animate.delay-3 { animation-delay: 0.4s; }
         .hero-animate.delay-4 { animation-delay: 0.55s; }
@@ -312,6 +312,16 @@
         }
 
         /* ── HERO REFINEMENTS ── */
+        .hero-pre-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(0.7rem, 1.2vw, 0.8rem);
+            letter-spacing: 0.15em;
+            color: var(--green);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
         .hero-headline {
             font-size: clamp(2.2rem, 5.5vw, 4.2rem);
             line-height: 1.1;
@@ -451,6 +461,9 @@
 
                 <!-- TEXT COLUMN - appears FIRST on mobile, LEFT on desktop -->
                 <div class="w-full lg:w-[55%] flex flex-col gap-5 md:gap-6">
+
+                    <!-- PRE-HEADLINE: BUILT FOR SPEED. DESIGNED TO CONVERT. -->
+                    <p class="hero-pre-title hero-animate delay-1">BUILT FOR SPEED. DESIGNED TO CONVERT.</p>
 
                     <!-- Headline -->
                     <h1 class="hero-headline hero-animate delay-2 font-mono font-semibold text-[#EDF2F7] tracking-tight">
