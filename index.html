@@ -36,7 +36,6 @@
             --code-bg: #0B0E13;
         }
 
-        /* ── base ── */
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg);
@@ -50,7 +49,6 @@
             font-family: 'JetBrains Mono', monospace;
         }
 
-        /* ── scroll bar ── */
         .scroll-progress-bar {
             position: fixed;
             top: 0;
@@ -63,7 +61,6 @@
             box-shadow: 0 0 8px rgba(43, 214, 123, 0.5);
         }
 
-        /* ── bg effects ── */
         .bg-glow {
             position: fixed;
             top: 0;
@@ -99,7 +96,6 @@
             z-index: 10;
         }
 
-        /* ── nav sticky ── */
         .nav-sticky {
             position: sticky;
             top: 0;
@@ -109,28 +105,59 @@
             z-index: 100;
         }
 
-        /* ── pulse dot (used in video badge only, not in hero) ── */
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(0.7); }
+        /* ── scroll-margin-top: prevent content from hiding behind sticky nav ── */
+        #work,
+        #services,
+        #skills,
+        #reviews,
+        #about,
+        #audit,
+        #contact {
+            scroll-margin-top: 82px;
         }
 
-        /* ── hero animations ── */
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.3;
+                transform: scale(0.7);
+            }
+        }
+
         .hero-animate {
             opacity: 0;
             animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        .hero-animate.delay-1 { animation-delay: 0.05s; }
-        .hero-animate.delay-2 { animation-delay: 0.25s; }
-        .hero-animate.delay-3 { animation-delay: 0.4s; }
-        .hero-animate.delay-4 { animation-delay: 0.55s; }
-        .hero-animate.delay-5 { animation-delay: 0.7s; }
+        .hero-animate.delay-1 {
+            animation-delay: 0.05s;
+        }
+        .hero-animate.delay-2 {
+            animation-delay: 0.25s;
+        }
+        .hero-animate.delay-3 {
+            animation-delay: 0.4s;
+        }
+        .hero-animate.delay-4 {
+            animation-delay: 0.55s;
+        }
+        .hero-animate.delay-5 {
+            animation-delay: 0.7s;
+        }
         @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* ── scroll reveal ── */
         .scroll-reveal {
             opacity: 0;
             transform: translateY(24px);
@@ -141,7 +168,6 @@
             transform: translateY(0);
         }
 
-        /* ── mobile menu ── */
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -162,7 +188,9 @@
             font-family: 'JetBrains Mono', monospace;
             text-align: center;
         }
-        .mobile-menu.open { transform: translateY(0); }
+        .mobile-menu.open {
+            transform: translateY(0);
+        }
         .mobile-menu .close-btn {
             position: absolute;
             top: 24px;
@@ -181,12 +209,11 @@
             transform: rotate(90deg);
         }
 
-        /* ── video wrapper ── */
         .testimonial-video-wrapper {
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 20px 50px -15px rgba(0,0,0,0.6), 0 0 0 1px rgba(43,214,123,0.15);
-            transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+            box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(43, 214, 123, 0.15);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             background: #000;
             display: flex;
@@ -195,7 +222,7 @@
         }
         .testimonial-video-wrapper:hover {
             transform: translateY(-6px) scale(1.01);
-            box-shadow: 0 30px 60px -15px rgba(43,214,123,0.25), 0 0 0 1px rgba(43,214,123,0.3);
+            box-shadow: 0 30px 60px -15px rgba(43, 214, 123, 0.25), 0 0 0 1px rgba(43, 214, 123, 0.3);
         }
         .testimonial-video-wrapper video {
             display: block;
@@ -209,14 +236,14 @@
             position: absolute;
             top: 16px;
             left: 16px;
-            background: rgba(0,0,0,0.75);
+            background: rgba(0, 0, 0, 0.75);
             backdrop-filter: blur(8px);
             padding: 6px 14px;
             border-radius: 30px;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.6rem;
             color: var(--green);
-            border: 1px solid rgba(43,214,123,0.2);
+            border: 1px solid rgba(43, 214, 123, 0.2);
             display: flex;
             align-items: center;
             gap: 6px;
@@ -238,22 +265,27 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0, 0, 0, 0.4);
             z-index: 6;
             cursor: pointer;
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
         }
-        .video-play-overlay.show { opacity: 1; pointer-events: auto; }
+        .video-play-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
         .video-play-overlay svg {
             width: 60px;
             height: 60px;
-            fill: rgba(255,255,255,0.85);
-            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+            fill: rgba(255, 255, 255, 0.85);
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
             transition: transform 0.2s;
         }
-        .video-play-overlay:hover svg { transform: scale(1.1); }
+        .video-play-overlay:hover svg {
+            transform: scale(1.1);
+        }
         .video-error-msg {
             color: #ff6b6b;
             font-size: 0.75rem;
@@ -263,10 +295,14 @@
             text-align: center;
             padding: 0 20px;
         }
-        .video-error-msg.show { display: block; }
-        .video-error-msg a { color: var(--green); text-decoration: underline; }
+        .video-error-msg.show {
+            display: block;
+        }
+        .video-error-msg a {
+            color: var(--green);
+            text-decoration: underline;
+        }
 
-        /* ── forms ── */
         .audit-form input,
         .audit-form textarea,
         .audit-form select {
@@ -285,9 +321,12 @@
         .audit-form textarea:focus,
         .audit-form select:focus {
             border-color: var(--green);
-            box-shadow: 0 0 0 3px rgba(43,214,123,0.1);
+            box-shadow: 0 0 0 3px rgba(43, 214, 123, 0.1);
         }
-        .audit-form textarea { resize: vertical; min-height: 100px; }
+        .audit-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
         .audit-form select {
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%239AA4BF'/%3E%3C/svg%3E");
@@ -301,17 +340,22 @@
             text-align: center;
             padding: 30px 20px;
         }
-        .form-success.show { display: block; animation: fadeUp 0.5s ease forwards; }
-
-        /* ── misc ── */
-        ::selection { background: var(--green); color: #0A0C10; }
-
-        /* ── responsive video max-height ── */
-        @media (max-width: 600px) {
-            .testimonial-video-wrapper video { max-height: 200px; }
+        .form-success.show {
+            display: block;
+            animation: fadeUp 0.5s ease forwards;
         }
 
-        /* ── HERO REFINEMENTS ── */
+        ::selection {
+            background: var(--green);
+            color: #0A0C10;
+        }
+
+        @media (max-width: 600px) {
+            .testimonial-video-wrapper video {
+                max-height: 200px;
+            }
+        }
+
         .hero-pre-title {
             font-family: 'JetBrains Mono', monospace;
             font-size: clamp(0.7rem, 1.2vw, 0.8rem);
@@ -349,8 +393,8 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.78rem;
             letter-spacing: 0.04em;
-            transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
-            box-shadow: 0 0 0 0 rgba(43,214,123,0);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 0 0 0 rgba(43, 214, 123, 0);
             border: none;
             cursor: pointer;
             display: inline-flex;
@@ -360,19 +404,19 @@
         }
         .hero-btn-primary:hover {
             transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 14px 34px -10px rgba(43,214,123,0.4), 0 0 0 2px rgba(43,214,123,0.15);
+            box-shadow: 0 14px 34px -10px rgba(43, 214, 123, 0.4), 0 0 0 2px rgba(43, 214, 123, 0.15);
             background: var(--green-dim);
         }
         .hero-btn-secondary {
-            border: 1px solid rgba(43,214,123,0.35);
+            border: 1px solid rgba(43, 214, 123, 0.35);
             padding: 15px 34px;
             border-radius: 40px;
             color: var(--green);
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.78rem;
             letter-spacing: 0.04em;
-            transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
-            background: rgba(43,214,123,0.03);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            background: rgba(43, 214, 123, 0.03);
             backdrop-filter: blur(4px);
             display: inline-flex;
             align-items: center;
@@ -381,28 +425,444 @@
             text-decoration: none;
         }
         .hero-btn-secondary:hover {
-            background: rgba(43,214,123,0.1);
+            background: rgba(43, 214, 123, 0.1);
             border-color: var(--green);
             transform: translateY(-3px);
-            box-shadow: 0 8px 28px -12px rgba(43,214,123,0.2);
+            box-shadow: 0 8px 28px -12px rgba(43, 214, 123, 0.2);
         }
 
         @media (max-width: 480px) {
             .hero-btn-primary,
-            .hero-btn-secondary { width: 100%; justify-content: center; padding: 14px 24px; font-size: 0.7rem; }
+            .hero-btn-secondary {
+                width: 100%;
+                justify-content: center;
+                padding: 14px 24px;
+                font-size: 0.7rem;
+            }
         }
 
-        /* ── mobile-first: text first, video second ── */
         .hero-section {
             padding-top: 1.5rem;
             padding-bottom: 3rem;
             min-height: auto;
         }
         @media (min-width: 768px) {
-            .hero-section { padding-top: 4rem; padding-bottom: 5rem; min-height: 90vh; }
+            .hero-section {
+                padding-top: 4rem;
+                padding-bottom: 5rem;
+                min-height: 90vh;
+            }
         }
         @media (min-width: 1024px) {
-            .hero-section { padding-top: 5rem; padding-bottom: 5rem; }
+            .hero-section {
+                padding-top: 5rem;
+                padding-bottom: 5rem;
+            }
+        }
+
+        .service-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: rgba(43, 214, 123, 0.06);
+            border: 1px solid rgba(43, 214, 123, 0.10);
+            color: var(--green);
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .service-icon svg {
+            width: 26px;
+            height: 26px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .service-card:hover .service-icon {
+            background: rgba(43, 214, 123, 0.12);
+            border-color: rgba(43, 214, 123, 0.25);
+            transform: scale(1.04);
+        }
+        .service-icon-wrap {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        /* ── PROJECT ROW CARDS ── */
+        .project-row {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 32px 32px 36px 32px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .project-row:hover {
+            border-color: rgba(43, 214, 123, 0.30);
+            box-shadow: 0 20px 50px -18px rgba(43, 214, 123, 0.12), 0 0 0 1px rgba(43, 214, 123, 0.05);
+            transform: translateY(-4px);
+        }
+        .project-row .row-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 44px;
+            align-items: start;
+        }
+        .project-row.reverse .row-inner {
+            direction: rtl;
+        }
+        .project-row.reverse .row-inner .project-content {
+            direction: ltr;
+        }
+        .project-row.reverse .row-inner .project-image {
+            direction: ltr;
+        }
+
+        .project-row .project-title-section {
+            grid-column: 1 / -1;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            text-align: center;
+        }
+        .project-row .project-title-section .project-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--green);
+            background: rgba(43, 214, 123, 0.10);
+            border: 1px solid rgba(43, 214, 123, 0.15);
+            padding: 4px 14px;
+            border-radius: 30px;
+            display: inline-block;
+            flex-shrink: 0;
+            text-align: center;
+        }
+        .project-row .project-title-section .project-tag.hero-tag {
+            font-size: 0.65rem;
+            padding: 5px 18px;
+        }
+        .project-row .project-title-section .project-title {
+            font-size: clamp(1.4rem, 2.2vw, 2rem);
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text);
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            margin: 0;
+            text-align: center;
+        }
+        .project-row .project-title-section .project-title .highlight {
+            color: var(--green);
+        }
+
+        .project-row .project-image img {
+            border-radius: 20px;
+            width: 100%;
+            height: auto;
+            display: block;
+            box-shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s ease;
+        }
+        .project-row:hover .project-image img {
+            transform: scale(1.01);
+        }
+
+        .project-row .project-problem {
+            font-size: 0.92rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+            padding-left: 16px;
+            border-left: 3px solid #f87171;
+            margin: 0 0 14px 0;
+        }
+        .project-row .project-problem strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .project-row .project-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 18px;
+            list-style: none;
+            padding: 0;
+            margin: 0 0 16px 0;
+        }
+        .project-row .project-features li {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            position: relative;
+            padding-left: 22px;
+            line-height: 1.6;
+        }
+        .project-row .project-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--green);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .project-row .project-tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 0 0 14px 0;
+        }
+        .project-row .project-tech-tags span {
+            background: rgba(43, 214, 123, 0.06);
+            border: 1px solid rgba(43, 214, 123, 0.10);
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            letter-spacing: 0.04em;
+            transition: all 0.2s;
+        }
+        .project-row .project-tech-tags span:hover {
+            background: rgba(43, 214, 123, 0.12);
+            border-color: rgba(43, 214, 123, 0.25);
+            color: var(--green);
+        }
+
+        .project-row .project-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--green);
+            text-decoration: none;
+            border-bottom: 1.5px solid rgba(43, 214, 123, 0.2);
+            padding-bottom: 2px;
+            transition: all 0.25s;
+            width: fit-content;
+        }
+        .project-row .project-cta:hover {
+            border-bottom-color: var(--green);
+            gap: 12px;
+        }
+        .project-row .project-cta svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform 0.2s;
+        }
+        .project-row .project-cta:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* ── Project Overview (outside card) ── */
+        .project-overview-wrapper {
+            max-width: 100%;
+        }
+        .project-overview {
+            font-size: 0.92rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+            padding: 14px 20px;
+            background: rgba(43, 214, 123, 0.04);
+            border: 1px solid rgba(43, 214, 123, 0.08);
+            border-radius: 12px;
+        }
+        .project-overview strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        @media (max-width: 1024px) {
+            .project-row .row-inner {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+            .project-row.reverse .row-inner {
+                direction: ltr;
+            }
+            .project-row.reverse .row-inner .project-content {
+                direction: ltr;
+            }
+            .project-row.reverse .row-inner .project-image {
+                direction: ltr;
+            }
+            .project-row .project-features {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .project-row {
+                padding: 20px 16px 24px 16px;
+                border-radius: 20px;
+            }
+            .project-row .row-inner {
+                gap: 20px;
+            }
+            .project-row .project-title-section {
+                gap: 2px;
+            }
+            .project-row .project-title-section .project-title {
+                font-size: 1.3rem;
+            }
+            .project-row .project-features {
+                grid-template-columns: 1fr;
+                gap: 2px;
+            }
+            .project-row .project-problem {
+                font-size: 0.8rem;
+                padding-left: 12px;
+            }
+            .project-row .project-tech-tags span {
+                font-size: 0.55rem;
+                padding: 3px 12px;
+            }
+            .project-overview {
+                font-size: 0.82rem;
+                padding: 10px 14px;
+            }
+        }
+
+        .credibility-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px 28px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .credibility-card:hover {
+            border-color: rgba(43, 214, 123, 0.35);
+            box-shadow: 0 20px 50px -18px rgba(43, 214, 123, 0.18), 0 0 0 1px rgba(43, 214, 123, 0.08);
+            transform: translateY(-3px);
+        }
+        .credibility-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 30% 20%, rgba(43, 214, 123, 0.04) 0%, transparent 65%);
+            pointer-events: none;
+        }
+        .credibility-stat-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 700;
+            color: var(--green);
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+        .credibility-stat-number .plus {
+            color: var(--green);
+            font-size: 0.7em;
+            vertical-align: super;
+            margin-left: 2px;
+        }
+        .credibility-stat-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+        .credibility-divider {
+            width: 1px;
+            height: 48px;
+            background: var(--border);
+            flex-shrink: 0;
+        }
+        .credibility-badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
+        }
+        .credibility-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(43, 214, 123, 0.05);
+            border: 1px solid rgba(43, 214, 123, 0.12);
+            padding: 7px 16px;
+            border-radius: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            letter-spacing: 0.03em;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .credibility-badge:hover {
+            background: rgba(43, 214, 123, 0.1);
+            border-color: rgba(43, 214, 123, 0.3);
+            color: var(--green);
+            transform: translateY(-2px);
+        }
+        .credibility-badge .badge-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            flex-shrink: 0;
+            box-shadow: 0 0 6px rgba(43, 214, 123, 0.5);
+            animation: pulse-dot 2s infinite;
+        }
+        .credibility-trust-strip {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            text-align: center;
+        }
+        .credibility-trust-strip .trust-icon {
+            color: var(--green);
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 640px) {
+            .credibility-card {
+                padding: 24px 16px;
+                border-radius: 20px;
+            }
+            .credibility-divider {
+                height: 1px;
+                width: 40px;
+                margin: 8px auto;
+            }
+            .credibility-stat-number {
+                font-size: 1.8rem;
+            }
+            .credibility-badge {
+                font-size: 0.6rem;
+                padding: 5px 12px;
+            }
         }
     </style>
 </head>
@@ -424,12 +884,10 @@
             <div class="hidden md:flex items-center gap-8">
                 <a href="#work" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// PROJECTS</a>
                 <a href="#services" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// EXPERTISE</a>
-                <a href="#approach" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// STRATEGY</a>
                 <a href="#skills" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// STACK</a>
-                <a href="#about" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// PROFILE</a>
                 <a href="#reviews" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// REVIEWS</a>
                 <a href="#audit" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// STORE AUDIT</a>
-                <a href="mailto:hermo.antonjay.personal@gmail.com" class="border border-[#2BD67B] bg-transparent px-5 py-1.5 rounded-[30px] text-[#2BD67B] font-mono text-xs font-semibold no-underline hover:bg-[rgba(43,214,123,0.1)] transition-colors">LETS_CONNECT</a>
+                <a href="#about" class="border border-[#2BD67B] bg-transparent px-5 py-1.5 rounded-[30px] text-[#2BD67B] font-mono text-xs font-semibold no-underline hover:bg-[rgba(43,214,123,0.1)] transition-colors">My Profile</a>
             </div>
             <div class="md:hidden flex flex-col gap-1.5 cursor-pointer p-1" id="mobile-trigger">
                 <span class="w-6 h-0.5 bg-[#2BD67B] rounded-sm transition-all"></span>
@@ -444,39 +902,32 @@
         <button class="close-btn" id="mobile-close-btn" aria-label="Close menu">&times;</button>
         <a href="#work" class="mobile-link text-[#EDF2F7] text-lg no-underline py-2.5 w-full max-w-xs border-b border-[#1E252D] transition-colors hover:text-[#2BD67B] text-center">PROJECTS</a>
         <a href="#services" class="mobile-link text-[#EDF2F7] text-lg no-underline py-2.5 w-full max-w-xs border-b border-[#1E252D] transition-colors hover:text-[#2BD67B] text-center">EXPERTISE</a>
-        <a href="#approach" class="mobile-link text-[#EDF2F7] text-lg no-underline py-2.5 w-full max-w-xs border-b border-[#1E252D] transition-colors hover:text-[#2BD67B] text-center">STRATEGY</a>
         <a href="#skills" class="mobile-link text-[#EDF2F7] text-lg no-underline py-2.5 w-full max-w-xs border-b border-[#1E252D] transition-colors hover:text-[#2BD67B] text-center">STACK</a>
-        <a href="#about" class="mobile-link text-[#EDF2F7] text-lg no-underline py-2.5 w-full max-w-xs border-b border-[#1E252D] transition-colors hover:text-[#2BD67B] text-center">PROFILE</a>
         <a href="#reviews" class="mobile-link text-[#EDF2F7] text-lg no-underline py-2.5 w-full max-w-xs border-b border-[#1E252D] transition-colors hover:text-[#2BD67B] text-center">REVIEWS</a>
         <a href="#audit" class="mobile-link text-[#EDF2F7] text-lg no-underline py-2.5 w-full max-w-xs border-b border-[#1E252D] transition-colors hover:text-[#2BD67B] text-center">STORE AUDIT</a>
-        <a href="mailto:hermo.antonjay.personal@gmail.com" class="border border-[#2BD67B] bg-transparent py-3.5 px-6 rounded-[30px] text-[#2BD67B] font-mono text-base font-semibold no-underline w-full max-w-xs text-center border-b border-[#2BD67B] hover:bg-[rgba(43,214,123,0.1)] transition-colors mt-2">LETS_CONNECT</a>
+        <a href="#about" class="border border-[#2BD67B] bg-transparent py-3.5 px-6 rounded-[30px] text-[#2BD67B] font-mono text-base font-semibold no-underline w-full max-w-xs text-center border-b border-[#2BD67B] hover:bg-[rgba(43,214,123,0.1)] transition-colors mt-2">My Profile</a>
     </div>
 
-    <!-- ─── HERO ─── (mobile-first: text on top, video below) -->
+    <!-- ─── HERO ─── -->
     <section class="hero-section relative z-10 w-full flex items-center">
         <div class="container-custom w-full">
 
-            <!-- Flex: column on mobile, row on desktop. Text first, then video -->
             <div class="flex flex-col lg:flex-row gap-10 lg:gap-16 xl:gap-20 items-center">
 
-                <!-- TEXT COLUMN - appears FIRST on mobile, LEFT on desktop -->
+                <!-- TEXT COLUMN -->
                 <div class="w-full lg:w-[55%] flex flex-col gap-5 md:gap-6">
 
-                    <!-- PRE-HEADLINE: BUILT FOR SPEED. DESIGNED TO CONVERT. -->
                     <p class="hero-pre-title hero-animate delay-1">BUILT FOR SPEED. DESIGNED TO CONVERT.</p>
 
-                    <!-- Headline -->
                     <h1 class="hero-headline hero-animate delay-2 font-mono font-semibold text-[#EDF2F7] tracking-tight">
-                        BUILD SHOPIFY STORE THAT <br />
-                        <span class="highlight">CONVERT BETTER.</span>
+                        BUILD A SHOPIFY STORE THAT <br />
+                        <span class="highlight">CONVERTS BETTER.</span>
                     </h1>
 
-                    <!-- Subtext -->
                     <p class="hero-sub-text hero-animate delay-3">
                         I help merchants replace slow, app‑dependent <strong class="text-[#2BD67B] font-semibold">Shopify</strong> stores with clean, native architecture — so your site loads faster, converts better, and stays reliable for years.
                     </p>
 
-                    <!-- Buttons -->
                     <div class="flex flex-wrap items-center gap-4 hero-animate delay-4 mt-1">
                         <a href="#work" class="hero-btn-primary">
                             SEE CASE STUDIES
@@ -489,7 +940,7 @@
                     </div>
                 </div>
 
-                <!-- VIDEO COLUMN - appears SECOND on mobile, RIGHT on desktop -->
+                <!-- VIDEO COLUMN -->
                 <div class="w-full lg:w-[45%] flex flex-col items-center justify-center hero-animate delay-2">
                     <div class="testimonial-video-wrapper w-full max-w-[440px] mx-auto">
                         <span class="video-badge">
@@ -510,7 +961,6 @@
                         </div>
                     </div>
 
-                    <!-- Video caption -->
                     <div class="mt-5 text-center w-full max-w-[440px] mx-auto">
                         <div class="flex justify-center gap-1 mb-2">
                             <svg class="w-5 h-5 fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
@@ -521,7 +971,7 @@
                         </div>
                         <p class="text-[0.85rem] text-[#9AA4BF] leading-relaxed">
                             <span class="text-[#EDF2F7] font-medium">"I could not be more happy with the work that Anton did on my Shopify store."</span><br />
-                            <span class="text-[#5F6C84] text-[0.75rem]">— Satisfied Client, Custom Clothing Brand</span>
+                            <span class="text-[#5F6C84] text-[0.75rem]">— Brandon Beck, MEA <i>Custom Suit</i></span>
                         </p>
                     </div>
                 </div>
@@ -530,34 +980,128 @@
         </div>
     </section>
 
-    <!-- ─── WORK ─── -->
-    <section id="work" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
+    <!-- ─── FEATURED CASE STUDIES ─── -->
+    <section id="work" class="relative z-10 w-full border-y border-[#1E252D] bg-[#0B0E13] py-12 md:py-16">
         <div class="container-custom">
+
             <div class="mb-10 scroll-reveal">
-                <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Featured Architecture</h2>
-                <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Selected Case Studies // 2025-2026</p>
+                <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Featured Case Studies</h2>
+                <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Selected Client Projects // 2025-2026</p>
             </div>
 
-            <article class="grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-10 items-center bg-[#0F1217] border border-[#1E252D] rounded-[28px] p-6 md:p-8 transition-all hover:border-[#2BD67B] hover:-translate-y-1.5 hover:shadow-[0_25px_45px_-12px_rgba(43,214,123,0.2)] scroll-reveal">
-                <div class="rounded-[20px] overflow-hidden shadow-[0_8px_20px_rgba(0,0,0,0.5)] transition-transform duration-300 group-hover:scale-[1.02]">
-                    <img src="project1.png" alt="MEA Shopify Store Preview" class="w-full h-auto block" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlBST0pFQ1QgUFJFVklFVzwvdGV4dD48L3N2Zz4='" />
+            <!-- ─── ROW 1: MEA Custom Suits ─── -->
+            <div class="project-row scroll-reveal mb-12">
+                <div class="project-title-section">
+                    <span class="project-tag hero-tag">★ Real Client — Flagship</span>
+                    <h3 class="project-title">MEA Custom Suits — <span class="highlight">Shopify Theme Modernization</span></h3>
                 </div>
-                <div>
-                    <span class="font-mono text-[0.7rem] bg-[rgba(43,214,123,0.15)] px-3 py-1 rounded-[20px] text-[#2BD67B] inline-block mb-4">PROJECT PREVIEW</span>
-                    <h3 class="text-[1.8rem] md:text-[2.2rem] font-semibold font-mono text-[#EDF2F7] mb-3">MEA Shopify Store</h3>
-                    <p class="text-[#9AA4BF] text-base leading-[1.7] mb-6">A fully custom Shopify storefront developed with a strong emphasis on performance, scalability, and user experience. Built using Shopify 2.0 best practices with responsive layouts, conversion-focused design, and seamless merchant customization.</p>
-                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 gap-x-6 list-none p-0">
-                        <li class="text-[#9AA4BF] text-[0.9rem] relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#2BD67B] before:font-bold">Shopify 2.0</li>
-                        <li class="text-[#9AA4BF] text-[0.9rem] relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#2BD67B] before:font-bold">Custom Theme Development</li>
-                        <li class="text-[#9AA4BF] text-[0.9rem] relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#2BD67B] before:font-bold">Responsive Design</li>
-                        <li class="text-[#9AA4BF] text-[0.9rem] relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#2BD67B] before:font-bold">Performance Optimization</li>
-                        <li class="text-[#9AA4BF] text-[0.9rem] relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#2BD67B] before:font-bold">Conversion-Focused UI/UX</li>
-                        <li class="text-[#9AA4BF] text-[0.9rem] relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#2BD67B] before:font-bold">Automated Workflows</li>
-                        <li class="text-[#9AA4BF] text-[0.9rem] relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#2BD67B] before:font-bold">App Integrations</li>
-                        <li class="text-[#9AA4BF] text-[0.9rem] relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#2BD67B] before:font-bold">SEO Best Practices</li>
-                    </ul>
+                <div class="row-inner">
+                    <div class="project-image">
+                        <img src="project1.png" alt="MEA Custom Suits — Shopify Store Preview" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk1FQSBDVVNUT00gU1VJVFM8L3RleHQ+PC9zdmc+'"/>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-problem">
+                            <strong>The Challenge:</strong> The store was built using static Liquid templates, preventing the merchant from updating layouts and content through the Shopify Theme Editor. They also needed a custom Size Finder for tailored suit measurements and a flexible Giveaway Form for marketing campaigns, but no solution matched their workflow.
+                        </div>
+                        <ul class="project-features">
+                            <li>Migrated static theme to Shopify Online Store 2.0 with JSON templates</li>
+                            <li>Built reusable sections with Schema settings for merchant‑friendly editing</li>
+                            <li>Developed a custom Size Finder app tailored to suit measurements</li>
+                            <li>Created a dynamic Giveaway Form powered by Metafields</li>
+                            <li>Eliminated dependency on third‑party apps for core functionality</li>
+                            <li>Made the theme scalable, maintainable, and future‑proof</li>
+                        </ul>
+                        <div class="project-tech-tags">
+                            <span>Shopify OS 2.0</span>
+                            <span>Liquid</span>
+                            <span>JSON Templates</span>
+                            <span>Schema Settings</span>
+                            <span>Metafields</span>
+                            <span>Custom App</span>
+                            <span>JavaScript</span>
+                        </div>
+                        <a href="#" class="project-cta">
+                            View Live Store
+                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                        </a>
+                    </div>
                 </div>
-            </article>
+            </div>
+
+            <!-- ─── ROW 2: Nordik Home ─── -->
+            <div class="project-row reverse scroll-reveal mb-12">
+                <div class="project-title-section">
+                    <span class="project-tag">Concept Store</span>
+                    <h3 class="project-title">Nordik Home — <span class="highlight">Full Theme Rebuild &amp; App Consolidation</span></h3>
+                </div>
+                <div class="row-inner">
+                    <div class="project-image">
+                        <img src="project2.png" alt="Nordik Home Shopify Store" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5PUkRJSyBIT01FPC90ZXh0Pjwvc3ZnPg=='" />
+                    </div>
+                    <div class="project-content">
+                        <div class="project-problem">
+                            <strong>The Problem:</strong> The home goods store was drowning in 12+ apps causing slow checkout, conflicting scripts, and a confusing admin. Site speed was poor, and revenue was bleeding from cart abandonment.
+                        </div>
+                        <ul class="project-features">
+                            <li>Replaced 12 apps with custom Liquid logic</li>
+                            <li>LCP reduced from 3.2s → 1.4s</li>
+                            <li>Built a modular theme from scratch using OS 2.0</li>
+                            <li>Custom metafields for product variants &amp; inventory</li>
+                            <li>Smart search with predictive results</li>
+                            <li>31% conversion lift within 4 weeks</li>
+                        </ul>
+                        <div class="project-tech-tags">
+                            <span>Shopify OS 2.0</span>
+                            <span>Liquid</span>
+                            <span>Custom Metafields</span>
+                            <span>CSS Grid</span>
+                            <span>Vanilla JS</span>
+                        </div>
+                        <a href="#" class="project-cta">
+                            View Live Store
+                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─── ROW 3: Apex Collective ─── -->
+            <div class="project-row scroll-reveal">
+                <div class="project-title-section">
+                    <span class="project-tag">Concept Store</span>
+                    <h3 class="project-title">Apex Collective — <span class="highlight">Bespoke Luxury Experience</span></h3>
+                </div>
+                <div class="row-inner">
+                    <div class="project-image">
+                        <img src="project3.png" alt="Apex Collective Shopify Store" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkFQRVggQ09MTEVDVElWRTwvdGV4dD48L3N2Zz4='" />
+                    </div>
+                    <div class="project-content">
+                        <div class="project-problem">
+                            <strong>The Problem:</strong> A high‑end fashion brand needed a store that matched their premium positioning. Their generic template felt cheap, with poor navigation and slow product filtering — leading to high bounce rates.
+                        </div>
+                        <ul class="project-features">
+                            <li>Bespoke theme with custom animations &amp; transitions</li>
+                            <li>Dynamic product filtering with instant AJAX updates</li>
+                            <li>Refined mobile‑first UX with gesture support</li>
+                            <li>Custom wishlist &amp; save‑for‑later functionality</li>
+                            <li>Integrated email marketing sync (Klaviyo)</li>
+                            <li>40% reduction in cart abandonment</li>
+                        </ul>
+                        <div class="project-tech-tags">
+                            <span>Shopify OS 2.0</span>
+                            <span>Liquid</span>
+                            <span>AJAX / fetch</span>
+                            <span>CSS Animations</span>
+                            <span>Klaviyo API</span>
+                        </div>
+                        <a href="#" class="project-cta">
+                            View Live Store
+                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -569,99 +1113,99 @@
                 <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Tech Solutions for Merchants //</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-colors hover:border-[#2BD67B] scroll-reveal">
-                    <span class="font-mono text-3xl font-semibold text-[#2BD67B] opacity-60">01_</span>
-                    <h3 class="text-[1.3rem] mt-3 mb-2.5 text-[#EDF2F7]">Custom Sections & Blocks</h3>
-                    <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Building reusable and flexible Liquid sections that empower your team to manage content without touching code.</p>
-                </div>
-                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-colors hover:border-[#2BD67B] scroll-reveal">
-                    <span class="font-mono text-3xl font-semibold text-[#2BD67B] opacity-60">02_</span>
-                    <h3 class="text-[1.3rem] mt-3 mb-2.5 text-[#EDF2F7]">Tech Debt Elimination</h3>
-                    <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Replacing high-latency apps with native frontend logic to slash load times and monthly overhead costs.</p>
-                </div>
-                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-colors hover:border-[#2BD67B] scroll-reveal">
-                    <span class="font-mono text-3xl font-semibold text-[#2BD67B] opacity-60">03_</span>
-                    <h3 class="text-[1.3rem] mt-3 mb-2.5 text-[#EDF2F7]">UI/UX Improvements</h3>
-                    <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Refining the customer journey with high-performance animations and mobile-first interface.</p>
-                </div>
-                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-colors hover:border-[#2BD67B] scroll-reveal">
-                    <span class="font-mono text-3xl font-semibold text-[#2BD67B] opacity-60">04_</span>
-                    <h3 class="text-[1.3rem] mt-3 mb-2.5 text-[#EDF2F7]">Core Web Vitals Audit</h3>
-                    <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Deep-layer optimization targeting LCP and CLS to ensure your store ranks higher and retains users.</p>
-                </div>
-                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-colors hover:border-[#2BD67B] scroll-reveal">
-                    <span class="font-mono text-3xl font-semibold text-[#2BD67B] opacity-60">05_</span>
-                    <h3 class="text-[1.3rem] mt-3 mb-2.5 text-[#EDF2F7]">Custom Landing Systems</h3>
-                    <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Engineered for paid traffic. High-performance, custom-coded pages that convert better than generic templates.</p>
-                </div>
-                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-colors hover:border-[#2BD67B] scroll-reveal">
-                    <span class="font-mono text-3xl font-semibold text-[#2BD67B] opacity-60">06_</span>
-                    <h3 class="text-[1.3rem] mt-3 mb-2.5 text-[#EDF2F7]">Bug Fixes & Enhancements</h3>
-                    <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Technical troubleshooting and continuous store improvements to keep things running smoothly.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ─── APPROACH ─── -->
-    <section id="approach" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
-        <div class="container-custom">
-            <div class="mb-10 scroll-reveal">
-                <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Development Philosophy</h2>
-                <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Scalability Over Shortcuts //</p>
-            </div>
-
             <p class="font-mono bg-[#0B0E13] px-6 py-[18px] border-l-3 border-[#2BD67B] rounded-xl mb-10 text-[#9AA4BF] scroll-reveal">
                 I prioritize "Clean Implementation." A store that looks good but is difficult to maintain is a liability. I build systems that are developer-friendly and merchant-empowering.
             </p>
 
-            <div class="flex flex-col gap-6">
-                <div class="flex flex-col md:flex-row gap-7 border-b border-[#1E252D] pb-5 scroll-reveal">
-                    <h3 class="font-mono text-[#2BD67B] min-w-[130px]">Protocol_01</h3>
-                    <div>
-                        <h4 class="text-[1.1rem] mb-1 text-[#EDF2F7]">Performance First</h4>
-                        <p class="text-[#9AA4BF]">Lightweight and optimized code for speed. Every millisecond counts in commerce, so I prioritize Core Web Vitals from day one.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 1. Custom Sections & Blocks -->
+                <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+                    <div class="service-icon-wrap">
+                        <span class="service-icon">
+                            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                        </span>
+                        <div>
+                            <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Custom Sections &amp; Blocks</h3>
+                            <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Building reusable and flexible Liquid sections that empower your team to manage content without touching code.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="flex flex-col md:flex-row gap-7 border-b border-[#1E252D] pb-5 scroll-reveal">
-                    <h3 class="font-mono text-[#2BD67B] min-w-[130px]">Protocol_02</h3>
-                    <div>
-                        <h4 class="text-[1.1rem] mb-1 text-[#EDF2F7]">Native Implementation Only</h4>
-                        <p class="text-[#9AA4BF]">If it can be built with Liquid and Vanilla JS, it should be. Minimizing app-reliance ensures security and long-term theme stability.</p>
+
+                <!-- 2. Tech Debt Elimination -->
+                <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+                    <div class="service-icon-wrap">
+                        <span class="service-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 3L12 7M12 17L12 21M3 12L7 12M17 12L21 12M6 6L8 8M16 16L18 18M18 6L16 8M8 16L6 18" stroke-linecap="round"/></svg>
+                        </span>
+                        <div>
+                            <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Tech Debt Elimination</h3>
+                            <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Replacing high-latency apps with native frontend logic to slash load times and monthly overhead costs.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="flex flex-col md:flex-row gap-7 border-b border-[#1E252D] pb-5 scroll-reveal">
-                    <h3 class="font-mono text-[#2BD67B] min-w-[130px]">Protocol_03</h3>
-                    <div>
-                        <h4 class="text-[1.1rem] mb-1 text-[#EDF2F7]">Future-Proof Scaling</h4>
-                        <p class="text-[#9AA4BF]">I build using Shopify 2.0 standards, utilizing Metafields and Metaobjects to create data-driven stores that grow effortlessly.</p>
+
+                <!-- 3. UI/UX Improvements -->
+                <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+                    <div class="service-icon-wrap">
+                        <span class="service-icon">
+                            <svg viewBox="0 0 24 24"><path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+                        </span>
+                        <div>
+                            <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">UI/UX Improvements</h3>
+                            <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Refining the customer journey with high-performance animations and mobile-first interface.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="flex flex-col md:flex-row gap-7 border-b border-[#1E252D] pb-5 scroll-reveal">
-                    <h3 class="font-mono text-[#2BD67B] min-w-[130px]">Protocol_04</h3>
-                    <div>
-                        <h4 class="text-[1.1rem] mb-1 text-[#EDF2F7]">Mobile-First Implementation</h4>
-                        <p class="text-[#9AA4BF]">Premium mobile shopping experience is the standard. I ensure every interaction is tactile and optimized for touch-screen users.</p>
+
+                <!-- 4. Core Web Vitals Audit -->
+                <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+                    <div class="service-icon-wrap">
+                        <span class="service-icon">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8L12 12L15 15"/><path d="M3 12L5 12M19 12L21 12M12 3L12 5M12 19L12 21"/></svg>
+                        </span>
+                        <div>
+                            <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Core Web Vitals Audit</h3>
+                            <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Deep-layer optimization targeting LCP and CLS to ensure your store ranks higher and retains users.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="flex flex-col md:flex-row gap-7 pb-5 scroll-reveal">
-                    <h3 class="font-mono text-[#2BD67B] min-w-[130px]">Principle_05</h3>
-                    <div>
-                        <h4 class="text-[1.1rem] mb-1 text-[#EDF2F7]">Structured Workflow</h4>
-                        <p class="text-[#9AA4BF]">From Git-based version control to clear documentation, my process ensures transparency and precision in every deployment.</p>
+
+                <!-- 5. Custom Landing Systems -->
+                <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+                    <div class="service-icon-wrap">
+                        <span class="service-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C12 2 9 6 9 11C9 14 10 17 12 19C14 17 15 14 15 11C15 6 12 2 12 2Z"/><path d="M9 11C9 11 3 13 3 18C7 15 9 14 9 14"/><path d="M15 11C15 11 21 13 21 18C17 15 15 14 15 14"/><path d="M12 19L12 22"/></svg>
+                        </span>
+                        <div>
+                            <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Custom Landing Systems</h3>
+                            <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Engineered for paid traffic. High-performance, custom-coded pages that convert better than generic templates.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Bug Fixes & Enhancements -->
+                <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+                    <div class="service-icon-wrap">
+                        <span class="service-icon">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1L12 4M12 20L12 23M1 12L4 12M20 12L23 12M4.22 4.22L6.34 6.34M17.66 17.66L19.78 19.78M19.78 4.22L17.66 6.34M6.34 17.66L4.22 19.78"/></svg>
+                        </span>
+                        <div>
+                            <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Bug Fixes &amp; Enhancements</h3>
+                            <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Technical troubleshooting and continuous store improvements to keep things running smoothly.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <!-- ─── SKILLS ─── -->
     <section id="skills" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
         <div class="container-custom">
             <div class="mb-10 scroll-reveal">
                 <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Technical Arsenal</h2>
-                <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Skills & Tech Stack //</p>
+                <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Skills &amp; Tech Stack //</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
@@ -670,7 +1214,7 @@
                     <div class="flex flex-wrap gap-2.5">
                         <span class="bg-[rgba(43,214,123,0.1)] px-3.5 py-1 rounded-[40px] text-[0.8rem] font-mono text-[#9AA4BF]">Liquid Templating</span>
                         <span class="bg-[rgba(43,214,123,0.1)] px-3.5 py-1 rounded-[40px] text-[0.8rem] font-mono text-[#9AA4BF]">Shopify CLI</span>
-                        <span class="bg-[rgba(43,214,123,0.1)] px-3.5 py-1 rounded-[40px] text-[0.8rem] font-mono text-[#9AA4BF]">Metafields & Metaobjects</span>
+                        <span class="bg-[rgba(43,214,123,0.1)] px-3.5 py-1 rounded-[40px] text-[0.8rem] font-mono text-[#9AA4BF]">Metafields &amp; Metaobjects</span>
                     </div>
                 </div>
                 <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-[26px] scroll-reveal">
@@ -698,28 +1242,7 @@
         </div>
     </section>
 
-    <!-- ─── ABOUT ─── -->
-    <section id="about" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
-        <div class="container-custom">
-            <div class="mb-10 scroll-reveal">
-                <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Behind the Systems</h2>
-                <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Personal Profile //</p>
-            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-12 items-center scroll-reveal">
-                <div class="about-img">
-                    <img src="me.webp" alt="Anton Jay L. Hermo" class="w-full rounded-[28px] border border-[#2BD67B] transition-transform hover:scale-[1.02] hover:shadow-[0_12px_40px_-10px_rgba(43,214,123,0.15)]" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNDAwIDUwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5PVFouREVWPC90ZXh0Pjwvc3ZnPg=='" loading="lazy" />
-                </div>
-                <div>
-                    <h3 class="font-mono text-[1.9rem] text-[#EDF2F7]">Anton Jay L. Hermo</h3>
-                    <span class="text-[#2BD67B] font-mono inline-block mb-5">Shopify Developer // Albay, PH</span>
-                    <p class="text-[#9AA4BF] mb-3 leading-[1.7]">I build reliable, well-structured Shopify stores with a strong focus on long-term stability and performance. I prioritize clean architecture and practical solutions that support sustainable growth.</p>
-                    <p class="text-[#9AA4BF] mb-3 leading-[1.7]">I approach each project as a system of connected parts that need to work seamlessly behind the scenes. I aim to ensure everything runs smoothly and efficiently.</p>
-                    <p class="text-[#9AA4BF] leading-[1.7]">Through clean, thoughtful code and careful attention to detail, I help turn complex requirements into simple, intuitive experiences—so your store operates with confidence and your results speak for themselves.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- ─── REVIEWS ─── -->
     <section id="reviews" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
@@ -847,6 +1370,29 @@
         </div>
     </section>
 
+    <!-- ─── ABOUT ─── -->
+    <section id="about" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
+        <div class="container-custom">
+            <div class="mb-10 scroll-reveal">
+                <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Behind the Systems</h2>
+                <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Personal Profile //</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-12 items-center scroll-reveal">
+                <div class="about-img">
+                    <img src="me.webp" alt="Anton Jay L. Hermo" class="w-full rounded-[28px] border border-[#2BD67B] transition-transform hover:scale-[1.02] hover:shadow-[0_12px_40px_-10px_rgba(43,214,123,0.15)]" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNDAwIDUwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5PVFouREVWPC90ZXh0Pjwvc3ZnPg=='" loading="lazy" />
+                </div>
+                <div>
+                    <h3 class="font-mono text-[1.9rem] text-[#EDF2F7]">Anton Jay L. Hermo</h3>
+                    <span class="text-[#2BD67B] font-mono inline-block mb-5">Shopify Developer // Albay, PH</span>
+                    <p class="text-[#9AA4BF] mb-3 leading-[1.7]">I build reliable, well-structured Shopify stores with a strong focus on long-term stability and performance. I prioritize clean architecture and practical solutions that support sustainable growth.</p>
+                    <p class="text-[#9AA4BF] mb-3 leading-[1.7]">I approach each project as a system of connected parts that need to work seamlessly behind the scenes. I aim to ensure everything runs smoothly and efficiently.</p>
+                    <p class="text-[#9AA4BF] leading-[1.7]">Through clean, thoughtful code and careful attention to detail, I help turn complex requirements into simple, intuitive experiences—so your store operates with confidence and your results speak for themselves.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ─── AUDIT ─── -->
     <section id="audit" class="bg-[#0F1217] border border-[#1E252D] rounded-[32px] py-10 px-6 md:py-12 md:px-8 max-w-[1280px] w-[calc(100%-40px)] mx-auto my-[80px] md:my-[60px] sm:my-[45px] relative overflow-hidden scroll-reveal">
         <div class="absolute top-[-50%] right-[-30%] w-[400px] h-[400px] bg-[radial-gradient(circle,rgba(43,214,123,0.04)_0%,transparent_70%)] pointer-events-none rounded-full"></div>
@@ -867,7 +1413,7 @@
                     </div>
                     <div class="flex items-center gap-3 text-[#9AA4BF] text-[0.9rem]">
                         <svg class="w-5 h-5 shrink-0 stroke-[#2BD67B] fill-none stroke-2" viewBox="0 0 24 24"><path d="M12 2v20" /><path d="M2 12h20" /></svg>
-                        <span><strong class="text-[#EDF2F7] font-medium">App Dependency</strong> — Identify redundant apps & cost savings</span>
+                        <span><strong class="text-[#EDF2F7] font-medium">App Dependency</strong> — Identify redundant apps &amp; cost savings</span>
                     </div>
                 </div>
             </div>
@@ -1008,30 +1554,42 @@
         const overlay = document.getElementById('mobile-overlay');
         const closeBtn = document.getElementById('mobile-close-btn');
 
-        function toggleMenu() { overlay.classList.toggle('open'); trigger.classList.toggle('open'); }
+        function toggleMenu() { overlay.classList.toggle('open');
+            trigger.classList.toggle('open'); }
         trigger.addEventListener('click', toggleMenu);
         closeBtn.addEventListener('click', toggleMenu);
         document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => { overlay.classList.remove('open'); trigger.classList.remove('open'); });
+            link.addEventListener('click', () => { overlay.classList.remove('open');
+                trigger.classList.remove('open'); });
         });
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('open')) { overlay.classList.remove('open'); trigger.classList.remove('open'); } });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('open')) {
+                overlay.classList.remove('open');
+                trigger.classList.remove('open');
+            } });
 
         // clock
         function updateClock() {
             const now = new Date();
-            const timeStr = now.toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Manila' });
+            const timeStr = now.toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit', hour12: true,
+                timeZone: 'Asia/Manila' });
             document.getElementById('clock').innerHTML = `LOCAL_TIME // ${timeStr.toUpperCase()}`;
         }
         updateClock();
         setInterval(updateClock, 1000);
 
-        // smooth anchor scroll
+        // ── smooth anchor scroll with offset for sticky nav ──
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                const target = this.getAttribute('href');
-                if (target === "#") return;
-                const el = document.querySelector(target);
-                if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
+                const targetId = this.getAttribute('href');
+                if (targetId === "#") return;
+                const targetEl = document.querySelector(targetId);
+                if (!targetEl) return;
+                e.preventDefault();
+                const navHeight = document.querySelector('.nav-sticky').offsetHeight;
+                const extraOffset = 0;
+                const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight -
+                    extraOffset;
+                window.scrollTo({ top: Math.max(0, targetPosition), behavior: 'smooth' });
             });
         });
 
@@ -1045,7 +1603,9 @@
                 console.log('📋 Store Audit Request:', Object.fromEntries(formData));
                 form.style.display = 'none';
                 successMessage.classList.add('show');
-                setTimeout(() => { form.reset(); form.style.display = 'block'; successMessage.classList.remove('show'); }, 5000);
+                setTimeout(() => { form.reset();
+                    form.style.display = 'block';
+                    successMessage.classList.remove('show'); }, 5000);
             });
         }
 
