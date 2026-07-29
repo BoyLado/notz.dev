@@ -105,7 +105,6 @@
             z-index: 100;
         }
 
-        /* ── scroll-margin-top: prevent content from hiding behind sticky nav ── */
         #work,
         #services,
         #skills,
@@ -168,28 +167,32 @@
             transform: translateY(0);
         }
 
+        /* ─── MOBILE MENU — slide from right ─── */
         .mobile-menu {
             position: fixed;
             top: 0;
-            left: 0;
+            right: 0;
             width: 100%;
+            max-width: 340px;
             height: 100%;
             background: rgba(10, 12, 16, 0.98);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(24px);
             z-index: 200;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             gap: 1.5rem;
-            padding: 2rem;
-            transform: translateY(-100%);
-            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 2.5rem 2rem;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             font-family: 'JetBrains Mono', monospace;
             text-align: center;
+            border-left: 1px solid rgba(43, 214, 123, 0.10);
+            box-shadow: -20px 0 60px rgba(0, 0, 0, 0.5);
         }
         .mobile-menu.open {
-            transform: translateY(0);
+            transform: translateX(0);
         }
         .mobile-menu .close-btn {
             position: absolute;
@@ -208,7 +211,90 @@
             color: var(--green);
             transform: rotate(90deg);
         }
+        .mobile-menu .mobile-link {
+            font-size: 1.1rem;
+            padding: 10px 0;
+            width: 100%;
+            max-width: 260px;
+            border-bottom: 1px solid rgba(30, 37, 45, 0.5);
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.25s, transform 0.25s;
+            display: block;
+            text-align: center;
+        }
+        .mobile-menu .mobile-link:hover {
+            color: var(--green);
+            transform: translateX(4px);
+        }
+        .mobile-menu .mobile-cta {
+            border: 1px solid var(--green);
+            background: transparent;
+            padding: 14px 28px;
+            border-radius: 30px;
+            color: var(--green);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            width: 100%;
+            max-width: 260px;
+            text-align: center;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        .mobile-menu .mobile-cta:hover {
+            background: rgba(43, 214, 123, 0.08);
+            transform: translateX(4px);
+        }
 
+        /* ─── BURGER ANIMATION ─── */
+        .burger-btn {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 6px 4px;
+            border: none;
+            background: none;
+            outline: none;
+            position: relative;
+            z-index: 250;
+            transition: all 0.3s ease;
+        }
+        .burger-btn .line {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: var(--green);
+            border-radius: 3px;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center;
+        }
+        .burger-btn .line:nth-child(1) {
+            width: 26px;
+        }
+        .burger-btn .line:nth-child(2) {
+            width: 20px;
+        }
+        .burger-btn .line:nth-child(3) {
+            width: 26px;
+        }
+        .burger-btn.open .line:nth-child(1) {
+            transform: translateY(7.5px) rotate(45deg);
+            width: 26px;
+        }
+        .burger-btn.open .line:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+            width: 26px;
+        }
+        .burger-btn.open .line:nth-child(3) {
+            transform: translateY(-7.5px) rotate(-45deg);
+            width: 26px;
+        }
+
+        /* ── testimonial video ── */
         .testimonial-video-wrapper {
             border-radius: 16px;
             overflow: hidden;
@@ -303,6 +389,7 @@
             text-decoration: underline;
         }
 
+        /* ── audit form ── */
         .audit-form input,
         .audit-form textarea,
         .audit-form select {
@@ -354,6 +441,9 @@
             .testimonial-video-wrapper video {
                 max-height: 200px;
             }
+            .mobile-menu {
+                max-width: 100%;
+            }
         }
 
         .hero-pre-title {
@@ -367,8 +457,8 @@
         }
 
         .hero-headline {
-            font-size: clamp(2.2rem, 5.5vw, 4.2rem);
-            line-height: 1.1;
+            font-size: clamp(1.85rem, 5.5vw, 4.2rem);
+            line-height: 1.12;
             letter-spacing: -0.04em;
         }
         .hero-headline .highlight {
@@ -669,10 +759,6 @@
             transform: translateX(4px);
         }
 
-        /* ── Project Overview (outside card) ── */
-        .project-overview-wrapper {
-            max-width: 100%;
-        }
         .project-overview {
             font-size: 0.92rem;
             color: var(--text-dim);
@@ -881,6 +967,7 @@
             <a href="#" class="font-mono text-2xl font-semibold text-[#EDF2F7] tracking-tight no-underline">
                 NOTZ<span class="text-[#2BD67B]">.DEV</span>
             </a>
+            <!-- desktop nav -->
             <div class="hidden md:flex items-center gap-8">
                 <a href="#work" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// PROJECTS</a>
                 <a href="#services" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// EXPERTISE</a>
@@ -889,23 +976,24 @@
                 <a href="#audit" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// STORE AUDIT</a>
                 <a href="#about" class="border border-[#2BD67B] bg-transparent px-5 py-1.5 rounded-[30px] text-[#2BD67B] font-mono text-xs font-semibold no-underline hover:bg-[rgba(43,214,123,0.1)] transition-colors">My Profile</a>
             </div>
-            <div class="md:hidden flex flex-col gap-1.5 cursor-pointer p-1" id="mobile-trigger">
-                <span class="w-6 h-0.5 bg-[#2BD67B] rounded-sm transition-all"></span>
-                <span class="w-6 h-0.5 bg-[#2BD67B] rounded-sm transition-all"></span>
-                <span class="w-6 h-0.5 bg-[#2BD67B] rounded-sm transition-all"></span>
-            </div>
+            <!-- burger button -->
+            <button class="burger-btn md:hidden" id="burgerBtn" aria-label="Toggle menu">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
         </div>
     </nav>
 
-    <!-- ─── MOBILE MENU ─── -->
-    <div class="mobile-menu" id="mobile-overlay">
-        <button class="close-btn" id="mobile-close-btn" aria-label="Close menu">&times;</button>
-        <a href="#work" class="mobile-link text-[#EDF2F7] text-lg no-underline py-2.5 w-full max-w-xs border-b border-[#1E252D] transition-colors hover:text-[#2BD67B] text-center">PROJECTS</a>
-        <a href="#services" class="mobile-link text-[#EDF2F7] text-lg no-underline py-2.5 w-full max-w-xs border-b border-[#1E252D] transition-colors hover:text-[#2BD67B] text-center">EXPERTISE</a>
-        <a href="#skills" class="mobile-link text-[#EDF2F7] text-lg no-underline py-2.5 w-full max-w-xs border-b border-[#1E252D] transition-colors hover:text-[#2BD67B] text-center">STACK</a>
-        <a href="#reviews" class="mobile-link text-[#EDF2F7] text-lg no-underline py-2.5 w-full max-w-xs border-b border-[#1E252D] transition-colors hover:text-[#2BD67B] text-center">REVIEWS</a>
-        <a href="#audit" class="mobile-link text-[#EDF2F7] text-lg no-underline py-2.5 w-full max-w-xs border-b border-[#1E252D] transition-colors hover:text-[#2BD67B] text-center">STORE AUDIT</a>
-        <a href="#about" class="border border-[#2BD67B] bg-transparent py-3.5 px-6 rounded-[30px] text-[#2BD67B] font-mono text-base font-semibold no-underline w-full max-w-xs text-center border-b border-[#2BD67B] hover:bg-[rgba(43,214,123,0.1)] transition-colors mt-2">My Profile</a>
+    <!-- ─── MOBILE MENU — slide from right ─── -->
+    <div class="mobile-menu" id="mobileOverlay">
+        <button class="close-btn" id="mobileCloseBtn" aria-label="Close menu">&times;</button>
+        <a href="#work" class="mobile-link">PROJECTS</a>
+        <a href="#services" class="mobile-link">EXPERTISE</a>
+        <a href="#skills" class="mobile-link">STACK</a>
+        <a href="#reviews" class="mobile-link">REVIEWS</a>
+        <a href="#audit" class="mobile-link">STORE AUDIT</a>
+        <a href="#about" class="mobile-cta">My Profile</a>
     </div>
 
     <!-- ─── HERO ─── -->
@@ -920,7 +1008,9 @@
                     <p class="hero-pre-title hero-animate delay-1">BUILT FOR SPEED. DESIGNED TO CONVERT.</p>
 
                     <h1 class="hero-headline hero-animate delay-2 font-mono font-semibold text-[#EDF2F7] tracking-tight">
-                        BUILD A SHOPIFY STORE THAT <br />
+                        <!-- 3 lines on mobile, 1 line on desktop (with natural wrap) -->
+                        BUILD A SHOPIFY <br class="sm:hidden" />
+                        STORE THAT <br class="sm:hidden" />
                         <span class="highlight">CONVERTS BETTER.</span>
                     </h1>
 
@@ -1549,23 +1639,42 @@
         }, { threshold: 0.12 });
         reveals.forEach(el => observer.observe(el));
 
-        // mobile menu
-        const trigger = document.getElementById('mobile-trigger');
-        const overlay = document.getElementById('mobile-overlay');
-        const closeBtn = document.getElementById('mobile-close-btn');
+        // ─── BURGER + MOBILE MENU ───
+        const burgerBtn = document.getElementById('burgerBtn');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const closeBtn = document.getElementById('mobileCloseBtn');
 
-        function toggleMenu() { overlay.classList.toggle('open');
-            trigger.classList.toggle('open'); }
-        trigger.addEventListener('click', toggleMenu);
-        closeBtn.addEventListener('click', toggleMenu);
-        document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => { overlay.classList.remove('open');
-                trigger.classList.remove('open'); });
+        function openMenu() {
+            mobileOverlay.classList.add('open');
+            burgerBtn.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            mobileOverlay.classList.remove('open');
+            burgerBtn.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        burgerBtn.addEventListener('click', () => {
+            if (mobileOverlay.classList.contains('open')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
         });
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('open')) {
-                overlay.classList.remove('open');
-                trigger.classList.remove('open');
-            } });
+
+        closeBtn.addEventListener('click', closeMenu);
+
+        document.querySelectorAll('.mobile-link, .mobile-cta').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) {
+                closeMenu();
+            }
+        });
 
         // clock
         function updateClock() {
@@ -1586,9 +1695,7 @@
                 if (!targetEl) return;
                 e.preventDefault();
                 const navHeight = document.querySelector('.nav-sticky').offsetHeight;
-                const extraOffset = 0;
-                const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight -
-                    extraOffset;
+                const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight;
                 window.scrollTo({ top: Math.max(0, targetPosition), behavior: 'smooth' });
             });
         });
