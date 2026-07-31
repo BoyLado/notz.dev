@@ -1,1768 +1,2118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Notz.Dev | Shopify Systems Developer — Clean Code, Commerce</title>
-    <meta name="description" content="Web Developer Notz.Dev specializes in building fast, SEO-optimized, and user-friendly Shopify stores. View my portfolio to see how I bring ideas to life." />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notz.Dev | Shopify Systems Developer — Clean Code, Commerce</title>
+  <meta name="description" content="Web Developer Notz.Dev specializes in building fast, SEO-optimized, and user-friendly Shopify stores. View my portfolio to see how I bring ideas to life." />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-    <!-- Tailwind CSS via CDN -->
-    <script src="https://cdn.tailwindcss.com">
-    </script>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <style>
-        /* ═══════════════════════════════════════════════════════════════════════════
-           GLOBAL RESET & CSS VARIABLES
-           ═══════════════════════════════════════════════════════════════════════════ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <style>
+    /* ═══════════════════════════════════════════════════════════════════════════
+       GLOBAL RESET & CSS VARIABLES
+       ═══════════════════════════════════════════════════════════════════════════ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        :root {
-            --green: #2BD67B;
-            --green-dim: #1C9E5B;
-            --gold: #FBBF24;
-            --bg: #0A0C10;
-            --bg-elevated: #111418;
-            --card-bg: #0F1217;
-            --border: #1E252D;
-            --text: #EDF2F7;
-            --text-dim: #9AA4BF;
-            --text-muted: #5F6C84;
-            --code-bg: #0B0E13;
-        }
+    :root {
+      --green: #2BD67B;
+      --green-dim: #1C9E5B;
+      --gold: #FBBF24;
+      --bg: #0A0C10;
+      --bg-elevated: #111418;
+      --card-bg: #0F1217;
+      --border: #1E252D;
+      --text: #EDF2F7;
+      --text-dim: #9AA4BF;
+      --text-muted: #5F6C84;
+      --code-bg: #0B0E13;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.5;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        .font-mono {
-            font-family: 'JetBrains Mono', monospace;
-        }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
 
-        ::selection {
-            background: var(--green);
-            color: #0A0C10;
-        }
+    ::selection {
+      background: var(--green);
+      color: #0A0C10;
+    }
 
-        /* ═══════════════════════════════════════════════════════════════════════════
-           GLOBAL UTILITIES & CONTAINER
-           ═══════════════════════════════════════════════════════════════════════════ */
-        .container-custom {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 10;
-        }
+    /* ═══════════════════════════════════════════════════════════════════════════
+       GLOBAL UTILITIES & CONTAINER
+       ═══════════════════════════════════════════════════════════════════════════ */
+    .container-custom {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
 
-        /* ═══════════════════════════════════════════════════════════════════════════
-           SCROLL PROGRESS BAR
-           ═══════════════════════════════════════════════════════════════════════════ */
-        .scroll-progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: var(--green);
-            z-index: 9999;
-            width: 0%;
-            transition: width 0.1s linear;
-            box-shadow: 0 0 8px rgba(43, 214, 123, 0.5);
-        }
+    /* ═══════════════════════════════════════════════════════════════════════════
+       SCROLL PROGRESS BAR
+       ═══════════════════════════════════════════════════════════════════════════ */
+    .scroll-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: var(--green);
+      z-index: 9999;
+      width: 0%;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 8px rgba(43, 214, 123, 0.5);
+    }
 
-        /* ═══════════════════════════════════════════════════════════════════════════
-           BACKGROUND EFFECTS
-           ═══════════════════════════════════════════════════════════════════════════ */
-        .bg-glow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: radial-gradient(ellipse at 30% 35%,
-                    rgba(43, 214, 123, 0.08) 0%,
-                    rgba(43, 214, 123, 0.03) 35%,
-                    rgba(43, 214, 123, 0.01) 60%,
-                    transparent 80%);
-            pointer-events: none;
-            z-index: 1;
-        }
+    /* ═══════════════════════════════════════════════════════════════════════════
+       BACKGROUND EFFECTS
+       ═══════════════════════════════════════════════════════════════════════════ */
+    .bg-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(ellipse at 30% 35%,
+          rgba(43, 214, 123, 0.08) 0%,
+          rgba(43, 214, 123, 0.03) 35%,
+          rgba(43, 214, 123, 0.01) 60%,
+          transparent 80%);
+      pointer-events: none;
+      z-index: 1;
+    }
 
-        .noise-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            opacity: 0.025;
-            pointer-events: none;
-            z-index: 0;
-        }
+    .noise-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        /* ═══════════════════════════════════════════════════════════════════════════
-           SCROLL REVEAL ANIMATION (Global)
-           ═══════════════════════════════════════════════════════════════════════════ */
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .scroll-reveal.revealed {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    /* ═══════════════════════════════════════════════════════════════════════════
+       SCROLL REVEAL ANIMATION (Global)
+       ═══════════════════════════════════════════════════════════════════════════ */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .scroll-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-        /* ═══════════════════════════════════════════════════════════════════════════
-           SECTION SCROLL MARGIN (For sticky nav offset)
-           ═══════════════════════════════════════════════════════════════════════════ */
-        #work,
-        #services,
-        #skills,
-        #reviews,
-        #about,
-        #audit,
-        #contact {
-            scroll-margin-top: 82px;
-        }
+    /* ═══════════════════════════════════════════════════════════════════════════
+       SECTION SCROLL MARGIN (For sticky nav offset)
+       ═══════════════════════════════════════════════════════════════════════════ */
+    #work,
+    #services,
+    #technical-arsenal,
+    #reviews,
+    #about,
+    #audit,
+    #contact {
+      scroll-margin-top: 82px;
+    }
 
-        /* ═══════════════════════════════════════════════════════════════════════════
-           NAVIGATION
-           ═══════════════════════════════════════════════════════════════════════════ */
-        .nav-sticky {
-            position: sticky;
-            top: 0;
-            background: rgba(10, 12, 16, 0.92);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            z-index: 100;
-        }
+    /* ═══════════════════════════════════════════════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════════════════════════════════════════════ */
+    .nav-sticky {
+      position: sticky;
+      top: 0;
+      background: rgba(10, 12, 16, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
 
-        /* ═══════════════════════════════════════════════════════════════════════════
-           MOBILE MENU
-           ═══════════════════════════════════════════════════════════════════════════ */
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 100%;
-            max-width: 340px;
-            height: 100%;
-            background: rgba(10, 12, 16, 0.98);
-            backdrop-filter: blur(24px);
-            z-index: 200;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 2.5rem 2rem;
-            transform: translateX(100%);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            font-family: 'JetBrains Mono', monospace;
-            text-align: center;
-            border-left: 1px solid rgba(43, 214, 123, 0.10);
-            box-shadow: -20px 0 60px rgba(0, 0, 0, 0.5);
-        }
-        .mobile-menu.open {
-            transform: translateX(0);
-        }
-        .mobile-menu .close-btn {
-            position: absolute;
-            top: 24px;
-            right: 28px;
-            font-size: 2rem;
-            color: var(--text);
-            cursor: pointer;
-            background: none;
-            border: none;
-            line-height: 1;
-            transition: 0.3s;
-            font-family: inherit;
-        }
-        .mobile-menu .close-btn:hover {
-            color: var(--green);
-            transform: rotate(90deg);
-        }
-        .mobile-menu .mobile-link {
-            font-size: 1.1rem;
-            padding: 10px 0;
-            width: 100%;
-            max-width: 260px;
-            border-bottom: 1px solid rgba(30, 37, 45, 0.5);
-            color: var(--text);
-            text-decoration: none;
-            transition: color 0.25s, transform 0.25s;
-            display: block;
-            text-align: center;
-        }
-        .mobile-menu .mobile-link:hover {
-            color: var(--green);
-            transform: translateX(4px);
-        }
-        .mobile-menu .mobile-cta {
-            border: 1px solid var(--green);
-            background: transparent;
-            padding: 14px 28px;
-            border-radius: 30px;
-            color: var(--green);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-decoration: none;
-            width: 100%;
-            max-width: 260px;
-            text-align: center;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-        .mobile-menu .mobile-cta:hover {
-            background: rgba(43, 214, 123, 0.08);
-            transform: translateX(4px);
-        }
+    /* ═══════════════════════════════════════════════════════════════════════════
+       MOBILE MENU
+       ═══════════════════════════════════════════════════════════════════════════ */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      max-width: 340px;
+      height: 100%;
+      background: rgba(10, 12, 16, 0.98);
+      backdrop-filter: blur(24px);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 2.5rem 2rem;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: 'JetBrains Mono', monospace;
+      text-align: center;
+      border-left: 1px solid rgba(43, 214, 123, 0.10);
+      box-shadow: -20px 0 60px rgba(0, 0, 0, 0.5);
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+    .mobile-menu .close-btn {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      font-size: 2rem;
+      color: var(--text);
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+      transition: 0.3s;
+      font-family: inherit;
+    }
+    .mobile-menu .close-btn:hover {
+      color: var(--green);
+      transform: rotate(90deg);
+    }
+    .mobile-menu .mobile-link {
+      font-size: 1.1rem;
+      padding: 10px 0;
+      width: 100%;
+      max-width: 260px;
+      border-bottom: 1px solid rgba(30, 37, 45, 0.5);
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.25s, transform 0.25s;
+      display: block;
+      text-align: center;
+    }
+    .mobile-menu .mobile-link:hover {
+      color: var(--green);
+      transform: translateX(4px);
+    }
+    .mobile-menu .mobile-cta {
+      border: 1px solid var(--green);
+      background: transparent;
+      padding: 14px 28px;
+      border-radius: 30px;
+      color: var(--green);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      width: 100%;
+      max-width: 260px;
+      text-align: center;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+    .mobile-menu .mobile-cta:hover {
+      background: rgba(43, 214, 123, 0.08);
+      transform: translateX(4px);
+    }
 
-        /* ─── BURGER BUTTON ─── */
-        .burger-btn {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 6px 4px;
-            border: none;
-            background: none;
-            outline: none;
-            position: relative;
-            z-index: 250;
-            transition: all 0.3s ease;
-        }
-        .burger-btn .line {
-            display: block;
-            width: 26px;
-            height: 2.5px;
-            background: var(--green);
-            border-radius: 3px;
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-origin: center;
-        }
-        .burger-btn .line:nth-child(1) {
-            width: 26px;
-        }
-        .burger-btn .line:nth-child(2) {
-            width: 20px;
-        }
-        .burger-btn .line:nth-child(3) {
-            width: 26px;
-        }
-        .burger-btn.open .line:nth-child(1) {
-            transform: translateY(7.5px) rotate(45deg);
-            width: 26px;
-        }
-        .burger-btn.open .line:nth-child(2) {
-            opacity: 0;
-            transform: scaleX(0);
-            width: 26px;
-        }
-        .burger-btn.open .line:nth-child(3) {
-            transform: translateY(-7.5px) rotate(-45deg);
-            width: 26px;
-        }
+    /* ─── BURGER BUTTON ─── */
+    .burger-btn {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px 4px;
+      border: none;
+      background: none;
+      outline: none;
+      position: relative;
+      z-index: 250;
+      transition: all 0.3s ease;
+    }
+    .burger-btn .line {
+      display: block;
+      width: 26px;
+      height: 2.5px;
+      background: var(--green);
+      border-radius: 3px;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: center;
+    }
+    .burger-btn .line:nth-child(1) {
+      width: 26px;
+    }
+    .burger-btn .line:nth-child(2) {
+      width: 20px;
+    }
+    .burger-btn .line:nth-child(3) {
+      width: 26px;
+    }
+    .burger-btn.open .line:nth-child(1) {
+      transform: translateY(7.5px) rotate(45deg);
+      width: 26px;
+    }
+    .burger-btn.open .line:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+      width: 26px;
+    }
+    .burger-btn.open .line:nth-child(3) {
+      transform: translateY(-7.5px) rotate(-45deg);
+      width: 26px;
+    }
 
-        @media (max-width: 600px) {
-            .mobile-menu {
-                max-width: 100%;
-            }
-        }
+    @media (max-width: 600px) {
+      .mobile-menu {
+        max-width: 100%;
+      }
+    }
 
-        /* ═══════════════════════════════════════════════════════════════════════════
-        HERO SECTION (with background image + brighter elements)
-        ═══════════════════════════════════════════════════════════════════════════ */
-        .hero-animate {
-            opacity: 0;
-            animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .hero-animate.delay-1 { animation-delay: 0.05s; }
-        .hero-animate.delay-2 { animation-delay: 0.25s; }
-        .hero-animate.delay-3 { animation-delay: 0.4s; }
-        .hero-animate.delay-4 { animation-delay: 0.55s; }
-        .hero-animate.delay-5 { animation-delay: 0.7s; }
-        @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
+    /* ═══════════════════════════════════════════════════════════════════════════
+    HERO SECTION (with background image + brighter elements)
+    ═══════════════════════════════════════════════════════════════════════════ */
+    .hero-animate {
+      opacity: 0;
+      animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .hero-animate.delay-1 { animation-delay: 0.05s; }
+    .hero-animate.delay-2 { animation-delay: 0.25s; }
+    .hero-animate.delay-3 { animation-delay: 0.4s; }
+    .hero-animate.delay-4 { animation-delay: 0.55s; }
+    .hero-animate.delay-5 { animation-delay: 0.7s; }
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
 
-        .hero-pre-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: clamp(0.6rem, 1.2vw, 0.8rem);
-            letter-spacing: 0.15em;
-            color: var(--green);
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-            opacity: 0.9;
-        }
+    .hero-pre-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(0.6rem, 1.2vw, 0.8rem);
+      letter-spacing: 0.15em;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      opacity: 0.9;
+    }
 
-        .hero-headline {
-            font-size: clamp(1.85rem, 5.5vw, 4.2rem);
-            line-height: 1.12;
-            letter-spacing: -0.04em;
-        }
-        .hero-headline .highlight {
-            background: linear-gradient(135deg, #2BD67B, #40e08a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            filter: brightness(1.1);
-        }
+    .hero-headline {
+      font-size: clamp(1.85rem, 5.5vw, 4.2rem);
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+    }
+    .hero-headline .highlight {
+      background: linear-gradient(135deg, #2BD67B, #40e08a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: brightness(1.1);
+    }
 
-        .hero-sub-text {
-            font-size: clamp(1rem, 1.2vw, 1.2rem);
-            line-height: 1.7;
-            color: #c0c8d8;
-            max-width: 580px;
-        }
+    .hero-sub-text {
+      font-size: clamp(1rem, 1.2vw, 1.2rem);
+      line-height: 1.7;
+      color: #c0c8d8;
+      max-width: 580px;
+    }
 
-        /* Hero Buttons */
-        @keyframes fireflyPulse {
-            0% { box-shadow: 0 0 0 0 rgba(43, 214, 123, 0.9), 0 0 12px rgba(43, 214, 123, 0.6); }
-            50% { box-shadow: 0 0 0 16px rgba(43, 214, 123, 0), 0 0 26px rgba(43, 214, 123, 0.9); }
-            100% { box-shadow: 0 0 0 0 rgba(43, 214, 123, 0.9), 0 0 12px rgba(43, 214, 123, 0.6); }
-        }
-        .hero-btn-primary {
-            background: #2BD67B;
-            color: #0A0C10;
-            font-weight: 700;
-            padding: 16px 38px;
-            border-radius: 40px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
-            letter-spacing: 0.04em;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 0 0 0 rgba(43, 214, 123, 0);
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            animation: fireflyPulse 2.2s infinite ease-in-out;
-        }
-        .hero-btn-primary:hover {
-            animation: none;
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 14px 34px -10px rgba(43, 214, 123, 0.7), 0 0 0 3px rgba(43, 214, 123, 0.4);
-            background: #1C9E5B;
-        }
-        .hero-btn-secondary {
-            border: 1px solid rgba(43, 214, 123, 0.5);
-            padding: 15px 34px;
-            border-radius: 40px;
-            color: #2BD67B;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
-            letter-spacing: 0.04em;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            background: rgba(43, 214, 123, 0.06);
-            backdrop-filter: blur(4px);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .hero-btn-secondary:hover {
-            background: rgba(43, 214, 123, 0.15);
-            border-color: #2BD67B;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 28px -12px rgba(43, 214, 123, 0.4);
-        }
+    /* Hero Buttons */
+    @keyframes fireflyPulse {
+      0% { box-shadow: 0 0 0 0 rgba(43, 214, 123, 0.9), 0 0 12px rgba(43, 214, 123, 0.6); }
+      50% { box-shadow: 0 0 0 16px rgba(43, 214, 123, 0), 0 0 26px rgba(43, 214, 123, 0.9); }
+      100% { box-shadow: 0 0 0 0 rgba(43, 214, 123, 0.9), 0 0 12px rgba(43, 214, 123, 0.6); }
+    }
+    .hero-btn-primary {
+      background: #2BD67B;
+      color: #0A0C10;
+      font-weight: 700;
+      padding: 16px 38px;
+      border-radius: 40px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 0 0 rgba(43, 214, 123, 0);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      animation: fireflyPulse 2.2s infinite ease-in-out;
+    }
+    .hero-btn-primary:hover {
+      animation: none;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 14px 34px -10px rgba(43, 214, 123, 0.7), 0 0 0 3px rgba(43, 214, 123, 0.4);
+      background: #1C9E5B;
+    }
+    .hero-btn-secondary {
+      border: 1px solid rgba(43, 214, 123, 0.5);
+      padding: 15px 34px;
+      border-radius: 40px;
+      color: #2BD67B;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      background: rgba(43, 214, 123, 0.06);
+      backdrop-filter: blur(4px);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .hero-btn-secondary:hover {
+      background: rgba(43, 214, 123, 0.15);
+      border-color: #2BD67B;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px -12px rgba(43, 214, 123, 0.4);
+    }
 
-        /* ═══ HERO SECTION WITH BACKGROUND IMAGE ═══ */
-        .hero-section {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            background-image: url('hero-background.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            overflow: hidden;
-        }
+    /* ═══ HERO SECTION WITH BACKGROUND IMAGE ═══ */
+    .hero-section {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background-image: url('hero-background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      overflow: hidden;
+    }
 
-        /* Overlay para visible pa rin ang background image (mas light kesa dati) */
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                135deg,
-                rgba(10, 12, 16, 0.75) 0%,
-                rgba(10, 12, 16, 0.55) 35%,
-                rgba(10, 12, 16, 0.4) 65%,
-                rgba(10, 12, 16, 0.25) 100%
-            );
-            z-index: 1;
-        }
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        135deg,
+        rgba(10, 12, 16, 0.75) 0%,
+        rgba(10, 12, 16, 0.55) 35%,
+        rgba(10, 12, 16, 0.4) 65%,
+        rgba(10, 12, 16, 0.25) 100%
+      );
+      z-index: 1;
+    }
 
-        /* Dark room atmosphere glow (on top of overlay) */
-        .hero-dark-room {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(ellipse at 75% 45%, rgba(43, 214, 123, 0.12) 0%, transparent 50%),
-                radial-gradient(ellipse at 20% 80%, rgba(43, 214, 123, 0.06) 0%, transparent 40%);
-            pointer-events: none;
-            z-index: 2;
-        }
+    .hero-dark-room {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(ellipse at 75% 45%, rgba(43, 214, 123, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 20% 80%, rgba(43, 214, 123, 0.06) 0%, transparent 40%);
+      pointer-events: none;
+      z-index: 2;
+    }
 
-        /* Grain overlay */
-        .hero-grain {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            opacity: 0.04;
-            pointer-events: none;
-            z-index: 3;
-        }
+    .hero-grain {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 3;
+    }
 
-        /* Glow accent - BRIGHTER */
-        .hero-accent-glow {
-            position: absolute;
-            top: -30%;
-            right: -20%;
-            width: 700px;
-            height: 700px;
-            background: radial-gradient(circle, rgba(43, 214, 123, 0.14) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 4;
-        }
+    .hero-accent-glow {
+      position: absolute;
+      top: -30%;
+      right: -20%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(43, 214, 123, 0.14) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 4;
+    }
 
-        /* Stats bar - Mobile First */
-        .hero-stats {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(43, 214, 123, 0.18);
-            width: 100%;
-        }
-        .hero-stat-item {
-            text-align: center;
-            flex: 0 0 auto;
-            min-width: 70px;
-        }
-        .hero-stat-number {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #2BD67B;
-            line-height: 1;
-        }
-        .hero-stat-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.5rem;
-            color: #7a829c;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 4px;
-        }
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(43, 214, 123, 0.18);
+      width: 100%;
+    }
+    .hero-stat-item {
+      text-align: center;
+      flex: 0 0 auto;
+      min-width: 70px;
+    }
+    .hero-stat-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #2BD67B;
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5rem;
+      color: #7a829c;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 4px;
+    }
 
-        /* ═══ RESPONSIVE ═══ */
-        @media (min-width: 480px) {
-            .hero-stat-item {
-                min-width: 80px;
-            }
-            .hero-stat-number {
-                font-size: 1.4rem;
-            }
-            .hero-stat-label {
-                font-size: 0.58rem;
-            }
-            .hero-stats {
-                gap: 2rem;
-            }
-        }
+    @media (min-width: 480px) {
+      .hero-stat-item { min-width: 80px; }
+      .hero-stat-number { font-size: 1.4rem; }
+      .hero-stat-label { font-size: 0.58rem; }
+      .hero-stats { gap: 2rem; }
+    }
+    @media (min-width: 640px) {
+      .hero-stats { justify-content: flex-start; }
+      .hero-stat-number { font-size: 1.6rem; }
+    }
+    @media (max-width: 768px) {
+      .hero-section { min-height: auto; padding-top: 6rem; padding-bottom: 4rem; }
+      .hero-overlay {
+        background: linear-gradient(180deg, rgba(10,12,16,0.85) 0%, rgba(10,12,16,0.7) 50%, rgba(10,12,16,0.55) 100%);
+      }
+    }
+    @media (max-width: 480px) {
+      .hero-btn-primary, .hero-btn-secondary { width: 100%; justify-content: center; padding: 14px 24px; font-size: 0.7rem; }
+      .hero-stat-item { min-width: 60px; }
+      .hero-stat-number { font-size: 1.1rem; }
+      .hero-stat-label { font-size: 0.45rem; }
+      .hero-stats { gap: 1rem; }
+    }
 
-        @media (min-width: 640px) {
-            .hero-stats {
-                justify-content: flex-start;
-            }
-            .hero-stat-number {
-                font-size: 1.6rem;
-            }
-        }
+    /* ═══════════════════════════════════════════════════════════════════════════
+       SERVICES SECTION
+       ═══════════════════════════════════════════════════════════════════════════ */
+    .service-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(43, 214, 123, 0.06);
+      border: 1px solid rgba(43, 214, 123, 0.10);
+      color: var(--green);
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+    .service-icon svg {
+      width: 26px;
+      height: 26px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .service-card:hover .service-icon {
+      background: rgba(43, 214, 123, 0.12);
+      border-color: rgba(43, 214, 123, 0.25);
+      transform: scale(1.04);
+    }
+    .service-icon-wrap {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
 
-        @media (max-width: 768px) {
-            .hero-section {
-                min-height: auto;
-                padding-top: 6rem;
-                padding-bottom: 4rem;
-            }
-            .hero-overlay {
-                background: linear-gradient(
-                    180deg,
-                    rgba(10, 12, 16, 0.85) 0%,
-                    rgba(10, 12, 16, 0.7) 50%,
-                    rgba(10, 12, 16, 0.55) 100%
-                );
-            }
-        }
+    /* ═══════════════════════════════════════════════════════════════════════════
+       PROJECTS / CASE STUDIES SECTION
+       ═══════════════════════════════════════════════════════════════════════════ */
+    .project-row {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 32px 32px 36px 32px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .project-row:hover {
+      border-color: rgba(43, 214, 123, 0.30);
+      box-shadow: 0 20px 50px -18px rgba(43, 214, 123, 0.12), 0 0 0 1px rgba(43, 214, 123, 0.05);
+      transform: translateY(-4px);
+    }
+    .project-row .row-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 44px;
+      align-items: start;
+    }
+    .project-row.reverse .row-inner {
+      direction: rtl;
+    }
+    .project-row.reverse .row-inner .project-content {
+      direction: ltr;
+    }
+    .project-row.reverse .row-inner .project-image-wrap {
+      direction: ltr;
+    }
 
-        @media (max-width: 480px) {
-            .hero-btn-primary,
-            .hero-btn-secondary {
-                width: 100%;
-                justify-content: center;
-                padding: 14px 24px;
-                font-size: 0.7rem;
-            }
-            .hero-stat-item {
-                min-width: 60px;
-            }
-            .hero-stat-number {
-                font-size: 1.1rem;
-            }
-            .hero-stat-label {
-                font-size: 0.45rem;
-            }
-            .hero-stats {
-                gap: 1rem;
-            }
-        }
+    .project-row .project-image-wrap {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #0A0C10;
+    }
+    .project-row .project-image-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .project-row:hover .project-image-wrap img {
+      transform: scale(1.02);
+    }
 
-        /* ═══════════════════════════════════════════════════════════════════════════
-           SERVICES SECTION
-           ═══════════════════════════════════════════════════════════════════════════ */
-        .service-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 52px;
-            height: 52px;
-            border-radius: 14px;
-            background: rgba(43, 214, 123, 0.06);
-            border: 1px solid rgba(43, 214, 123, 0.10);
-            color: var(--green);
-            flex-shrink: 0;
-            transition: all 0.3s ease;
-        }
-        .service-icon svg {
-            width: 26px;
-            height: 26px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 1.8;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-        .service-card:hover .service-icon {
-            background: rgba(43, 214, 123, 0.12);
-            border-color: rgba(43, 214, 123, 0.25);
-            transform: scale(1.04);
-        }
-        .service-icon-wrap {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-        }
+    .project-row .project-image-wrap .image-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 44px 30px 30px 30px;
+      background: linear-gradient(0deg, 
+        rgba(0,0,0,0.92) 0%, 
+        rgba(0,0,0,0.75) 30%, 
+        rgba(0,0,0,0.45) 55%, 
+        rgba(0,0,0,0.15) 80%, 
+        transparent 100%
+      );
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+    .project-row:hover .project-image-wrap .image-overlay {
+      background: linear-gradient(0deg, 
+        rgba(0,0,0,0.95) 0%, 
+        rgba(0,0,0,0.80) 30%, 
+        rgba(0,0,0,0.50) 55%, 
+        rgba(0,0,0,0.20) 80%, 
+        transparent 100%
+      );
+    }
+    .project-row .project-image-wrap .image-overlay .overlay-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      text-shadow: 0 2px 24px rgba(0,0,0,0.8);
+    }
+    .project-row .project-image-wrap .image-overlay .overlay-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      color: var(--green);
+      font-weight: 500;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.7);
+    }
+    .project-row .project-image-wrap .image-overlay .overlay-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--green);
+      background: rgba(43, 214, 123, 0.20);
+      border: 1px solid rgba(43, 214, 123, 0.30);
+      padding: 2px 14px;
+      border-radius: 30px;
+      display: inline-block;
+      width: fit-content;
+      margin-top: 4px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+    }
 
-        /* ═══════════════════════════════════════════════════════════════════════════
-           PROJECTS / CASE STUDIES SECTION
-           ═══════════════════════════════════════════════════════════════════════════ */
-        .project-row {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 28px;
-            padding: 32px 32px 36px 32px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .project-row:hover {
-            border-color: rgba(43, 214, 123, 0.30);
-            box-shadow: 0 20px 50px -18px rgba(43, 214, 123, 0.12), 0 0 0 1px rgba(43, 214, 123, 0.05);
-            transform: translateY(-4px);
-        }
-        .project-row .row-inner {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 44px;
-            align-items: start;
-        }
-        .project-row.reverse .row-inner {
-            direction: rtl;
-        }
-        .project-row.reverse .row-inner .project-content {
-            direction: ltr;
-        }
-        .project-row.reverse .row-inner .project-image {
-            direction: ltr;
-        }
-        .project-row .project-title-section {
-            grid-column: 1 / -1;
-            margin-bottom: 28px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            text-align: center;
-        }
-        .project-row .project-title-section .project-tag {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--green);
-            background: rgba(43, 214, 123, 0.10);
-            border: 1px solid rgba(43, 214, 123, 0.15);
-            padding: 4px 14px;
-            border-radius: 30px;
-            display: inline-block;
-            flex-shrink: 0;
-            text-align: center;
-        }
-        .project-row .project-title-section .project-tag.hero-tag {
-            font-size: 0.65rem;
-            padding: 5px 18px;
-        }
-        .project-row .project-title-section .project-title {
-            font-size: clamp(1.6rem, 2.6vw, 2.3rem);
-            font-weight: 700;
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--text);
-            letter-spacing: -0.03em;
-            line-height: 1.15;
-            margin: 0;
-            text-align: center;
-        }
-        .project-row .project-title-section .project-title .highlight {
-            font-size: clamp(1rem, 1.5vw, 1.25rem);
-            display: block;
-            margin-top: 4px;
-            color: var(--green);
-        }
-        .project-row .project-image img {
-            border-radius: 20px;
-            width: 100%;
-            height: auto;
-            display: block;
-            box-shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.6);
-            transition: transform 0.3s ease;
-        }
-        .project-row:hover .project-image img {
-            transform: scale(1.01);
-        }
-        .project-row .project-problem {
-            font-size: 0.92rem;
-            color: var(--text-dim);
-            line-height: 1.7;
-            padding-left: 16px;
-            border-left: 3px solid #f87171;
-            margin: 0 0 14px 0;
-        }
-        .project-row .project-problem strong {
-            color: var(--text);
-            font-weight: 600;
-        }
-        .project-row .project-features {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px 18px;
-            list-style: none;
-            padding: 0;
-            margin: 0 0 16px 0;
-        }
-        .project-row .project-features li {
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            position: relative;
-            padding-left: 22px;
-            line-height: 1.6;
-        }
-        .project-row .project-features li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--green);
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-        .project-row .project-tech-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 0 0 14px 0;
-        }
-        .project-row .project-tech-tags span {
-            background: rgba(43, 214, 123, 0.06);
-            border: 1px solid rgba(43, 214, 123, 0.10);
-            padding: 4px 16px;
-            border-radius: 30px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.6rem;
-            color: var(--text-dim);
-            letter-spacing: 0.04em;
-            transition: all 0.2s;
-        }
-        .project-row .project-tech-tags span:hover {
-            background: rgba(43, 214, 123, 0.12);
-            border-color: rgba(43, 214, 123, 0.25);
-            color: var(--green);
-        }
-        .project-row .project-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--green);
-            text-decoration: none;
-            border-bottom: 1.5px solid rgba(43, 214, 123, 0.2);
-            padding-bottom: 2px;
-            transition: all 0.25s;
-            width: fit-content;
-        }
-        .project-row .project-cta:hover {
-            border-bottom-color: var(--green);
-            gap: 12px;
-        }
-        .project-row .project-cta svg {
-            width: 16px;
-            height: 16px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2.5;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            transition: transform 0.2s;
-        }
-        .project-row .project-cta:hover svg {
-            transform: translateX(4px);
-        }
+    .project-row .project-problem {
+      font-size: 0.92rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+      padding-left: 16px;
+      border-left: 3px solid #f87171;
+      margin: 0 0 14px 0;
+    }
+    .project-row .project-problem strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .project-row .project-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 18px;
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px 0;
+    }
+    .project-row .project-features li {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      position: relative;
+      padding-left: 22px;
+      line-height: 1.6;
+    }
+    .project-row .project-features li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .project-row .project-tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 14px 0;
+    }
+    .project-row .project-tech-tags span {
+      background: rgba(43, 214, 123, 0.06);
+      border: 1px solid rgba(43, 214, 123, 0.10);
+      padding: 4px 16px;
+      border-radius: 30px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--text-dim);
+      letter-spacing: 0.04em;
+      transition: all 0.2s;
+    }
+    .project-row .project-tech-tags span:hover {
+      background: rgba(43, 214, 123, 0.12);
+      border-color: rgba(43, 214, 123, 0.25);
+      color: var(--green);
+    }
+    .project-row .project-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--green);
+      text-decoration: none;
+      border-bottom: 1.5px solid rgba(43, 214, 123, 0.2);
+      padding-bottom: 2px;
+      transition: all 0.25s;
+      width: fit-content;
+    }
+    .project-row .project-cta:hover {
+      border-bottom-color: var(--green);
+      gap: 12px;
+    }
+    .project-row .project-cta svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.2s;
+    }
+    .project-row .project-cta:hover svg {
+      transform: translateX(4px);
+    }
 
-        @media (max-width: 1024px) {
-            .project-row .row-inner {
-                grid-template-columns: 1fr;
-                gap: 28px;
-            }
-            .project-row.reverse .row-inner {
-                direction: ltr;
-            }
-            .project-row.reverse .row-inner .project-content {
-                direction: ltr;
-            }
-            .project-row.reverse .row-inner .project-image {
-                direction: ltr;
-            }
-            .project-row .project-features {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
+    @media (max-width: 1024px) {
+      .project-row .row-inner {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .project-row.reverse .row-inner {
+        direction: ltr;
+      }
+      .project-row.reverse .row-inner .project-content {
+        direction: ltr;
+      }
+      .project-row.reverse .row-inner .project-image-wrap {
+        direction: ltr;
+      }
+      .project-row .project-features {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
 
-        @media (max-width: 640px) {
-            .project-row {
-                padding: 24px 18px 28px 18px;
-                border-radius: 20px;
-            }
-            .project-row .row-inner {
-                gap: 24px;
-            }
-            .project-row .project-title-section {
-                gap: 8px;
-                margin-bottom: 20px;
-            }
-            .project-row .project-title-section .project-title {
-                font-size: 1.3rem;
-            }
-            .project-row .project-title-section .project-title .highlight {
-                font-size: 0.95rem;
-            }
-            .project-row .project-features {
-                grid-template-columns: 1fr;
-                gap: 4px;
-            }
-            .project-row .project-problem {
-                font-size: 0.82rem;
-                padding-left: 12px;
-            }
-            .project-row .project-tech-tags span {
-                font-size: 0.55rem;
-                padding: 3px 12px;
-            }
-        }
+    @media (max-width: 640px) {
+      .project-row {
+        padding: 24px 18px 28px 18px;
+        border-radius: 20px;
+      }
+      .project-row .row-inner {
+        gap: 24px;
+      }
+      .project-row .project-features {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+      .project-row .project-problem {
+        font-size: 0.82rem;
+        padding-left: 12px;
+      }
+      .project-row .project-tech-tags span {
+        font-size: 0.55rem;
+        padding: 3px 12px;
+      }
+      .project-row .project-image-wrap .image-overlay .overlay-title {
+        font-size: 1.2rem;
+      }
+      .project-row .project-image-wrap .image-overlay .overlay-sub {
+        font-size: 0.8rem;
+      }
+      .project-row .project-image-wrap .image-overlay {
+        padding: 32px 18px 18px 18px;
+      }
+    }
 
-        /* ═══════════════════════════════════════════════════════════════════════════
-           SKILLS / TECHNICAL ARSENAL SECTION
-           ═══════════════════════════════════════════════════════════════════════════ */
-        @media (min-width: 1024px) {
-            #skills {
-                min-height: 100vh;
-                padding-top: 80px;
-                padding-bottom: 80px;
-            }
-        }
+    /* ═══════════════════════════════════════════════════════════════════════════
+       SKILLS / TECHNICAL ARSENAL SECTION
+       ═══════════════════════════════════════════════════════════════════════════ */
+    @media (min-width: 1024px) {
+      #technical-arsenal {
+        min-height: 100vh;
+        padding-top: 80px;
+        padding-bottom: 80px;
+      }
+    }
 
-        /* ═══════════════════════════════════════════════════════════════════════════
-           REVIEWS / TESTIMONIALS SECTION
-           ═══════════════════════════════════════════════════════════════════════════ */
-        .testimonial-spotlight {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 40px 34px 32px 34px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        .testimonial-spotlight:hover {
-            border-color: rgba(43, 214, 123, 0.35);
-            transform: translateY(-5px);
-            box-shadow: 0 24px 48px -18px rgba(43, 214, 123, 0.16), 0 0 0 1px rgba(43, 214, 123, 0.06);
-        }
-        .testimonial-spotlight .quote-mark {
-            position: absolute;
-            top: 18px;
-            right: 26px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 5.5rem;
-            line-height: 1;
-            color: var(--green);
-            opacity: 0.07;
-            pointer-events: none;
-            user-select: none;
-        }
-        .testimonial-spotlight .review-text {
-            font-size: 1.05rem;
-            line-height: 1.75;
-            color: var(--text);
-            font-style: italic;
-            position: relative;
-            z-index: 2;
-            flex-grow: 1;
-        }
-        .testimonial-spotlight .review-footer {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-top: 28px;
-            padding-top: 22px;
-            border-top: 1px solid var(--border);
-        }
-        .testimonial-spotlight .review-avatar {
-            width: 54px;
-            height: 54px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid rgba(43, 214, 123, 0.3);
-            flex-shrink: 0;
-        }
-        .testimonial-spotlight .review-avatar-fallback {
-            width: 54px;
-            height: 54px;
-            border-radius: 50%;
-            background: var(--bg-elevated);
-            border: 2px solid rgba(43, 214, 123, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
-            color: var(--green);
-            font-size: 1rem;
-            flex-shrink: 0;
-        }
-        .testimonial-spotlight .review-meta h4 {
-            color: var(--text);
-            font-weight: 600;
-            font-size: 0.92rem;
-        }
-        .testimonial-spotlight .review-meta p {
-            color: var(--text-muted);
-            font-size: 0.78rem;
-            margin-top: 1px;
-        }
-        .testimonial-spotlight .verified-pill {
-            margin-left: auto;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.55rem;
-            color: var(--green);
-            background: rgba(43, 214, 123, 0.1);
-            border: 1px solid rgba(43, 214, 123, 0.2);
-            padding: 4px 10px;
-            border-radius: 20px;
-            letter-spacing: 0.04em;
-            white-space: nowrap;
-            flex-shrink: 0;
-            align-self: flex-start;
-        }
+    /* ═══════════════════════════════════════════════════════════════════════════
+       REVIEWS / TESTIMONIALS SECTION — ULTRA PREMIUM REFINEMENT
+       ═══════════════════════════════════════════════════════════════════════════ */
+    
+    /* Premium background texture with subtle blueprint/code elements */
+    .reviews-premium-bg {
+      position: relative;
+      background: #0B0E13;
+      overflow: hidden;
+    }
+    .reviews-premium-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        /* Blueprint grid lines — ultra subtle */
+        linear-gradient(rgba(43, 214, 123, 0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(43, 214, 123, 0.012) 1px, transparent 1px),
+        /* Spacing guides */
+        radial-gradient(circle at 20% 30%, rgba(43, 214, 123, 0.008) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(43, 214, 123, 0.006) 0%, transparent 40%),
+        /* Abstract code fragments */
+        repeating-linear-gradient(45deg, 
+          transparent 0px, 
+          transparent 40px, 
+          rgba(43, 214, 123, 0.005) 40px, 
+          rgba(43, 214, 123, 0.005) 41px
+        );
+      background-size: 60px 60px, 60px 60px, 100% 100%, 100% 100%, 100% 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    /* Additional subtle code-like elements */
+    .reviews-premium-bg::after {
+      content: '{ "schema": "shopify", "liquid": "{{ section.settings }}" } /* @import */ .container { display: flex; }';
+      position: absolute;
+      bottom: 20px;
+      right: 40px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.4rem;
+      color: rgba(43, 214, 123, 0.04);
+      letter-spacing: 0.2em;
+      pointer-events: none;
+      white-space: pre;
+      line-height: 1.8;
+      text-align: right;
+      z-index: 0;
+      max-width: 300px;
+    }
 
-        /* ═══════════════════════════════════════════════════════════════════════════
-           STORE AUDIT SECTION
-           ═══════════════════════════════════════════════════════════════════════════ */
-        .audit-benefit-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            padding: 18px 20px;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            transition: all 0.3s ease;
-        }
-        .audit-benefit-item:hover {
-            border-color: rgba(43, 214, 123, 0.3);
-            background: var(--bg-elevated);
-            transform: translateX(4px);
-        }
-        .audit-benefit-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: rgba(43, 214, 123, 0.08);
-            border: 1px solid rgba(43, 214, 123, 0.15);
-            flex-shrink: 0;
-            color: var(--green);
-        }
-        .audit-benefit-icon svg {
-            width: 22px;
-            height: 22px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 1.8;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
+    /* Premium Testimonial Cards */
+    .testimonial-premium {
+      background: var(--card-bg);
+      border: 1px solid rgba(30, 37, 45, 0.6);
+      border-radius: 24px;
+      padding: 40px 34px 32px 34px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+    .testimonial-premium::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(43, 214, 123, 0.15), transparent);
+      opacity: 0.5;
+    }
+    /* Subtle glass reflection */
+    .testimonial-premium::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at 70% 20%, rgba(255,255,255,0.015) 0%, transparent 60%);
+      pointer-events: none;
+      border-radius: 50%;
+    }
+    .testimonial-premium:hover {
+      border-color: rgba(43, 214, 123, 0.25);
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 24px 60px -18px rgba(43, 214, 123, 0.12), 0 0 0 1px rgba(43, 214, 123, 0.06);
+    }
 
-        /* Audit Form Styles */
-        .audit-form input,
-        .audit-form textarea,
-        .audit-form select {
-            width: 100%;
-            padding: 14px 18px;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            transition: all 0.25s ease;
-            outline: none;
-        }
-        .audit-form input:focus,
-        .audit-form textarea:focus,
-        .audit-form select:focus {
-            border-color: var(--green);
-            box-shadow: 0 0 0 3px rgba(43, 214, 123, 0.1);
-            background: var(--bg-elevated);
-        }
-        .audit-form textarea {
-            resize: vertical;
-            min-height: 110px;
-        }
-        .audit-form select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%239AA4BF'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 16px center;
-            cursor: pointer;
-        }
+    /* Decorative oversized quotation mark */
+    .testimonial-premium .quote-mark {
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 5.5rem;
+      line-height: 1;
+      color: var(--green);
+      opacity: 0.05;
+      pointer-events: none;
+      user-select: none;
+      font-weight: 700;
+    }
 
-        .audit-submit-btn {
-            width: 100%;
-            padding: 16px 24px;
-            background: var(--green);
-            color: #0A0C10;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            border: none;
-            border-radius: 14px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .audit-submit-btn:hover {
-            background: var(--green-dim);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px -10px rgba(43, 214, 123, 0.4);
-        }
+    /* Premium Video Wrapper */
+    .testimonial-premium .video-wrapper {
+      position: relative;
+      z-index: 10;
+      margin-bottom: 1.25rem;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #000;
+      width: 100%;
+      aspect-ratio: 16/9;
+      flex-shrink: 0;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+    /* Cinematic dark overlay */
+    .testimonial-premium .video-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0.30) 100%);
+      pointer-events: none;
+      z-index: 1;
+      border-radius: 16px;
+    }
+    /* Radial vignette */
+    .testimonial-premium .video-wrapper .vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.25) 100%);
+      pointer-events: none;
+      z-index: 2;
+      border-radius: 16px;
+    }
+    .testimonial-premium .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      cursor: pointer;
+      display: block;
+      background: #000;
+      position: relative;
+      z-index: 0;
+    }
 
-        .form-success {
-            display: none;
-            text-align: center;
-            padding: 40px 20px;
-        }
-        .form-success.show {
-            display: block;
-            animation: fadeUp 0.5s ease forwards;
-        }
-    </style>
+    /* Premium Glass Play Button */
+    .testimonial-premium .play-btn {
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 0;
+      border-radius: 50%;
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      transition: all 0.3s ease;
+    }
+    .testimonial-premium .play-btn .play-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(43, 214, 123, 0.92);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 8px 32px rgba(43, 214, 123, 0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .testimonial-premium .play-btn:hover .play-icon {
+      transform: scale(1.08);
+      box-shadow: 0 12px 48px rgba(43, 214, 123, 0.4), inset 0 1px 0 rgba(255,255,255,0.25);
+      background: #2BD67B;
+    }
+    .testimonial-premium .play-btn .play-icon svg {
+      width: 32px;
+      height: 32px;
+      color: #0A0C10;
+      margin-left: 4px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+    .testimonial-premium .video-wrapper.playing .play-btn {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Duration badge */
+    .testimonial-premium .duration-badge {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      z-index: 6;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.7);
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(8px);
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.06);
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .testimonial-premium .duration-badge svg {
+      width: 12px;
+      height: 12px;
+      fill: rgba(255,255,255,0.6);
+    }
+
+    /* Review text with keyword highlighting */
+    .testimonial-premium .review-text {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text);
+      font-style: italic;
+      position: relative;
+      z-index: 2;
+      flex-grow: 1;
+    }
+    .testimonial-premium .review-text .highlight-keyword {
+      color: var(--green);
+      font-weight: 600;
+      font-style: normal;
+    }
+
+    /* Client info with verified badge */
+    .testimonial-premium .review-footer {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(30, 37, 45, 0.5);
+    }
+    .testimonial-premium .review-avatar {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(43, 214, 123, 0.25);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .testimonial-premium .review-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .testimonial-premium .review-avatar-fallback {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--bg-elevated);
+      border: 2px solid rgba(43, 214, 123, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: var(--green);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .testimonial-premium .review-meta h4 {
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+    }
+    .testimonial-premium .review-meta p {
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      margin-top: 1px;
+    }
+    .testimonial-premium .verified-pill {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5rem;
+      color: var(--green);
+      background: rgba(43, 214, 123, 0.08);
+      border: 1px solid rgba(43, 214, 123, 0.15);
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      flex-shrink: 0;
+      align-self: flex-start;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .testimonial-premium .verified-pill svg {
+      width: 12px;
+      height: 12px;
+      fill: var(--green);
+    }
+
+    /* Testimonial image wrapper */
+    .testimonial-premium .testimonial-img-wrapper {
+      position: relative;
+      z-index: 10;
+      margin-bottom: 1.25rem;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #000;
+      width: 100%;
+      aspect-ratio: 16/9;
+      flex-shrink: 0;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+    .testimonial-premium .testimonial-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Stars */
+    .testimonial-premium .stars {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 12px;
+    }
+    .testimonial-premium .stars svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--gold);
+    }
+
+    /* Credibility strip */
+    .credibility-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 20px;
+      padding: 10px 0 6px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+    }
+    .credibility-strip .divider {
+      width: 1px;
+      height: 14px;
+      background: rgba(43, 214, 123, 0.15);
+    }
+    .credibility-strip .cred-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .credibility-strip .cred-item .green-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--green);
+      opacity: 0.5;
+    }
+    .credibility-strip .cred-item .stars-sm {
+      display: flex;
+      gap: 1px;
+    }
+    .credibility-strip .cred-item .stars-sm svg {
+      width: 12px;
+      height: 12px;
+      fill: var(--gold);
+    }
+
+    @media (max-width: 640px) {
+      .testimonial-premium {
+        padding: 28px 20px 24px 20px;
+      }
+      .testimonial-premium .review-text {
+        font-size: 0.95rem;
+      }
+      .testimonial-premium .quote-mark {
+        font-size: 4rem;
+        top: 12px;
+        right: 18px;
+      }
+      .testimonial-premium .play-btn .play-icon {
+        width: 54px;
+        height: 54px;
+      }
+      .testimonial-premium .play-btn .play-icon svg {
+        width: 24px;
+        height: 24px;
+      }
+      .testimonial-premium .video-wrapper {
+        aspect-ratio: 16/9;
+      }
+      .testimonial-premium .testimonial-img-wrapper {
+        aspect-ratio: 16/9;
+      }
+      .credibility-strip {
+        font-size: 0.5rem;
+        gap: 8px 14px;
+      }
+      .credibility-strip .divider {
+        height: 10px;
+      }
+      .testimonial-premium .duration-badge {
+        font-size: 0.5rem;
+        padding: 3px 10px;
+        bottom: 12px;
+        left: 12px;
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       STORE AUDIT SECTION
+       ═══════════════════════════════════════════════════════════════════════════ */
+    .audit-benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+    .audit-benefit-item:hover {
+      border-color: rgba(43, 214, 123, 0.3);
+      background: var(--bg-elevated);
+      transform: translateX(4px);
+    }
+    .audit-benefit-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(43, 214, 123, 0.08);
+      border: 1px solid rgba(43, 214, 123, 0.15);
+      flex-shrink: 0;
+      color: var(--green);
+    }
+    .audit-benefit-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .audit-form input,
+    .audit-form textarea,
+    .audit-form select {
+      width: 100%;
+      padding: 14px 18px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      transition: all 0.25s ease;
+      outline: none;
+    }
+    .audit-form input:focus,
+    .audit-form textarea:focus,
+    .audit-form select:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(43, 214, 123, 0.1);
+      background: var(--bg-elevated);
+    }
+    .audit-form textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+    .audit-form select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%239AA4BF'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      cursor: pointer;
+    }
+
+    .audit-submit-btn {
+      width: 100%;
+      padding: 16px 24px;
+      background: var(--green);
+      color: #0A0C10;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .audit-submit-btn:hover {
+      background: var(--green-dim);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px -10px rgba(43, 214, 123, 0.4);
+    }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .form-success.show {
+      display: block;
+      animation: fadeUp 0.5s ease forwards;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- scroll progress -->
-    <div id="scroll-progress-bar" class="scroll-progress-bar"></div>
+  <!-- scroll progress -->
+  <div id="scroll-progress-bar" class="scroll-progress-bar"></div>
 
-    <!-- bg effects -->
-    <div class="bg-glow"></div>
-    <div class="noise-bg"></div>
+  <!-- bg effects -->
+  <div class="bg-glow"></div>
+  <div class="noise-bg"></div>
 
-    <!-- ═══════════════════════════════════════════════════════════════════════════
-         NAVIGATION
-         ═══════════════════════════════════════════════════════════════════════════ -->
-    <nav class="nav-sticky">
-        <div class="container-custom flex items-center justify-between min-h-[72px]">
-            <a href="#" class="font-mono text-2xl font-semibold text-[#EDF2F7] tracking-tight no-underline">
-                NOTZ<span class="text-[#2BD67B]">.DEV</span>
-            </a>
-            <div class="hidden lg:flex items-center gap-8">
-                <a href="#work" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// PROJECTS</a>
-                <a href="#services" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// EXPERTISE</a>
-                <a href="#skills" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// STACK</a>
-                <a href="#reviews" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// REVIEWS</a>
-                <a href="#audit" class="font-mono text-xs font-medium text-[#2BD67B] no-underline hover:text-[#2BD67B] transition-colors">// STORE AUDIT</a>
-                <a href="#about" class="border border-[#2BD67B] bg-transparent px-5 py-1.5 rounded-[30px] text-[#2BD67B] font-mono text-xs font-semibold no-underline hover:bg-[rgba(43,214,123,0.1)] transition-colors">My Profile</a>
-            </div>
-            <button class="burger-btn lg:hidden" id="burgerBtn" aria-label="Toggle menu">
-                <span class="line"></span>
-                <span class="line"></span>
-                <span class="line"></span>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileOverlay">
-        <button class="close-btn" id="mobileCloseBtn" aria-label="Close menu">&times;</button>
-        <a href="#work" class="mobile-link">PROJECTS</a>
-        <a href="#services" class="mobile-link">EXPERTISE</a>
-        <a href="#skills" class="mobile-link">STACK</a>
-        <a href="#reviews" class="mobile-link">REVIEWS</a>
-        <a href="#audit" class="mobile-link">STORE AUDIT</a>
-        <a href="#about" class="mobile-cta">My Profile</a>
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <nav class="nav-sticky">
+    <div class="container-custom flex items-center justify-between min-h-[72px]">
+      <a href="#" class="font-mono text-2xl font-semibold text-[#EDF2F7] tracking-tight no-underline">
+        NOTZ<span class="text-[#2BD67B]">.DEV</span>
+      </a>
+      <div class="hidden lg:flex items-center gap-8">
+        <a href="#work" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// PROJECTS</a>
+        <a href="#services" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// EXPERTISE</a>
+        <a href="#reviews" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// REVIEWS</a>
+        <a href="#technical-arsenal" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// STACK</a>
+        <a href="#audit" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// STORE AUDIT</a>
+        <a href="#about" class="border border-[#2BD67B] bg-transparent px-5 py-1.5 rounded-[30px] text-[#2BD67B] font-mono text-xs font-semibold no-underline hover:bg-[rgba(43,214,123,0.1)] transition-colors">DEVELOPERS PROFILE</a>
+      </div>
+      <button class="burger-btn lg:hidden" id="burgerBtn" aria-label="Toggle menu">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </button>
     </div>
+  </nav>
 
-    <!-- ═══════════════════════════════════════════════════════════════════════════
-     HERO SECTION
-     ═══════════════════════════════════════════════════════════════════════════ -->
-    <section class="hero-section">
-        <!-- Background Overlays -->
-        <div class="hero-overlay"></div>
-        <div class="hero-grain"></div>
-        <div class="hero-accent-glow"></div>
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileOverlay">
+    <button class="close-btn" id="mobileCloseBtn" aria-label="Close menu">&times;</button>
+    <a href="#work" class="mobile-link">PROJECTS</a>
+    <a href="#services" class="mobile-link">EXPERTISE</a>
+    <a href="#reviews" class="mobile-link">REVIEWS</a>
+    <a href="#technical-arsenal" class="mobile-link">STACK</a>
+    <a href="#audit" class="mobile-link">STORE AUDIT</a>
+    <a href="#about" class="mobile-cta">My Profile</a>
+  </div>
 
-        <div class="container-custom w-full relative z-10">
-            <div class="flex flex-col lg:flex-row gap-10 lg:gap-16 xl:gap-20 items-center">
-                <!-- Hero Text Content -->
-                <div class="w-full lg:w-[60%] flex flex-col gap-5 md:gap-6 text-center lg:text-left items-center lg:items-start">
-                    <p class="hero-pre-title hero-animate delay-1 text-center lg:text-left">BUILT FOR SPEED. DESIGNED TO CONVERT.</p>
-                    <h1 class="hero-headline hero-animate delay-2 font-mono font-semibold text-[#EDF2F7] tracking-tight text-center lg:text-left" style="font-size: clamp(1.5rem, 4.5vw, 3.5rem);">
-                        BUILD A SHOPIFY STORE <br class="sm:hidden" />
-                        THAT<span class="highlight"> CONVERTS BETTER.</span>
-                    </h1>
-                    <p class="hero-sub-text hero-animate delay-3 text-center lg:text-left mx-auto lg:mx-0">
-                        I help merchants replace slow, app‑dependent <strong class="text-[#2BD67B] font-semibold">Shopify</strong> stores with clean, native architecture — so your site loads faster, converts better, and stays reliable for years.
-                    </p>
-                    <div class="flex flex-wrap items-center gap-4 hero-animate delay-4 mt-1 justify-center lg:justify-start w-full">
-                        <a href="#work" class="hero-btn-primary flex-1 sm:flex-none">
-                            SEE CASE STUDIES
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                        </a>
-                        <a href="#audit" class="hero-btn-secondary flex-1 sm:flex-none">
-                            BOOK FREE CONSULTATION
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                        </a>
-                    </div>
-                    <!-- Stats Row - Mobile First, Always Visible -->
-                    <div class="hero-stats hero-animate delay-5">
-                        <div class="hero-stat-item">
-                            <div class="hero-stat-number">2+</div>
-                            <div class="hero-stat-label">Years Exp.</div>
-                        </div>
-                        <div class="hero-stat-item">
-                            <div class="hero-stat-number">15+</div>
-                            <div class="hero-stat-label">Projects</div>
-                        </div>
-                        <div class="hero-stat-item">
-                            <div class="hero-stat-number">98%</div>
-                            <div class="hero-stat-label">Client Satisfaction</div>
-                        </div>
-                        <div class="hero-stat-item">
-                            <div class="hero-stat-number">100%</div>
-                            <div class="hero-stat-label">Clean Code</div>
-                        </div>
-                    </div>
-                </div>
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+   HERO SECTION
+   ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-grain"></div>
+    <div class="hero-accent-glow"></div>
 
-                <!-- Right side: Floating decorative card (desktop only) -->
-                <!-- <div class="w-full lg:w-[40%] hidden lg:flex items-center justify-center hero-animate delay-3">
-                    <div class="hero-floating-card">
-                        <div class="flex items-center gap-3 mb-4">
-                            <span class="hero-card-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>
-                            </span>
-                            <div>
-                                <p class="text-[#EDF2F7] font-semibold text-sm">Shopify Expert</p>
-                                <p class="text-[#5F6C84] text-xs">Clean Architecture</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="hero-card-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg>
-                            </span>
-                            <div>
-                                <p class="text-[#EDF2F7] font-semibold text-sm">Performance First</p>
-                                <p class="text-[#5F6C84] text-xs">Fast Load Times</p>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+    <div class="container-custom w-full relative z-10">
+      <div class="flex flex-col lg:flex-row gap-10 lg:gap-16 xl:gap-20 items-center">
+        <div class="w-full lg:w-[60%] flex flex-col gap-5 md:gap-6 text-center lg:text-left items-center lg:items-start">
+          <p class="hero-pre-title hero-animate delay-1 text-center lg:text-left">BUILT FOR SPEED. DESIGNED TO CONVERT.</p>
+          <h1 class="hero-headline hero-animate delay-2 font-mono font-semibold text-[#EDF2F7] tracking-tight text-center lg:text-left" style="font-size: clamp(1.5rem, 4.5vw, 3.5rem);">
+            BUILD A SHOPIFY STORE <br class="sm:hidden" />
+            THAT<span class="highlight"> CONVERTS BETTER.</span>
+          </h1>
+          <p class="hero-sub-text hero-animate delay-3 text-center lg:text-left mx-auto lg:mx-0">
+            I help merchants replace slow, app‑dependent <strong class="text-[#2BD67B] font-semibold">Shopify</strong> stores with clean, native architecture — so your site loads faster, converts better, and stays reliable for years.
+          </p>
+          <div class="flex flex-wrap items-center gap-4 hero-animate delay-4 mt-1 justify-center lg:justify-start w-full">
+            <a href="#work" class="hero-btn-primary flex-1 sm:flex-none">
+              SEE CASE STUDIES
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+            </a>
+            <a href="#audit" class="hero-btn-secondary flex-1 sm:flex-none">
+              BOOK FREE CONSULTATION
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+            </a>
+          </div>
+          <div class="hero-stats hero-animate delay-5">
+            <div class="hero-stat-item">
+              <div class="hero-stat-number">2+</div>
+              <div class="hero-stat-label">Years Exp.</div>
             </div>
+            <div class="hero-stat-item">
+              <div class="hero-stat-number">15+</div>
+              <div class="hero-stat-label">Projects</div>
+            </div>
+            <div class="hero-stat-item">
+              <div class="hero-stat-number">98%</div>
+              <div class="hero-stat-label">Client Satisfaction</div>
+            </div>
+            <div class="hero-stat-item">
+              <div class="hero-stat-number">100%</div>
+              <div class="hero-stat-label">Clean Code</div>
+            </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- ═══════════════════════════════════════════════════════════════════════════
-         FEATURED CASE STUDIES SECTION
-         ═══════════════════════════════════════════════════════════════════════════ -->
-    <section id="work" class="relative z-10 w-full border-y border-[#1E252D] bg-[#0B0E13] py-12 md:py-16">
-        <div class="container-custom">
-            <div class="mb-10 scroll-reveal">
-                <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Featured Case Studies</h2>
-                <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Selected Client Projects // 2025-2026</p>
-            </div>
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       FEATURED CASE STUDIES SECTION
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section id="work" class="relative z-10 w-full border-y border-[#1E252D] bg-[#0B0E13] py-12 md:py-16">
+    <div class="container-custom">
+      <div class="mb-10 scroll-reveal">
+        <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Featured Case Studies</h2>
+        <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Selected Client Projects // 2025-2026</p>
+      </div>
 
-            <!-- Project 1: MEA Custom Suits -->
-            <div class="project-row scroll-reveal mb-12">
-                <div class="project-title-section">
-                    <span class="project-tag hero-tag">★ Real Client — Flagship</span>
-                    <h3 class="project-title">MEA Custom Suits<br><span class="highlight">Shopify Theme Modernization</span></h3>
-                </div>
-                <div class="row-inner">
-                    <div class="project-image">
-                        <img src="project1.png" alt="MEA Custom Suits — Shopify Store Preview" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk1FQSBDVVNUT00gU1VJVFM8L3RleHQ+PC9zdmc+'"/>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-problem">
-                            <strong>The Challenge:</strong> The store was built using static Liquid templates, preventing the merchant from updating layouts and content through the Shopify Theme Editor. They also needed a custom Size Finder for tailored suit measurements and a flexible Giveaway Form for marketing campaigns, but no solution matched their workflow.
-                        </div>
-                        <ul class="project-features">
-                            <li>Migrated static theme to Shopify Online Store 2.0 with JSON templates</li>
-                            <li>Built reusable sections with Schema settings for merchant‑friendly editing</li>
-                            <li>Developed a custom Size Finder app tailored to suit measurements</li>
-                            <li>Created a dynamic Giveaway Form powered by Metafields</li>
-                            <li>Eliminated dependency on third‑party apps for core functionality</li>
-                            <li>Made the theme scalable, maintainable, and future‑proof</li>
-                        </ul>
-                        <div class="project-tech-tags">
-                            <span>Liquid</span>
-                            <span>JSON Templates</span>
-                            <span>Schema Settings</span>
-                            <span>Metafields</span>
-                            <span>Custom App</span>
-                        </div>
-                        <a href="#" class="project-cta">
-                            View Live Store
-                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                        </a>
-                    </div>
-                </div>
+      <!-- Project 1: MEA Custom Suits -->
+      <div class="project-row scroll-reveal mb-12">
+        <div class="row-inner">
+          <div class="project-image-wrap">
+            <img src="project1.png" alt="MEA Custom Suits — Shopify Store Preview" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk1FQSBDVVNUT00gU1VJVFM8L3RleHQ+PC9zdmc+'"/>
+            <div class="image-overlay">
+              <span class="overlay-title">MEA Custom Suits</span>
+              <span class="overlay-sub">Shopify Theme Modernization</span>
+              <span class="overlay-tag">★ Real Client — Flagship</span>
             </div>
-
-            <!-- Project 2: Nordik Home -->
-            <div class="project-row reverse scroll-reveal mb-12">
-                <div class="project-title-section">
-                    <span class="project-tag">Concept Store</span>
-                    <h3 class="project-title">Nordik Home<br><span class="highlight">Full Theme Rebuild &amp; App Consolidation</span></h3>
-                </div>
-                <div class="row-inner">
-                    <div class="project-image">
-                        <img src="project2.png" alt="Nordik Home Shopify Store" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5PUkRJSyBIT01FPC90ZXh0Pjwvc3ZnPg=='" />
-                    </div>
-                    <div class="project-content">
-                        <div class="project-problem">
-                            <strong>The Problem:</strong> The home goods store was drowning in 12+ apps causing slow checkout, conflicting scripts, and a confusing admin. Site speed was poor, and revenue was bleeding from cart abandonment.
-                        </div>
-                        <ul class="project-features">
-                            <li>Replaced 12 apps with custom Liquid logic</li>
-                            <li>LCP reduced from 3.2s → 1.4s</li>
-                            <li>Built a modular theme from scratch using OS 2.0</li>
-                            <li>Custom metafields for product variants &amp; inventory</li>
-                            <li>Smart search with predictive results</li>
-                            <li>31% conversion lift within 4 weeks</li>
-                        </ul>
-                        <div class="project-tech-tags">
-                            <span>Shopify OS 2.0</span>
-                            <span>Liquid</span>
-                            <span>Custom Metafields</span>
-                            <span>CSS Grid</span>
-                            <span>Vanilla JS</span>
-                        </div>
-                        <a href="#" class="project-cta">
-                            View Live Store
-                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                        </a>
-                    </div>
-                </div>
+          </div>
+          <div class="project-content">
+            <div class="project-problem">
+              <strong>The Challenge:</strong> The store was built using static Liquid templates, preventing the merchant from updating layouts and content through the Shopify Theme Editor. They also needed a custom Size Finder for tailored suit measurements and a flexible Giveaway Form for marketing campaigns, but no solution matched their workflow.
             </div>
-
-            <!-- Project 3: Apex Collective -->
-            <div class="project-row scroll-reveal">
-                <div class="project-title-section">
-                    <span class="project-tag">Concept Store</span>
-                    <h3 class="project-title">Apex Collective<br><span class="highlight">Bespoke Luxury Experience</span></h3>
-                </div>
-                <div class="row-inner">
-                    <div class="project-image">
-                        <img src="project3.png" alt="Apex Collective Shopify Store" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkFQRVggQ09MTEVDVElWRTwvdGV4dD48L3N2Zz4='" />
-                    </div>
-                    <div class="project-content">
-                        <div class="project-problem">
-                            <strong>The Problem:</strong> A high‑end fashion brand needed a store that matched their premium positioning. Their generic template felt cheap, with poor navigation and slow product filtering — leading to high bounce rates.
-                        </div>
-                        <ul class="project-features">
-                            <li>Bespoke theme with custom animations &amp; transitions</li>
-                            <li>Dynamic product filtering with instant AJAX updates</li>
-                            <li>Refined mobile‑first UX with gesture support</li>
-                            <li>Custom wishlist &amp; save‑for‑later functionality</li>
-                            <li>Integrated email marketing sync (Klaviyo)</li>
-                            <li>40% reduction in cart abandonment</li>
-                        </ul>
-                        <div class="project-tech-tags">
-                            <span>Shopify OS 2.0</span>
-                            <span>Liquid</span>
-                            <span>AJAX / fetch</span>
-                            <span>CSS Animations</span>
-                            <span>Klaviyo API</span>
-                        </div>
-                        <a href="#" class="project-cta">
-                            View Live Store
-                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                        </a>
-                    </div>
-                </div>
+            <ul class="project-features">
+              <li>Migrated static theme to Shopify Online Store 2.0 with JSON templates</li>
+              <li>Built reusable sections with Schema settings for merchant‑friendly editing</li>
+              <li>Developed a custom Size Finder app tailored to suit measurements</li>
+              <li>Created a dynamic Giveaway Form powered by Metafields</li>
+              <li>Eliminated dependency on third‑party apps for core functionality</li>
+              <li>Made the theme scalable, maintainable, and future‑proof</li>
+            </ul>
+            <div class="project-tech-tags">
+              <span>Liquid</span>
+              <span>JSON Templates</span>
+              <span>Schema Settings</span>
+              <span>Metafields</span>
+              <span>Custom App</span>
             </div>
+            <a href="https://measuit.com/" target="_blank" class="project-cta">
+              View Live Store
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+            </a>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <!-- ═══════════════════════════════════════════════════════════════════════════
-         SERVICES SECTION
-         ═══════════════════════════════════════════════════════════════════════════ -->
-    <section id="services" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
-        <div class="container-custom">
-            <div class="mb-10 scroll-reveal">
-                <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Capabilities</h2>
-                <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Tech Solutions for Merchants //</p>
+      <!-- Project 2: Nordik Home -->
+      <div class="project-row reverse scroll-reveal mb-12">
+        <div class="row-inner">
+          <div class="project-image-wrap">
+            <img src="project2.png" alt="Nordik Home Shopify Store" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5PUkRJSyBIT01FPC90ZXh0Pjwvc3ZnPg=='" />
+            <div class="image-overlay">
+              <span class="overlay-title">Nordik Home</span>
+              <span class="overlay-sub">Full Theme Rebuild &amp; App Consolidation</span>
+              <span class="overlay-tag">Concept Store</span>
             </div>
-            <p class="font-mono bg-[#0B0E13] px-6 py-[18px] border-l-3 border-[#2BD67B] rounded-xl mb-10 text-[#9AA4BF] scroll-reveal">
-                I prioritize "Clean Implementation." A store that looks good but is difficult to maintain is a liability. I build systems that are developer-friendly and merchant-empowering.
-            </p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Service Cards -->
-                <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
-                    <div class="service-icon-wrap">
-                        <span class="service-icon">
-                            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-                        </span>
-                        <div>
-                            <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Custom Sections &amp; Blocks</h3>
-                            <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Building reusable and flexible Liquid sections that empower your team to manage content without touching code.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
-                    <div class="service-icon-wrap">
-                        <span class="service-icon">
-                            <svg viewBox="0 0 24 24"><path d="M12 3L12 7M12 17L12 21M3 12L7 12M17 12L21 12M6 6L8 8M16 16L18 18M18 6L16 8M8 16L6 18" stroke-linecap="round"/></svg>
-                        </span>
-                        <div>
-                            <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Tech Debt Elimination</h3>
-                            <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Replacing high-latency apps with native frontend logic to slash load times and monthly overhead costs.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
-                    <div class="service-icon-wrap">
-                        <span class="service-icon">
-                            <svg viewBox="0 0 24 24"><path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z"/><circle cx="12" cy="12" r="3"/></svg>
-                        </span>
-                        <div>
-                            <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">UI/UX Improvements</h3>
-                            <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Refining the customer journey with high-performance animations and mobile-first interface.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
-                    <div class="service-icon-wrap">
-                        <span class="service-icon">
-                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8L12 12L15 15"/><path d="M3 12L5 12M19 12L21 12M12 3L12 5M12 19L12 21"/></svg>
-                        </span>
-                        <div>
-                            <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Core Web Vitals Audit</h3>
-                            <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Deep-layer optimization targeting LCP and CLS to ensure your store ranks higher and retains users.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
-                    <div class="service-icon-wrap">
-                        <span class="service-icon">
-                            <svg viewBox="0 0 24 24"><path d="M12 2C12 2 9 6 9 11C9 14 10 17 12 19C14 17 15 14 15 11C15 6 12 2 12 2Z"/><path d="M9 11C9 11 3 13 3 18C7 15 9 14 9 14"/><path d="M15 11C15 11 21 13 21 18C17 15 15 14 15 14"/><path d="M12 19L12 22"/></svg>
-                        </span>
-                        <div>
-                            <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Custom Landing Systems</h3>
-                            <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Engineered for paid traffic. High-performance, custom-coded pages that convert better than generic templates.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
-                    <div class="service-icon-wrap">
-                        <span class="service-icon">
-                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1L12 4M12 20L12 23M1 12L4 12M20 12L23 12M4.22 4.22L6.34 6.34M17.66 17.66L19.78 19.78M19.78 4.22L17.66 6.34M6.34 17.66L4.22 19.78"/></svg>
-                        </span>
-                        <div>
-                            <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Bug Fixes &amp; Enhancements</h3>
-                            <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Technical troubleshooting and continuous store improvements to keep things running smoothly.</p>
-                        </div>
-                    </div>
-                </div>
+          </div>
+          <div class="project-content">
+            <div class="project-problem">
+              <strong>The Problem:</strong> The home goods store was drowning in 12+ apps causing slow checkout, conflicting scripts, and a confusing admin. Site speed was poor, and revenue was bleeding from cart abandonment.
             </div>
+            <ul class="project-features">
+              <li>Replaced 12 apps with custom Liquid logic</li>
+              <li>LCP reduced from 3.2s → 1.4s</li>
+              <li>Built a modular theme from scratch using OS 2.0</li>
+              <li>Custom metafields for product variants &amp; inventory</li>
+              <li>Smart search with predictive results</li>
+              <li>31% conversion lift within 4 weeks</li>
+            </ul>
+            <div class="project-tech-tags">
+              <span>Shopify OS 2.0</span>
+              <span>Liquid</span>
+              <span>Custom Metafields</span>
+              <span>CSS Grid</span>
+              <span>Vanilla JS</span>
+            </div>
+            <a href="#" class="project-cta">
+              View Live Store
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+            </a>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <!-- ═══════════════════════════════════════════════════════════════════════════
-         SKILLS / TECHNICAL ARSENAL SECTION
-         ═══════════════════════════════════════════════════════════════════════════ -->
-    <section id="skills" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
-        <div class="container-custom">
-            <div class="mb-10 scroll-reveal">
-                <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Technical Arsenal</h2>
-                <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Skills &amp; Tech Stack //</p>
+      <!-- Project 3: Apex Collective -->
+      <div class="project-row scroll-reveal">
+        <div class="row-inner">
+          <div class="project-image-wrap">
+            <img src="project3.png" alt="Apex Collective Shopify Store" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkFQRVggQ09MTEVDVElWRTwvdGV4dD48L3N2Zz4='" />
+            <div class="image-overlay">
+              <span class="overlay-title">Apex Collective</span>
+              <span class="overlay-sub">Bespoke Luxury Experience</span>
+              <span class="overlay-tag">Concept Store</span>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
-                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-[26px] scroll-reveal">
-                    <h3 class="font-mono mb-4 text-[#EDF2F7]">Shopify</h3>
-                    <ul class="flex flex-col gap-2.5 list-none p-0">
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Liquid Templating</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Shopify CLI</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Metafields &amp; Metaobjects</li>
-                    </ul>
-                </div>
-                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-[26px] scroll-reveal">
-                    <h3 class="font-mono mb-4 text-[#EDF2F7]">Frontend</h3>
-                    <ul class="flex flex-col gap-2.5 list-none p-0">
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> HTML5</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> CSS3</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Modern JS (ES6+)</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Tailwind CSS</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> JQuery</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> AJAX / fetch</li>
-                    </ul>
-                </div>
-                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-[26px] scroll-reveal">
-                    <h3 class="font-mono mb-4 text-[#EDF2F7]">Tools</h3>
-                    <ul class="flex flex-col gap-2.5 list-none p-0">
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Node JS</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Git Version Control</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> VS Code</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Google Lighthouse</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Chrome DevTools</li>
-                    </ul>
-                </div>
+          </div>
+          <div class="project-content">
+            <div class="project-problem">
+              <strong>The Problem:</strong> A high‑end fashion brand needed a store that matched their premium positioning. Their generic template felt cheap, with poor navigation and slow product filtering — leading to high bounce rates.
             </div>
+            <ul class="project-features">
+              <li>Bespoke theme with custom animations &amp; transitions</li>
+              <li>Dynamic product filtering with instant AJAX updates</li>
+              <li>Refined mobile‑first UX with gesture support</li>
+              <li>Custom wishlist &amp; save‑for‑later functionality</li>
+              <li>Integrated email marketing sync (Klaviyo)</li>
+              <li>40% reduction in cart abandonment</li>
+            </ul>
+            <div class="project-tech-tags">
+              <span>Shopify OS 2.0</span>
+              <span>Liquid</span>
+              <span>AJAX / fetch</span>
+              <span>CSS Animations</span>
+              <span>Klaviyo API</span>
+            </div>
+            <a href="#" class="project-cta">
+              View Live Store
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+            </a>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- ═══════════════════════════════════════════════════════════════════════════
-         REVIEWS / TESTIMONIALS SECTION
-         ═══════════════════════════════════════════════════════════════════════════ -->
-    <section id="reviews" class="relative z-10 w-full border-y border-[#1E252D] bg-[#0B0E13] py-12 md:py-16">
-        <div class="container-custom">
-            <div class="mb-10 scroll-reveal">
-                <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Client Reviews</h2>
-                <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">What merchants say about working with me //</p>
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       SERVICES SECTION
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section id="services" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
+    <div class="container-custom">
+      <div class="mb-10 scroll-reveal">
+        <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Capabilities</h2>
+        <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Tech Solutions for Merchants //</p>
+      </div>
+      <p class="font-mono bg-[#0B0E13] px-6 py-[18px] border-l-3 border-[#2BD67B] rounded-xl mb-10 text-[#9AA4BF] scroll-reveal">
+        I prioritize "Clean Implementation." A store that looks good but is difficult to maintain is a liability. I build systems that are developer-friendly and merchant-empowering.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+          <div class="service-icon-wrap">
+            <span class="service-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
+            <div>
+              <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Custom Sections &amp; Blocks</h3>
+              <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Building reusable and flexible Liquid sections that empower your team to manage content without touching code.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                <!-- Testimonial Card 1 -->
-                <div class="testimonial-spotlight scroll-reveal">
-                    <span class="quote-mark">&#8220;</span>
-                    <div class="flex items-center gap-0.5 mb-5 relative z-10">
-                        <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                        <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                        <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                        <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                        <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                    </div>
-                    <p class="review-text">"Anton completely transformed our Shopify store. He cleaned up our messy Liquid code, removed 8 unnecessary apps, and our site speed went from 3.2s to 1.1s. Our conversion rate jumped 22% in just 2 weeks!"</p>
-                    <div class="review-footer">
-                        <img class="review-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face" alt="Sarah Mitchell" loading="lazy" onerror="this.outerHTML='&lt;div class=&quot;review-avatar-fallback&quot;&gt;SM&lt;/div&gt;'" />
-                        <div class="review-meta">
-                            <h4>Sarah Mitchell</h4>
-                            <p>Founder, Lumina Goods</p>
-                        </div>
-                        <span class="verified-pill">Verified</span>
-                    </div>
-                </div>
-                <!-- Testimonial Card 2 -->
-                <div class="testimonial-spotlight scroll-reveal">
-                    <span class="quote-mark">&#8220;</span>
-                    <div class="flex items-center gap-0.5 mb-5 relative z-10">
-                        <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                        <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                        <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                        <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                        <svg class="w-[18px] h-[18px] fill-[#FBBF24]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                    </div>
-                    <p class="review-text">"I was drowning in app subscriptions costing $300+/month. Anton helped me replace everything with clean Liquid code. Now my store is faster, cheaper to run, and my team loves the new custom sections."</p>
-                    <div class="review-footer">
-                        <img class="review-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" alt="David Rivera" loading="lazy" onerror="this.outerHTML='&lt;div class=&quot;review-avatar-fallback&quot;&gt;DR&lt;/div&gt;'" />
-                        <div class="review-meta">
-                            <h4>David Rivera</h4>
-                            <p>CEO, Apex Collective</p>
-                        </div>
-                        <span class="verified-pill">Verified</span>
-                    </div>
-                </div>
-            </div>
-            <p class="text-center text-[#5F6C84] font-mono text-[0.72rem] mt-8 scroll-reveal">More reviews added as new projects launch — see the case studies above for full project breakdowns.</p>
+          </div>
         </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════════════════════
-         ABOUT SECTION
-         ═══════════════════════════════════════════════════════════════════════════ -->
-    <section id="about" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
-        <div class="container-custom">
-            <div class="mb-10 scroll-reveal">
-                <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Behind the Systems</h2>
-                <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Personal Profile //</p>
+        <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+          <div class="service-icon-wrap">
+            <span class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 3L12 7M12 17L12 21M3 12L7 12M17 12L21 12M6 6L8 8M16 16L18 18M18 6L16 8M8 16L6 18" stroke-linecap="round"/></svg></span>
+            <div>
+              <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Tech Debt Elimination</h3>
+              <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Replacing high-latency apps with native frontend logic to slash load times and monthly overhead costs.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-12 items-center scroll-reveal">
-                <div class="about-img">
-                    <img src="me.webp" alt="Anton Jay L. Hermo" class="w-full rounded-[28px] border border-[#2BD67B] transition-transform hover:scale-[1.02] hover:shadow-[0_12px_40px_-10px_rgba(43,214,123,0.15)]" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNDAwIDUwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5PVFouREVWPC90ZXh0Pjwvc3ZnPg=='" loading="lazy" />
-                </div>
-                <div>
-                    <h3 class="font-mono text-[1.9rem] text-[#EDF2F7]">Anton Jay L. Hermo</h3>
-                    <span class="text-[#2BD67B] font-mono inline-block mb-5">Shopify Developer // Albay, PH</span>
-                    <p class="text-[#9AA4BF] mb-3 leading-[1.7]">I build reliable, well-structured Shopify stores with a strong focus on long-term stability and performance. I prioritize clean architecture and practical solutions that support sustainable growth.</p>
-                    <p class="text-[#9AA4BF] mb-3 leading-[1.7]">I approach each project as a system of connected parts that need to work seamlessly behind the scenes. I aim to ensure everything runs smoothly and efficiently.</p>
-                    <p class="text-[#9AA4BF] leading-[1.7]">Through clean, thoughtful code and careful attention to detail, I help turn complex requirements into simple, intuitive experiences—so your store operates with confidence and your results speak for themselves.</p>
-                </div>
-            </div>
+          </div>
         </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════════════════════
-     STORE AUDIT SECTION
-     ═══════════════════════════════════════════════════════════════════════════ -->
-    <section id="audit" class="relative z-10 w-full border-y border-[#1E252D] bg-[#0B0E13] py-16 md:py-20">
-        <div class="container-custom">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-                <!-- Left Column: Title + Benefits -->
-                <div class="scroll-reveal">
-                    <div class="mb-10">
-                        <span class="font-mono text-[0.7rem] bg-[rgba(43,214,123,0.12)] px-4 py-1.5 rounded-[20px] text-[#2BD67B] inline-block mb-4">FREE CONSULTATION</span>
-                        <h2 class="font-mono text-[2rem] md:text-[2.4rem] font-semibold tracking-[-0.5px] text-[#EDF2F7] mb-3">Request a <span class="text-[#2BD67B]">Store Audit</span></h2>
-                        <p class="text-[#9AA4BF] text-[1rem] leading-[1.7]">I'll analyze your Shopify store's performance, identify bottlenecks, and provide a detailed report with actionable recommendations — completely free.</p>
-                    </div>
-                    <div class="flex flex-col gap-4">
-                        <div class="audit-benefit-item">
-                            <span class="audit-benefit-icon">
-                                <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg>
-                            </span>
-                            <div>
-                                <h4 class="text-[#EDF2F7] font-semibold text-[0.95rem] mb-1">Core Web Vitals Analysis</h4>
-                                <p class="text-[#9AA4BF] text-[0.82rem] leading-[1.6]">Deep dive into LCP, FID, and CLS metrics to pinpoint exactly what's slowing your store down.</p>
-                            </div>
-                        </div>
-                        <div class="audit-benefit-item">
-                            <span class="audit-benefit-icon">
-                                <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></svg>
-                            </span>
-                            <div>
-                                <h4 class="text-[#EDF2F7] font-semibold text-[0.95rem] mb-1">Code Quality Assessment</h4>
-                                <p class="text-[#9AA4BF] text-[0.82rem] leading-[1.6]">Liquid, CSS, and JavaScript optimization review to eliminate render-blocking resources.</p>
-                            </div>
-                        </div>
-                        <div class="audit-benefit-item">
-                            <span class="audit-benefit-icon">
-                                <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" /></svg>
-                            </span>
-                            <div>
-                                <h4 class="text-[#EDF2F7] font-semibold text-[0.95rem] mb-1">App Dependency Audit</h4>
-                                <p class="text-[#9AA4BF] text-[0.82rem] leading-[1.6]">Identify redundant apps eating your profits — replace them with native, lightweight code.</p>
-                            </div>
-                        </div>
-                        <div class="audit-benefit-item">
-                            <span class="audit-benefit-icon">
-                                <svg viewBox="0 0 24 24"><path d="M12 20V10" /><path d="M18 20V4" /><path d="M6 20v-4" /></svg>
-                            </span>
-                            <div>
-                                <h4 class="text-[#EDF2F7] font-semibold text-[0.95rem] mb-1">Conversion Roadmap</h4>
-                                <p class="text-[#9AA4BF] text-[0.82rem] leading-[1.6]">Actionable steps to improve your conversion rate based on real data and UX best practices.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Right Column: Form -->
-                <div class="audit-form scroll-reveal" id="auditFormContainer">
-                    <form id="auditForm" action="#" method="POST" class="bg-[#0F1217] border border-[#1E252D] rounded-[24px] p-8">
-                        <div class="mb-5">
-                            <label for="auditName" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Full Name</label>
-                            <input type="text" id="auditName" name="name" placeholder="e.g., Juan Dela Cruz" required />
-                        </div>
-                        <div class="mb-5">
-                            <label for="auditEmail" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Email Address</label>
-                            <input type="email" id="auditEmail" name="email" placeholder="you@yourstore.com" required />
-                        </div>
-                        <div class="mb-5">
-                            <label for="auditStore" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Store URL</label>
-                            <input type="url" id="auditStore" name="store_url" placeholder="https://yourstore.myshopify.com" required />
-                        </div>
-                        <div class="mb-5">
-                            <label for="auditPlatform" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Current Platform</label>
-                            <select id="auditPlatform" name="platform">
-                                <option value="shopify">Shopify (Standard)</option>
-                                <option value="shopify_plus">Shopify Plus</option>
-                                <option value="other">Other / Not Sure</option>
-                            </select>
-                        </div>
-                        <div class="mb-6">
-                            <label for="auditChallenges" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">What challenges are you facing?</label>
-                            <textarea id="auditChallenges" name="challenges" placeholder="e.g., slow loading, low conversion, app conflicts, etc."></textarea>
-                        </div>
-                        <button type="submit" class="audit-submit-btn">
-                            REQUEST FREE AUDIT
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                        </button>
-                    </form>
-                    <div class="form-success bg-[#0F1217] border border-[#1E252D] rounded-[24px] p-8" id="formSuccess">
-                        <svg class="w-16 h-16 stroke-[#2BD67B] fill-none stroke-2 mx-auto mb-5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M9 12l2 2 4-4" /></svg>
-                        <h3 class="font-mono text-[1.4rem] text-[#2BD67B] mb-3">🎉 Audit Request Sent!</h3>
-                        <p class="text-[#9AA4BF] text-[0.9rem]">I'll review your store and get back to you within 24–48 hours with a detailed report and actionable recommendations.</p>
-                    </div>
-                </div>
+        <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+          <div class="service-icon-wrap">
+            <span class="service-icon"><svg viewBox="0 0 24 24"><path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z"/><circle cx="12" cy="12" r="3"/></svg></span>
+            <div>
+              <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">UI/UX Improvements</h3>
+              <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Refining the customer journey with high-performance animations and mobile-first interface.</p>
             </div>
+          </div>
         </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════════════════════
-         CTA / CONTACT SECTION
-         ═══════════════════════════════════════════════════════════════════════════ -->
-    <section id="contact" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
-        <div class="container-custom">
-            <div class="bg-[#111418] border border-[#1E252D] rounded-[40px] py-10 px-6 md:py-12 md:px-8 text-center scroll-reveal">
-                <h2 class="font-mono text-[1.8rem] md:text-[2rem] font-semibold text-[#EDF2F7]">Let's Build Something That Converts</h2>
-                <p class="mt-4 text-[#9AA4BF] max-w-2xl mx-auto">If you're looking for a Shopify developer who focuses on clean implementation and practical solutions, I'd be happy to collaborate.</p>
-                <div class="mt-7 flex flex-wrap justify-center gap-6">
-                    <a href="#audit" class="bg-[#2BD67B] text-[#0A0C10] font-bold px-[34px] py-[14px] rounded-[40px] font-mono text-[0.8rem] tracking-[0.05em] no-underline inline-flex items-center gap-2 transition-all hover:bg-[#1C9E5B] hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_12px_30px_-8px_rgba(43,214,123,0.35),0_0_0_2px_rgba(43,214,123,0.2)]">
-                        BOOK FREE CONSULTATION
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                    </a>
-                    <div class="flex flex-wrap gap-4 justify-center">
-                        <a href="mailto:hermo.antonjay.personal@gmail.com" class="bg-[rgba(0,0,0,0.4)] px-7 py-2.5 rounded-[40px] text-[#9AA4BF] font-mono no-underline transition-colors hover:text-[#2BD67B] hover:bg-[rgba(43,214,123,0.05)]"><span class="text-[#2BD67B]">EMAIL_</span> hermo.antonjay.personal@gmail.com</a>
-                        <a href="https://www.linkedin.com/in/anton-jay-hermo/" target="_blank" class="bg-[rgba(0,0,0,0.4)] px-7 py-2.5 rounded-[40px] text-[#9AA4BF] font-mono no-underline transition-colors hover:text-[#2BD67B] hover:bg-[rgba(43,214,123,0.05)]"><span class="text-[#2BD67B]">LINKEDIN_</span> anton-jay-hermo</a>
-                    </div>
-                </div>
+        <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+          <div class="service-icon-wrap">
+            <span class="service-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8L12 12L15 15"/><path d="M3 12L5 12M19 12L21 12M12 3L12 5M12 19L12 21"/></svg></span>
+            <div>
+              <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Core Web Vitals Audit</h3>
+              <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Deep-layer optimization targeting LCP and CLS to ensure your store ranks higher and retains users.</p>
             </div>
+          </div>
         </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════════════════════
-         FOOTER
-         ═══════════════════════════════════════════════════════════════════════════ -->
-    <footer class="border-t border-[#1E252D] pt-[80px] pb-5 md:pt-[60px] sm:pt-[45px]">
-        <div class="container-custom">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="footer-brand">
-                    <h3><a href="#" class="font-mono text-[1.4rem] font-semibold text-[#EDF2F7] tracking-tight no-underline">NOTZ<span class="text-[#2BD67B]">.DEV</span></a></h3>
-                    <p class="text-[#9AA4BF] text-[0.85rem] mt-3.5 leading-[1.7]">I believe every successful Shopify store starts with a strong, well-structured foundation. My goal isn't to create the most complex solution, but the most effective one—building clean, efficient systems that remove technical friction and keep your business running smoothly.</p>
-                </div>
-                <div class="footer-col">
-                    <h4 class="font-mono mb-5 text-[0.9rem] text-[#EDF2F7]">Site Navigation</h4>
-                    <ul class="list-none">
-                        <li class="mb-2.5"><a href="#work" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Case Studies</a></li>
-                        <li class="mb-2.5"><a href="#services" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Capabilities</a></li>
-                        <li class="mb-2.5"><a href="#skills" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Stack</a></li>
-                        <li class="mb-2.5"><a href="#about" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">About</a></li>
-                        <li class="mb-2.5"><a href="#reviews" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Reviews</a></li>
-                        <li class="mb-2.5"><a href="#audit" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Store Audit</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4 class="font-mono mb-5 text-[0.9rem] text-[#EDF2F7]">Direct Channels</h4>
-                    <ul class="list-none">
-                        <li class="mb-2.5"><a href="mailto:hermo.antonjay.personal@gmail.com" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Direct Email</a></li>
-                        <li class="mb-2.5"><a href="https://github.com/BoyLado" target="_blank" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">GitHub</a></li>
-                        <li class="mb-2.5"><a href="https://v2.onlinejobs.ph/jobseekers/info/1616842" target="_blank" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">OnlineJobs PH</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4 class="font-mono mb-5 text-[0.9rem] text-[#EDF2F7]">Social</h4>
-                    <div class="flex gap-3.5 flex-wrap mt-1">
-                        <a href="https://www.facebook.com/yourpage" target="_blank" aria-label="Facebook" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
-                        </a>
-                        <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg>
-                        </a>
-                        <a href="https://x.com/yourprofile" target="_blank" aria-label="X (Twitter)" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
-                        </a>
-                        <a href="https://www.linkedin.com/in/anton-jay-hermo/" target="_blank" aria-label="LinkedIn" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
-                        </a>
-                    </div>
-                </div>
+        <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+          <div class="service-icon-wrap">
+            <span class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 2C12 2 9 6 9 11C9 14 10 17 12 19C14 17 15 14 15 11C15 6 12 2 12 2Z"/><path d="M9 11C9 11 3 13 3 18C7 15 9 14 9 14"/><path d="M15 11C15 11 21 13 21 18C17 15 15 14 15 14"/><path d="M12 19L12 22"/></svg></span>
+            <div>
+              <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Custom Landing Systems</h3>
+              <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Engineered for paid traffic. High-performance, custom-coded pages that convert better than generic templates.</p>
             </div>
-            <div class="flex flex-col sm:flex-row justify-between items-center mt-8 pt-4 text-[0.7rem] text-[#5F6C84] font-mono border-t border-[#1E252D]">
-                <div>&copy; 2026 // ESTABLISHED IN PH</div>
-                <div id="clock">LOCAL_TIME // --:-- --</div>
-            </div>
+          </div>
         </div>
-    </footer>
+        <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+          <div class="service-icon-wrap">
+            <span class="service-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1L12 4M12 20L12 23M1 12L4 12M20 12L23 12M4.22 4.22L6.34 6.34M17.66 17.66L19.78 19.78M19.78 4.22L17.66 6.34M6.34 17.66L4.22 19.78"/></svg></span>
+            <div>
+              <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Bug Fixes &amp; Enhancements</h3>
+              <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Technical troubleshooting and continuous store improvements to keep things running smoothly.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+   REVIEWS / TESTIMONIALS SECTION — ULTRA PREMIUM REFINEMENT
+   ═══════════════════════════════════════════════════════════════════════════ -->
+  <section id="reviews" class="relative z-10 w-full border-y border-[#1E252D] reviews-premium-bg py-12 md:py-16">
+    <div class="container-custom relative z-10">
+      <!-- SECTION HEADER -->
+      <div class="mb-10 scroll-reveal">
+        <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Client Reviews</h2>
+        <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">What merchants say about working with me //</p>
+      </div>
+
+      <!-- TWO COLUMN GRID -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        
+        <!-- ─── LEFT CARD: VIDEO TESTIMONIAL ─── -->
+        <div class="testimonial-premium scroll-reveal">
+          <span class="quote-mark">&#8220;</span>
+          
+          <!-- Stars -->
+          <div class="stars relative z-10">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+          </div>
+
+          <!-- Video Wrapper -->
+          <div class="video-wrapper" id="videoWrapper">
+            <div class="vignette"></div>
+            <video 
+              id="reviewVideo"
+              poster="testimonial-1.webp"
+              playsinline
+              preload="metadata"
+            >
+              <source src="testimonial-video.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <!-- Play Button -->
+            <button class="play-btn" aria-label="Play video review">
+              <div class="play-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5,3 19,12 5,21" />
+                </svg>
+              </div>
+            </button>
+            <!-- Duration Badge -->
+            <div class="duration-badge">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg>
+              2:13 Client Testimonial
+            </div>
+          </div>
+
+          <!-- Review Text with highlighted keywords -->
+          <p class="review-text">
+            "Anton was super easy to communicate with, unbelievably <span class="highlight-keyword">professional</span>, and worked on everything really fast. He built a beautiful web app that gives our customers full control and is going to take a ton of headache off our customer support team."
+          </p>
+
+          <!-- Footer with client info -->
+          <div class="review-footer">
+            <div class="review-avatar">
+              <img src="testimonial-1.webp" alt="Sarah Mitchell" loading="lazy" onerror="this.parentElement.outerHTML='&lt;div class=&quot;review-avatar-fallback&quot;&gt;SM&lt;/div&gt;'" />
+            </div>
+            <div class="review-meta">
+              <h4>Brandon Beck</h4>
+              <p>Founder, MEA Custom Suit • United States</p>
+            </div>
+            <span class="verified-pill">
+              <svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Verified Client
+            </span>
+          </div>
+        </div>
+
+        <!-- ─── RIGHT CARD: WRITTEN TESTIMONIAL ─── -->
+        <div class="testimonial-premium scroll-reveal">
+          <span class="quote-mark">&#8220;</span>
+          
+          <!-- Stars -->
+          <div class="stars relative z-10">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+          </div>
+
+          <!-- Testimonial Screenshot (cropped to focus on review) -->
+          <div class="testimonial-img-wrapper">
+            <img src="testimonial-2.PNG" alt="Roger Porto testimonial screenshot" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlJPUEVSIFBPUlRPPC90ZXh0Pjwvc3ZnPg=='" />
+        </div>
+
+          <!-- Strongest quote only -->
+          <blockquote class="review-text text-[1.1rem] font-medium leading-[1.6] text-[#EDF2F7] not-italic">
+            "Anton Jay Hermo was quickly able to understand complex requirements from non-technical personnel and develop the algorithms to achieve the goals to develop our expanding marketing platform."
+          </blockquote>
+
+          <!-- Footer with client info -->
+          <div class="review-footer">
+            <div class="review-avatar">
+              <img src="roger-porto.webp" alt="Roger Porto" loading="lazy" onerror="this.parentElement.outerHTML='&lt;div class=&quot;review-avatar-fallback&quot;&gt;RP&lt;/div&gt;'" />
+            </div>
+            <div class="review-meta">
+              <h4>Roger Porto</h4>
+              <p>CEO, Arkonor LLC. • United States</p>
+            </div>
+            <span class="verified-pill">
+              <svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Verified Client
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-center text-[#5F6C84] font-mono text-[0.72rem] mt-8 scroll-reveal">More reviews added as new projects launch — see the case studies above for full project breakdowns.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       ABOUT SECTION
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section id="about" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
+    <div class="container-custom">
+      <div class="mb-10 scroll-reveal">
+        <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Behind the Systems</h2>
+        <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Personal Profile //</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-12 items-center scroll-reveal">
+        <div class="about-img">
+          <img src="me.webp" alt="Anton Jay L. Hermo" class="w-full rounded-[28px] border border-[#2BD67B] transition-transform hover:scale-[1.02] hover:shadow-[0_12px_40px_-10px_rgba(43,214,123,0.15)]" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNDAwIDUwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5PVFouREVWPC90ZXh0Pjwvc3ZnPg=='" loading="lazy" />
+        </div>
+        <div>
+          <h3 class="font-mono text-[1.9rem] text-[#EDF2F7]">Anton Jay L. Hermo</h3>
+          <span class="text-[#2BD67B] font-mono inline-block mb-5">Shopify Developer // Albay, PH</span>
+          <p class="text-[#9AA4BF] mb-3 leading-[1.7]">I build reliable, well-structured Shopify stores with a strong focus on long-term stability and performance. I prioritize clean architecture and practical solutions that support sustainable growth.</p>
+          <p class="text-[#9AA4BF] mb-3 leading-[1.7]">I approach each project as a system of connected parts that need to work seamlessly behind the scenes. I aim to ensure everything runs smoothly and efficiently.</p>
+          <p class="text-[#9AA4BF] leading-[1.7]">Through clean, thoughtful code and careful attention to detail, I help turn complex requirements into simple, intuitive experiences—so your store operates with confidence and your results speak for themselves.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
     <!-- ═══════════════════════════════════════════════════════════════════════════
-         SCRIPTS (Grouped by functionality)
-         ═══════════════════════════════════════════════════════════════════════════ -->
-    <script>
-        /* ─────────────────────────────────────────────
-           SCROLL PROGRESS BAR
-           ───────────────────────────────────────────── */
-        const progressBar = document.getElementById('scroll-progress-bar');
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.scrollY || document.documentElement.scrollTop;
-            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (scrollTop / scrollHeight) * 100;
-            progressBar.style.width = scrolled + '%';
+       SKILLS / TECHNICAL ARSENAL SECTION — UPDATED
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section id="technical-arsenal" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
+    <div class="container-custom">
+      <div class="mb-10 scroll-reveal">
+        <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Technical Arsenal</h2>
+        <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Skills &amp; Tech Stack //</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+        <!-- Shopify Card — Now visually balanced with Frontend -->
+        <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-[26px] scroll-reveal">
+          <h3 class="font-mono mb-4 text-[#EDF2F7]">Shopify</h3>
+          <ul class="flex flex-col gap-2.5 list-none p-0">
+            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Liquid Templating</li>
+            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Shopify CLI</li>
+            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Metafields &amp; Metaobjects</li>
+            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Online Store 2.0 Architecture</li>
+            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Custom Liquid &amp; JSON Schemas</li>
+          </ul>
+        </div>
+        <!-- Frontend Card — Now with corrected naming -->
+        <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-[26px] scroll-reveal">
+          <h3 class="font-mono mb-4 text-[#EDF2F7]">Frontend</h3>
+          <ul class="flex flex-col gap-2.5 list-none p-0">
+            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> HTML5</li>
+            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> CSS3</li>
+            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Modern JS (ES6+)</li>
+            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Tailwind CSS</li>
+            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> jQuery</li>
+            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> AJAX / Fetch API</li>
+          </ul>
+        </div>
+        <!-- Tools Card — Now with corrected naming -->
+        <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-[26px] scroll-reveal">
+          <h3 class="font-mono mb-4 text-[#EDF2F7]">Tools</h3>
+          <ul class="flex flex-col gap-2.5 list-none p-0">
+            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Node.js</li>
+            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Git Version Control</li>
+            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> VS Code</li>
+            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Google Lighthouse</li>
+            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Chrome DevTools</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+   STORE AUDIT SECTION
+   ═══════════════════════════════════════════════════════════════════════════ -->
+  <section id="audit" class="relative z-10 w-full border-y border-[#1E252D] bg-[#0B0E13] py-16 md:py-20">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div class="scroll-reveal">
+          <div class="mb-10">
+            <span class="font-mono text-[0.7rem] bg-[rgba(43,214,123,0.12)] px-4 py-1.5 rounded-[20px] text-[#2BD67B] inline-block mb-4">FREE CONSULTATION</span>
+            <h2 class="font-mono text-[2rem] md:text-[2.4rem] font-semibold tracking-[-0.5px] text-[#EDF2F7] mb-3">Request a <span class="text-[#2BD67B]">Store Audit</span></h2>
+            <p class="text-[#9AA4BF] text-[1rem] leading-[1.7]">I'll analyze your Shopify store's performance, identify bottlenecks, and provide a detailed report with actionable recommendations — completely free.</p>
+          </div>
+          <div class="flex flex-col gap-4">
+            <div class="audit-benefit-item">
+              <span class="audit-benefit-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg></span>
+              <div>
+                <h4 class="text-[#EDF2F7] font-semibold text-[0.95rem] mb-1">Core Web Vitals Analysis</h4>
+                <p class="text-[#9AA4BF] text-[0.82rem] leading-[1.6]">Deep dive into LCP, FID, and CLS metrics to pinpoint exactly what's slowing your store down.</p>
+              </div>
+            </div>
+            <div class="audit-benefit-item">
+              <span class="audit-benefit-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></svg></span>
+              <div>
+                <h4 class="text-[#EDF2F7] font-semibold text-[0.95rem] mb-1">Code Quality Assessment</h4>
+                <p class="text-[#9AA4BF] text-[0.82rem] leading-[1.6]">Liquid, CSS, and JavaScript optimization review to eliminate render-blocking resources.</p>
+              </div>
+            </div>
+            <div class="audit-benefit-item">
+              <span class="audit-benefit-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" /></svg></span>
+              <div>
+                <h4 class="text-[#EDF2F7] font-semibold text-[0.95rem] mb-1">App Dependency Audit</h4>
+                <p class="text-[#9AA4BF] text-[0.82rem] leading-[1.6]">Identify redundant apps eating your profits — replace them with native, lightweight code.</p>
+              </div>
+            </div>
+            <div class="audit-benefit-item">
+              <span class="audit-benefit-icon"><svg viewBox="0 0 24 24"><path d="M12 20V10" /><path d="M18 20V4" /><path d="M6 20v-4" /></svg></span>
+              <div>
+                <h4 class="text-[#EDF2F7] font-semibold text-[0.95rem] mb-1">Conversion Roadmap</h4>
+                <p class="text-[#9AA4BF] text-[0.82rem] leading-[1.6]">Actionable steps to improve your conversion rate based on real data and UX best practices.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="audit-form scroll-reveal" id="auditFormContainer">
+          <form id="auditForm" action="#" method="POST" class="bg-[#0F1217] border border-[#1E252D] rounded-[24px] p-8">
+            <div class="mb-5">
+              <label for="auditName" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Full Name</label>
+              <input type="text" id="auditName" name="name" placeholder="e.g., Juan Dela Cruz" required />
+            </div>
+            <div class="mb-5">
+              <label for="auditEmail" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Email Address</label>
+              <input type="email" id="auditEmail" name="email" placeholder="you@yourstore.com" required />
+            </div>
+            <div class="mb-5">
+              <label for="auditStore" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Store URL</label>
+              <input type="url" id="auditStore" name="store_url" placeholder="https://yourstore.myshopify.com" required />
+            </div>
+            <div class="mb-5">
+              <label for="auditPlatform" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Current Platform</label>
+              <select id="auditPlatform" name="platform">
+                <option value="shopify">Shopify (Standard)</option>
+                <option value="shopify_plus">Shopify Plus</option>
+                <option value="other">Other / Not Sure</option>
+              </select>
+            </div>
+            <div class="mb-6">
+              <label for="auditChallenges" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">What challenges are you facing?</label>
+              <textarea id="auditChallenges" name="challenges" placeholder="e.g., slow loading, low conversion, app conflicts, etc."></textarea>
+            </div>
+            <button type="submit" class="audit-submit-btn">
+              REQUEST FREE AUDIT
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+            </button>
+          </form>
+          <div class="form-success bg-[#0F1217] border border-[#1E252D] rounded-[24px] p-8" id="formSuccess">
+            <svg class="w-16 h-16 stroke-[#2BD67B] fill-none stroke-2 mx-auto mb-5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M9 12l2 2 4-4" /></svg>
+            <h3 class="font-mono text-[1.4rem] text-[#2BD67B] mb-3">🎉 Audit Request Sent!</h3>
+            <p class="text-[#9AA4BF] text-[0.9rem]">I'll review your store and get back to you within 24–48 hours with a detailed report and actionable recommendations.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       CTA / CONTACT SECTION
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section id="contact" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
+    <div class="container-custom">
+      <div class="bg-[#111418] border border-[#1E252D] rounded-[40px] py-10 px-6 md:py-12 md:px-8 text-center scroll-reveal">
+        <h2 class="font-mono text-[1.8rem] md:text-[2rem] font-semibold text-[#EDF2F7]">Let's Build Something That Converts</h2>
+        <p class="mt-4 text-[#9AA4BF] max-w-2xl mx-auto">If you're looking for a Shopify developer who focuses on clean implementation and practical solutions, I'd be happy to collaborate.</p>
+        <div class="mt-7 flex flex-wrap justify-center gap-6">
+          <a href="#audit" class="bg-[#2BD67B] text-[#0A0C10] font-bold px-[34px] py-[14px] rounded-[40px] font-mono text-[0.8rem] tracking-[0.05em] no-underline inline-flex items-center gap-2 transition-all hover:bg-[#1C9E5B] hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_12px_30px_-8px_rgba(43,214,123,0.35),0_0_0_2px_rgba(43,214,123,0.2)]">
+            BOOK FREE CONSULTATION
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+          </a>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="mailto:hermo.antonjay.personal@gmail.com" class="bg-[rgba(0,0,0,0.4)] px-7 py-2.5 rounded-[40px] text-[#9AA4BF] font-mono no-underline transition-colors hover:text-[#2BD67B] hover:bg-[rgba(43,214,123,0.05)]"><span class="text-[#2BD67B]">EMAIL_</span> hermo.antonjay.personal@gmail.com</a>
+            <a href="https://www.linkedin.com/in/anton-jay-hermo/" target="_blank" class="bg-[rgba(0,0,0,0.4)] px-7 py-2.5 rounded-[40px] text-[#9AA4BF] font-mono no-underline transition-colors hover:text-[#2BD67B] hover:bg-[rgba(43,214,123,0.05)]"><span class="text-[#2BD67B]">LINKEDIN_</span> anton-jay-hermo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <footer class="border-t border-[#1E252D] pt-[80px] pb-5 md:pt-[60px] sm:pt-[45px]">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="footer-brand">
+          <h3><a href="#" class="font-mono text-[1.4rem] font-semibold text-[#EDF2F7] tracking-tight no-underline">NOTZ<span class="text-[#2BD67B]">.DEV</span></a></h3>
+          <p class="text-[#9AA4BF] text-[0.85rem] mt-3.5 leading-[1.7]">I believe every successful Shopify store starts with a strong, well-structured foundation. My goal isn't to create the most complex solution, but the most effective one—building clean, efficient systems that remove technical friction and keep your business running smoothly.</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="font-mono mb-5 text-[0.9rem] text-[#EDF2F7]">Site Navigation</h4>
+          <ul class="list-none">
+            <li class="mb-2.5"><a href="#work" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Case Studies</a></li>
+            <li class="mb-2.5"><a href="#services" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Capabilities</a></li>
+            <li class="mb-2.5"><a href="#technical-arsenal" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Stack</a></li>
+            <li class="mb-2.5"><a href="#about" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">About</a></li>
+            <li class="mb-2.5"><a href="#reviews" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Reviews</a></li>
+            <li class="mb-2.5"><a href="#audit" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Store Audit</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="font-mono mb-5 text-[0.9rem] text-[#EDF2F7]">Direct Channels</h4>
+          <ul class="list-none">
+            <li class="mb-2.5"><a href="mailto:hermo.antonjay.personal@gmail.com" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Direct Email</a></li>
+            <li class="mb-2.5"><a href="https://github.com/BoyLado" target="_blank" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">GitHub</a></li>
+            <li class="mb-2.5"><a href="https://v2.onlinejobs.ph/jobseekers/info/1616842" target="_blank" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">OnlineJobs PH</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="font-mono mb-5 text-[0.9rem] text-[#EDF2F7]">Social</h4>
+          <div class="flex gap-3.5 flex-wrap mt-1">
+            <a href="https://www.facebook.com/yourpage" target="_blank" aria-label="Facebook" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
+            </a>
+            <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg>
+            </a>
+            <a href="https://x.com/yourprofile" target="_blank" aria-label="X (Twitter)" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/anton-jay-hermo/" target="_blank" aria-label="LinkedIn" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col sm:flex-row justify-between items-center mt-8 pt-4 text-[0.7rem] text-[#5F6C84] font-mono border-t border-[#1E252D]">
+        <div>&copy; 2026 // ESTABLISHED IN PH</div>
+        <div id="clock">LOCAL_TIME // --:-- --</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       SCRIPTS
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <script>
+    /* ─────────────────────────────────────────────
+       SCROLL PROGRESS BAR
+       ───────────────────────────────────────────── */
+    const progressBar = document.getElementById('scroll-progress-bar');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (scrollTop / scrollHeight) * 100;
+      progressBar.style.width = scrolled + '%';
+    });
+
+    /* ─────────────────────────────────────────────
+       SCROLL REVEAL (Intersection Observer)
+       ───────────────────────────────────────────── */
+    const reveals = document.querySelectorAll('.scroll-reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    /* ─────────────────────────────────────────────
+       MOBILE MENU TOGGLE
+       ───────────────────────────────────────────── */
+    const burgerBtn = document.getElementById('burgerBtn');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const closeBtn = document.getElementById('mobileCloseBtn');
+
+    function openMenu() {
+      mobileOverlay.classList.add('open');
+      burgerBtn.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      mobileOverlay.classList.remove('open');
+      burgerBtn.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    burgerBtn.addEventListener('click', () => {
+      if (mobileOverlay.classList.contains('open')) closeMenu(); else openMenu();
+    });
+    closeBtn.addEventListener('click', closeMenu);
+    document.querySelectorAll('.mobile-link, .mobile-cta').forEach(link => link.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) closeMenu();
+    });
+
+    /* ─────────────────────────────────────────────
+       LIVE CLOCK (Footer)
+       ───────────────────────────────────────────── */
+    function updateClock() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Manila' });
+      document.getElementById('clock').innerHTML = `LOCAL_TIME // ${timeStr.toUpperCase()}`;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    /* ─────────────────────────────────────────────
+       SMOOTH SCROLL FOR ANCHOR LINKS
+       ───────────────────────────────────────────── */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === "#") return;
+        const targetEl = document.querySelector(targetId);
+        if (!targetEl) return;
+        e.preventDefault();
+        const navHeight = document.querySelector('.nav-sticky').offsetHeight;
+        const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight;
+        window.scrollTo({ top: Math.max(0, targetPosition), behavior: 'smooth' });
+      });
+    });
+
+    /* ─────────────────────────────────────────────
+       STORE AUDIT FORM HANDLING
+       ───────────────────────────────────────────── */
+    const form = document.getElementById('auditForm');
+    const successMessage = document.getElementById('formSuccess');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        console.log('📋 Store Audit Request:', Object.fromEntries(formData));
+        form.style.display = 'none';
+        successMessage.classList.add('show');
+        setTimeout(() => { form.reset(); form.style.display = 'block'; successMessage.classList.remove('show'); }, 5000);
+      });
+    }
+
+    /* ─────────────────────────────────────────────
+       VIDEO REVIEW CONTROLS
+       ───────────────────────────────────────────── */
+    document.addEventListener('DOMContentLoaded', function() {
+      const video = document.getElementById('reviewVideo');
+      const playBtn = document.querySelector('.play-btn');
+      const videoWrapper = document.getElementById('videoWrapper');
+      
+      if (video && playBtn) {
+        playBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (video.paused) {
+            video.play();
+            videoWrapper.classList.add('playing');
+          } else {
+            video.pause();
+            videoWrapper.classList.remove('playing');
+          }
         });
-
-        /* ─────────────────────────────────────────────
-           SCROLL REVEAL (Intersection Observer)
-           ───────────────────────────────────────────── */
-        const reveals = document.querySelectorAll('.scroll-reveal');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); });
-        }, { threshold: 0.12 });
-        reveals.forEach(el => observer.observe(el));
-
-        /* ─────────────────────────────────────────────
-           MOBILE MENU TOGGLE
-           ───────────────────────────────────────────── */
-        const burgerBtn = document.getElementById('burgerBtn');
-        const mobileOverlay = document.getElementById('mobileOverlay');
-        const closeBtn = document.getElementById('mobileCloseBtn');
-
-        function openMenu() {
-            mobileOverlay.classList.add('open');
-            burgerBtn.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeMenu() {
-            mobileOverlay.classList.remove('open');
-            burgerBtn.classList.remove('open');
-            document.body.style.overflow = '';
-        }
-        burgerBtn.addEventListener('click', () => {
-            if (mobileOverlay.classList.contains('open')) closeMenu(); else openMenu();
+        video.addEventListener('click', function() {
+          if (video.paused) {
+            video.play();
+            videoWrapper.classList.add('playing');
+          } else {
+            video.pause();
+            videoWrapper.classList.remove('playing');
+          }
         });
-        closeBtn.addEventListener('click', closeMenu);
-        document.querySelectorAll('.mobile-link, .mobile-cta').forEach(link => link.addEventListener('click', closeMenu));
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) closeMenu();
+        video.addEventListener('ended', function() {
+          videoWrapper.classList.remove('playing');
         });
-
-        /* ─────────────────────────────────────────────
-           LIVE CLOCK (Footer)
-           ───────────────────────────────────────────── */
-        function updateClock() {
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Manila' });
-            document.getElementById('clock').innerHTML = `LOCAL_TIME // ${timeStr.toUpperCase()}`;
-        }
-        updateClock();
-        setInterval(updateClock, 1000);
-
-        /* ─────────────────────────────────────────────
-           SMOOTH SCROLL FOR ANCHOR LINKS
-           ───────────────────────────────────────────── */
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const targetId = this.getAttribute('href');
-                if (targetId === "#") return;
-                const targetEl = document.querySelector(targetId);
-                if (!targetEl) return;
-                e.preventDefault();
-                const navHeight = document.querySelector('.nav-sticky').offsetHeight;
-                const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight;
-                window.scrollTo({ top: Math.max(0, targetPosition), behavior: 'smooth' });
-            });
+        video.addEventListener('play', function() {
+          videoWrapper.classList.add('playing');
         });
-
-        /* ─────────────────────────────────────────────
-           STORE AUDIT FORM HANDLING
-           ───────────────────────────────────────────── */
-        const form = document.getElementById('auditForm');
-        const successMessage = document.getElementById('formSuccess');
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const formData = new FormData(form);
-                console.log('📋 Store Audit Request:', Object.fromEntries(formData));
-                form.style.display = 'none';
-                successMessage.classList.add('show');
-                setTimeout(() => { form.reset(); form.style.display = 'block'; successMessage.classList.remove('show'); }, 5000);
-            });
-        }
-
-        /* ─────────────────────────────────────────────
-        SMOOTH SCROLL FOR HERO BUTTONS
-        ───────────────────────────────────────────── */
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const targetId = this.getAttribute('href');
-                if (targetId === "#") return;
-                const targetEl = document.querySelector(targetId);
-                if (!targetEl) return;
-                e.preventDefault();
-                const navHeight = document.querySelector('.nav-sticky').offsetHeight;
-                const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight;
-                window.scrollTo({ top: Math.max(0, targetPosition), behavior: 'smooth' });
-            });
+        video.addEventListener('pause', function() {
+          if (!video.ended) {
+            videoWrapper.classList.remove('playing');
+          }
         });
-    </script>
+      }
+    });
+  </script>
 
 </body>
 </html>
