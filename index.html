@@ -805,7 +805,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════════════════
-       REVIEWS / TESTIMONIALS SECTION — ULTRA PREMIUM REFINEMENT
+       REVIEWS / TESTIMONIALS SECTION — MOBILE-FIRST APPROACH
        ═══════════════════════════════════════════════════════════════════════════ */
     
     /* Premium background texture with subtle blueprint/code elements */
@@ -819,13 +819,10 @@
       position: absolute;
       inset: 0;
       background-image: 
-        /* Blueprint grid lines — ultra subtle */
         linear-gradient(rgba(43, 214, 123, 0.012) 1px, transparent 1px),
         linear-gradient(90deg, rgba(43, 214, 123, 0.012) 1px, transparent 1px),
-        /* Spacing guides */
         radial-gradient(circle at 20% 30%, rgba(43, 214, 123, 0.008) 0%, transparent 50%),
         radial-gradient(circle at 80% 70%, rgba(43, 214, 123, 0.006) 0%, transparent 40%),
-        /* Abstract code fragments */
         repeating-linear-gradient(45deg, 
           transparent 0px, 
           transparent 40px, 
@@ -853,13 +850,19 @@
       z-index: 0;
       max-width: 300px;
     }
+    /* Hide code text on mobile */
+    @media (max-width: 768px) {
+      .reviews-premium-bg::after {
+        display: none;
+      }
+    }
 
-    /* Premium Testimonial Cards */
+    /* Premium Testimonial Cards — Mobile-First */
     .testimonial-premium {
       background: var(--card-bg);
       border: 1px solid rgba(30, 37, 45, 0.6);
-      border-radius: 24px;
-      padding: 40px 34px 32px 34px;
+      border-radius: 20px;
+      padding: 28px 20px 24px 20px;
       position: relative;
       overflow: hidden;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -892,12 +895,24 @@
     }
     .testimonial-premium:hover {
       border-color: rgba(43, 214, 123, 0.25);
-      transform: translateY(-6px) scale(1.01);
+      transform: translateY(-4px) scale(1.005);
       box-shadow: 0 24px 60px -18px rgba(43, 214, 123, 0.12), 0 0 0 1px rgba(43, 214, 123, 0.06);
     }
 
-    /* Decorative oversized quotation mark */
+    /* Tablet and up */
+    @media (min-width: 768px) {
+      .testimonial-premium {
+        padding: 40px 34px 32px 34px;
+        border-radius: 24px;
+      }
+      .testimonial-premium:hover {
+        transform: translateY(-6px) scale(1.01);
+      }
+    }
+
+    /* Decorative oversized quotation mark — hidden on mobile, visible on tablet+ */
     .testimonial-premium .quote-mark {
+      display: none;
       position: absolute;
       top: 16px;
       right: 24px;
@@ -910,13 +925,18 @@
       user-select: none;
       font-weight: 700;
     }
+    @media (min-width: 768px) {
+      .testimonial-premium .quote-mark {
+        display: block;
+      }
+    }
 
-    /* Premium Video Wrapper */
+    /* Video Wrapper — Mobile-First */
     .testimonial-premium .video-wrapper {
       position: relative;
       z-index: 10;
-      margin-bottom: 1.25rem;
-      border-radius: 16px;
+      margin-bottom: 1rem;
+      border-radius: 14px;
       overflow: hidden;
       background: #000;
       width: 100%;
@@ -924,6 +944,13 @@
       flex-shrink: 0;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     }
+    @media (min-width: 768px) {
+      .testimonial-premium .video-wrapper {
+        margin-bottom: 1.25rem;
+        border-radius: 16px;
+      }
+    }
+
     /* Cinematic dark overlay */
     .testimonial-premium .video-wrapper::after {
       content: '';
@@ -932,8 +959,14 @@
       background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0.30) 100%);
       pointer-events: none;
       z-index: 1;
-      border-radius: 16px;
+      border-radius: 14px;
     }
+    @media (min-width: 768px) {
+      .testimonial-premium .video-wrapper::after {
+        border-radius: 16px;
+      }
+    }
+
     /* Radial vignette */
     .testimonial-premium .video-wrapper .vignette {
       position: absolute;
@@ -941,8 +974,14 @@
       background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.25) 100%);
       pointer-events: none;
       z-index: 2;
-      border-radius: 16px;
+      border-radius: 14px;
     }
+    @media (min-width: 768px) {
+      .testimonial-premium .video-wrapper .vignette {
+        border-radius: 16px;
+      }
+    }
+
     .testimonial-premium .video-wrapper video {
       width: 100%;
       height: 100%;
@@ -954,7 +993,7 @@
       z-index: 0;
     }
 
-    /* Premium Glass Play Button */
+    /* Premium Glass Play Button — Mobile-First */
     .testimonial-premium .play-btn {
       cursor: pointer;
       border: none;
@@ -970,8 +1009,8 @@
       transition: all 0.3s ease;
     }
     .testimonial-premium .play-btn .play-icon {
-      width: 72px;
-      height: 72px;
+      width: 54px;
+      height: 54px;
       border-radius: 50%;
       background: rgba(43, 214, 123, 0.92);
       backdrop-filter: blur(8px);
@@ -982,52 +1021,75 @@
       box-shadow: 0 8px 32px rgba(43, 214, 123, 0.3), inset 0 1px 0 rgba(255,255,255,0.2);
       border: 1px solid rgba(255,255,255,0.08);
     }
+    .testimonial-premium .play-btn .play-icon svg {
+      width: 24px;
+      height: 24px;
+      color: #0A0C10;
+      margin-left: 3px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+    @media (min-width: 768px) {
+      .testimonial-premium .play-btn .play-icon {
+        width: 72px;
+        height: 72px;
+      }
+      .testimonial-premium .play-btn .play-icon svg {
+        width: 32px;
+        height: 32px;
+        margin-left: 4px;
+      }
+    }
     .testimonial-premium .play-btn:hover .play-icon {
       transform: scale(1.08);
       box-shadow: 0 12px 48px rgba(43, 214, 123, 0.4), inset 0 1px 0 rgba(255,255,255,0.25);
       background: #2BD67B;
-    }
-    .testimonial-premium .play-btn .play-icon svg {
-      width: 32px;
-      height: 32px;
-      color: #0A0C10;
-      margin-left: 4px;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
     }
     .testimonial-premium .video-wrapper.playing .play-btn {
       opacity: 0;
       pointer-events: none;
     }
 
-    /* Duration badge */
+    /* Duration badge — Mobile-First */
     .testimonial-premium .duration-badge {
       position: absolute;
-      bottom: 16px;
-      left: 16px;
+      bottom: 10px;
+      left: 10px;
       z-index: 6;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
+      font-size: 0.5rem;
       color: rgba(255,255,255,0.7);
       background: rgba(0,0,0,0.5);
       backdrop-filter: blur(8px);
-      padding: 4px 12px;
+      padding: 3px 10px;
       border-radius: 20px;
       border: 1px solid rgba(255,255,255,0.06);
       letter-spacing: 0.04em;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
     .testimonial-premium .duration-badge svg {
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
       fill: rgba(255,255,255,0.6);
     }
+    @media (min-width: 768px) {
+      .testimonial-premium .duration-badge {
+        bottom: 16px;
+        left: 16px;
+        font-size: 0.6rem;
+        padding: 4px 12px;
+      }
+      .testimonial-premium .duration-badge svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
 
-    /* Review text with keyword highlighting */
+    /* Review text with keyword highlighting — Mobile-First */
     .testimonial-premium .review-text {
-      font-size: 1.05rem;
-      line-height: 1.75;
+      font-size: 0.95rem;
+      line-height: 1.65;
       color: var(--text);
       font-style: italic;
       position: relative;
@@ -1039,19 +1101,34 @@
       font-weight: 600;
       font-style: normal;
     }
+    @media (min-width: 768px) {
+      .testimonial-premium .review-text {
+        font-size: 1.05rem;
+        line-height: 1.75;
+      }
+    }
 
-    /* Client info with verified badge */
+    /* Client info with verified badge — Mobile-First */
     .testimonial-premium .review-footer {
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin-top: 28px;
-      padding-top: 22px;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      margin-top: 20px;
+      padding-top: 16px;
       border-top: 1px solid rgba(30, 37, 45, 0.5);
     }
+    @media (min-width: 768px) {
+      .testimonial-premium .review-footer {
+        margin-top: 28px;
+        padding-top: 22px;
+        gap: 14px;
+      }
+    }
+
     .testimonial-premium .review-avatar {
-      width: 54px;
-      height: 54px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid rgba(43, 214, 123, 0.25);
@@ -1064,8 +1141,8 @@
       object-fit: cover;
     }
     .testimonial-premium .review-avatar-fallback {
-      width: 54px;
-      height: 54px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: var(--bg-elevated);
       border: 2px solid rgba(43, 214, 123, 0.25);
@@ -1075,49 +1152,79 @@
       font-family: 'JetBrains Mono', monospace;
       font-weight: 700;
       color: var(--green);
-      font-size: 1rem;
+      font-size: 0.85rem;
       flex-shrink: 0;
     }
+    @media (min-width: 768px) {
+      .testimonial-premium .review-avatar {
+        width: 54px;
+        height: 54px;
+      }
+      .testimonial-premium .review-avatar-fallback {
+        width: 54px;
+        height: 54px;
+        font-size: 1rem;
+      }
+    }
+
     .testimonial-premium .review-meta h4 {
       color: var(--text);
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       letter-spacing: -0.01em;
     }
     .testimonial-premium .review-meta p {
       color: var(--text-muted);
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       margin-top: 1px;
     }
+    @media (min-width: 768px) {
+      .testimonial-premium .review-meta h4 {
+        font-size: 0.95rem;
+      }
+      .testimonial-premium .review-meta p {
+        font-size: 0.78rem;
+      }
+    }
+
     .testimonial-premium .verified-pill {
-      margin-left: auto;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.5rem;
+      font-size: 0.45rem;
       color: var(--green);
       background: rgba(43, 214, 123, 0.08);
       border: 1px solid rgba(43, 214, 123, 0.15);
-      padding: 3px 10px;
+      padding: 2px 8px;
       border-radius: 20px;
       letter-spacing: 0.04em;
       white-space: nowrap;
       flex-shrink: 0;
-      align-self: flex-start;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
+      margin-left: auto;
     }
     .testimonial-premium .verified-pill svg {
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
       fill: var(--green);
     }
+    @media (min-width: 768px) {
+      .testimonial-premium .verified-pill {
+        font-size: 0.5rem;
+        padding: 3px 10px;
+      }
+      .testimonial-premium .verified-pill svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
 
-    /* Testimonial image wrapper */
+    /* Testimonial image wrapper — Mobile-First */
     .testimonial-premium .testimonial-img-wrapper {
       position: relative;
       z-index: 10;
-      margin-bottom: 1.25rem;
-      border-radius: 16px;
+      margin-bottom: 1rem;
+      border-radius: 14px;
       overflow: hidden;
       background: #000;
       width: 100%;
@@ -1131,22 +1238,50 @@
       object-fit: cover;
       display: block;
     }
+    @media (min-width: 768px) {
+      .testimonial-premium .testimonial-img-wrapper {
+        margin-bottom: 1.25rem;
+        border-radius: 16px;
+      }
+    }
 
-    /* Stars */
+    /* Stars — Mobile-First */
     .testimonial-premium .stars {
       display: flex;
       gap: 2px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .testimonial-premium .stars svg {
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       fill: var(--gold);
     }
+    @media (min-width: 768px) {
+      .testimonial-premium .stars {
+        margin-bottom: 12px;
+      }
+      .testimonial-premium .stars svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
 
-    /* Credibility strip */
+    /* Testimonial grid — Mobile-First (single column) */
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    @media (min-width: 768px) {
+      .testimonial-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+    }
+
+    /* Credibility strip — hidden on mobile, visible on tablet+ */
     .credibility-strip {
-      display: flex;
+      display: none;
       flex-wrap: wrap;
       align-items: center;
       gap: 12px 20px;
@@ -1156,71 +1291,9 @@
       color: var(--text-muted);
       letter-spacing: 0.03em;
     }
-    .credibility-strip .divider {
-      width: 1px;
-      height: 14px;
-      background: rgba(43, 214, 123, 0.15);
-    }
-    .credibility-strip .cred-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .credibility-strip .cred-item .green-dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--green);
-      opacity: 0.5;
-    }
-    .credibility-strip .cred-item .stars-sm {
-      display: flex;
-      gap: 1px;
-    }
-    .credibility-strip .cred-item .stars-sm svg {
-      width: 12px;
-      height: 12px;
-      fill: var(--gold);
-    }
-
-    @media (max-width: 640px) {
-      .testimonial-premium {
-        padding: 28px 20px 24px 20px;
-      }
-      .testimonial-premium .review-text {
-        font-size: 0.95rem;
-      }
-      .testimonial-premium .quote-mark {
-        font-size: 4rem;
-        top: 12px;
-        right: 18px;
-      }
-      .testimonial-premium .play-btn .play-icon {
-        width: 54px;
-        height: 54px;
-      }
-      .testimonial-premium .play-btn .play-icon svg {
-        width: 24px;
-        height: 24px;
-      }
-      .testimonial-premium .video-wrapper {
-        aspect-ratio: 16/9;
-      }
-      .testimonial-premium .testimonial-img-wrapper {
-        aspect-ratio: 16/9;
-      }
+    @media (min-width: 768px) {
       .credibility-strip {
-        font-size: 0.5rem;
-        gap: 8px 14px;
-      }
-      .credibility-strip .divider {
-        height: 10px;
-      }
-      .testimonial-premium .duration-badge {
-        font-size: 0.5rem;
-        padding: 3px 10px;
-        bottom: 12px;
-        left: 12px;
+        display: flex;
       }
     }
 
@@ -1628,18 +1701,18 @@
 
 
   <!-- ═══════════════════════════════════════════════════════════════════════════
-   REVIEWS / TESTIMONIALS SECTION — ULTRA PREMIUM REFINEMENT
+   REVIEWS / TESTIMONIALS SECTION — MOBILE-FIRST
    ═══════════════════════════════════════════════════════════════════════════ -->
   <section id="reviews" class="relative z-10 w-full border-y border-[#1E252D] reviews-premium-bg py-12 md:py-16">
     <div class="container-custom relative z-10">
       <!-- SECTION HEADER -->
-      <div class="mb-10 scroll-reveal">
-        <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Client Reviews</h2>
-        <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">What merchants say about working with me //</p>
+      <div class="mb-8 md:mb-10 scroll-reveal">
+        <h2 class="font-mono text-[1.6rem] md:text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Client Reviews</h2>
+        <p class="text-[#2BD67B] font-mono text-[0.7rem] md:text-[0.75rem] mt-2">What merchants say about working with me //</p>
       </div>
 
-      <!-- TWO COLUMN GRID -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+      <!-- TWO COLUMN GRID — Mobile-First (single column on mobile) -->
+      <div class="testimonial-grid">
         
         <!-- ─── LEFT CARD: VIDEO TESTIMONIAL ─── -->
         <div class="testimonial-premium scroll-reveal">
@@ -1677,7 +1750,7 @@
             <!-- Duration Badge -->
             <div class="duration-badge">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg>
-              2:13 Client Testimonial
+              2:13
             </div>
           </div>
 
@@ -1693,11 +1766,11 @@
             </div>
             <div class="review-meta">
               <h4>Brandon Beck</h4>
-              <p>Founder, MEA Custom Suit • United States</p>
+              <p>Founder, MEA Custom Suit</p>
             </div>
             <span class="verified-pill">
               <svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              Verified Client
+              Verified
             </span>
           </div>
         </div>
@@ -1718,10 +1791,10 @@
           <!-- Testimonial Screenshot (cropped to focus on review) -->
           <div class="testimonial-img-wrapper">
             <img src="testimonial-2.PNG" alt="Roger Porto testimonial screenshot" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlJPUEVSIFBPUlRPPC90ZXh0Pjwvc3ZnPg=='" />
-        </div>
+          </div>
 
           <!-- Strongest quote only -->
-          <blockquote class="review-text text-[1.1rem] font-medium leading-[1.6] text-[#EDF2F7] not-italic">
+          <blockquote class="review-text text-[0.95rem] md:text-[1.1rem] font-medium leading-[1.6] text-[#EDF2F7] not-italic">
             "Anton Jay Hermo was quickly able to understand complex requirements from non-technical personnel and develop the algorithms to achieve the goals to develop our expanding marketing platform."
           </blockquote>
 
@@ -1732,17 +1805,17 @@
             </div>
             <div class="review-meta">
               <h4>Roger Porto</h4>
-              <p>CEO, Arkonor LLC. • United States</p>
+              <p>CEO, Arkonor LLC.</p>
             </div>
             <span class="verified-pill">
               <svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              Verified Client
+              Verified
             </span>
           </div>
         </div>
       </div>
 
-      <p class="text-center text-[#5F6C84] font-mono text-[0.72rem] mt-8 scroll-reveal">More reviews added as new projects launch — see the case studies above for full project breakdowns.</p>
+      <p class="text-center text-[#5F6C84] font-mono text-[0.65rem] md:text-[0.72rem] mt-6 md:mt-8 scroll-reveal">More reviews added as new projects launch — see the case studies above for full project breakdowns.</p>
     </div>
   </section>
 
