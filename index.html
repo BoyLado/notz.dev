@@ -35,6 +35,7 @@
       --text-dim: #9AA4BF;
       --text-muted: #5F6C84;
       --code-bg: #0B0E13;
+      --cookie-bg: #11181f;
     }
 
     body {
@@ -1403,6 +1404,107 @@
       display: block;
       animation: fadeUp 0.5s ease forwards;
     }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       COOKIE CONSENT BANNER
+       ═══════════════════════════════════════════════════════════════════════════ */
+    .cookie-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      background: var(--cookie-bg);
+      border-top: 1px solid rgba(43, 214, 123, 0.15);
+      padding: 18px 20px;
+      backdrop-filter: blur(12px);
+      transform: translateY(100%);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.6);
+    }
+    .cookie-banner.visible {
+      transform: translateY(0);
+    }
+    .cookie-banner .cookie-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .cookie-banner .cookie-text {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      text-align: center;
+      line-height: 1.6;
+      flex: 1;
+    }
+    .cookie-banner .cookie-text strong {
+      color: var(--green);
+    }
+    .cookie-banner .cookie-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .cookie-banner .cookie-btn {
+      padding: 10px 28px;
+      border-radius: 40px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cookie-banner .cookie-btn-primary {
+      background: var(--green);
+      color: #0A0C10;
+    }
+    .cookie-banner .cookie-btn-primary:hover {
+      background: var(--green-dim);
+      transform: scale(1.02);
+      box-shadow: 0 8px 24px -8px rgba(43, 214, 123, 0.3);
+    }
+    .cookie-banner .cookie-btn-secondary {
+      background: transparent;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+    }
+    .cookie-banner .cookie-btn-secondary:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    @media (min-width: 768px) {
+      .cookie-banner .cookie-inner {
+        flex-direction: row;
+        gap: 24px;
+      }
+      .cookie-banner .cookie-text {
+        text-align: left;
+      }
+      .cookie-banner .cookie-actions {
+        flex-shrink: 0;
+      }
+    }
+    @media (max-width: 480px) {
+      .cookie-banner .cookie-text {
+        font-size: 0.75rem;
+      }
+      .cookie-banner .cookie-btn {
+        padding: 8px 18px;
+        font-size: 0.6rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1413,6 +1515,23 @@
   <!-- bg effects -->
   <div class="bg-glow"></div>
   <div class="noise-bg"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       COOKIE CONSENT BANNER
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-label="Cookie consent">
+    <div class="cookie-inner">
+      <p class="cookie-text">
+        <strong>🍪 Hey there!</strong> This site uses cookies for analytics and to remember your preferences. 
+        By clicking "Accept", you allow us to store a session cookie so the hero image doesn't reload on every page visit. 
+        We don't track you across the web.
+      </p>
+      <div class="cookie-actions">
+        <button id="cookieAccept" class="cookie-btn cookie-btn-primary">✓ Accept & Continue</button>
+        <button id="cookieDecline" class="cookie-btn cookie-btn-secondary">✕ Decline</button>
+      </div>
+    </div>
+  </div>
 
   <!-- ═══════════════════════════════════════════════════════════════════════════
        NAVIGATION
@@ -1450,9 +1569,9 @@
   </div>
 
   <!-- ═══════════════════════════════════════════════════════════════════════════
-   HERO SECTION
+   HERO SECTION (background image controlled by cookie consent)
    ═══════════════════════════════════════════════════════════════════════════ -->
-  <section class="hero-section">
+  <section class="hero-section" id="heroSection">
     <div class="hero-overlay"></div>
     <div class="hero-grain"></div>
     <div class="hero-accent-glow"></div>
@@ -1480,15 +1599,15 @@
           </div>
           <div class="hero-stats hero-animate delay-5">
             <div class="hero-stat-item">
-              <div class="hero-stat-number">2+</div>
-              <div class="hero-stat-label">Years Exp.</div>
+              <div class="hero-stat-number">6</div>
+              <div class="hero-stat-label">Months Exp.</div>
             </div>
             <div class="hero-stat-item">
-              <div class="hero-stat-number">15+</div>
+              <div class="hero-stat-number">2</div>
               <div class="hero-stat-label">Projects</div>
             </div>
             <div class="hero-stat-item">
-              <div class="hero-stat-number">98%</div>
+              <div class="hero-stat-number">100%</div>
               <div class="hero-stat-label">Client Satisfaction</div>
             </div>
             <div class="hero-stat-item">
@@ -1549,14 +1668,14 @@
         </div>
       </div>
 
-      <!-- Project 2: Nordik Home -->
+      <!-- Project 2: AJL-Handicraft -->
       <div class="project-row reverse scroll-reveal mb-12">
         <div class="row-inner">
           <div class="project-image-wrap">
-            <img src="project2.png" alt="Nordik Home Shopify Store" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5PUkRJSyBIT01FPC90ZXh0Pjwvc3ZnPg=='" />
+            <img src="project2.png" alt="AJL-Handicraft Shopify Store" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5PUkRJSyBIT01FPC90ZXh0Pjwvc3ZnPg=='" />
             <div class="image-overlay">
-              <span class="overlay-title">Nordik Home</span>
-              <span class="overlay-sub">Full Theme Rebuild &amp; App Consolidation</span>
+              <span class="overlay-title">AJL-Handicraft</span>
+              <span class="overlay-sub">Full Theme Rebuild &amp; Custom Sections</span>
               <span class="overlay-tag">Concept Store</span>
             </div>
           </div>
@@ -1579,53 +1698,13 @@
               <span>CSS Grid</span>
               <span>Vanilla JS</span>
             </div>
-            <a href="#" class="project-cta">
+            <a href="https://ajl-handicraft.myshopify.com/" class="project-cta">
               View Live Store
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
             </a>
           </div>
         </div>
       </div>
-
-      <!-- Project 3: Apex Collective -->
-      <div class="project-row scroll-reveal">
-        <div class="row-inner">
-          <div class="project-image-wrap">
-            <img src="project3.png" alt="Apex Collective Shopify Store" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkFQRVggQ09MTEVDVElWRTwvdGV4dD48L3N2Zz4='" />
-            <div class="image-overlay">
-              <span class="overlay-title">Apex Collective</span>
-              <span class="overlay-sub">Bespoke Luxury Experience</span>
-              <span class="overlay-tag">Concept Store</span>
-            </div>
-          </div>
-          <div class="project-content">
-            <div class="project-problem">
-              <strong>The Problem:</strong> A high‑end fashion brand needed a store that matched their premium positioning. Their generic template felt cheap, with poor navigation and slow product filtering — leading to high bounce rates.
-            </div>
-            <ul class="project-features">
-              <li>Bespoke theme with custom animations &amp; transitions</li>
-              <li>Dynamic product filtering with instant AJAX updates</li>
-              <li>Refined mobile‑first UX with gesture support</li>
-              <li>Custom wishlist &amp; save‑for‑later functionality</li>
-              <li>Integrated email marketing sync (Klaviyo)</li>
-              <li>40% reduction in cart abandonment</li>
-            </ul>
-            <div class="project-tech-tags">
-              <span>Shopify OS 2.0</span>
-              <span>Liquid</span>
-              <span>AJAX / fetch</span>
-              <span>CSS Animations</span>
-              <span>Klaviyo API</span>
-            </div>
-            <a href="#" class="project-cta">
-              View Live Store
-              <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════════════
        SERVICES SECTION
@@ -2162,6 +2241,57 @@
           }
         });
       }
+    });
+
+    /* ─────────────────────────────────────────────
+       COOKIE CONSENT & HERO BACKGROUND CONTROL
+       ───────────────────────────────────────────── */
+    document.addEventListener('DOMContentLoaded', function() {
+      const cookieBanner = document.getElementById('cookieBanner');
+      const acceptBtn = document.getElementById('cookieAccept');
+      const declineBtn = document.getElementById('cookieDecline');
+      const heroSection = document.getElementById('heroSection');
+
+      // Check for session flag
+      const sessionFlag = sessionStorage.getItem('cookieConsent');
+
+      if (sessionFlag === 'accepted') {
+        // Hero background stays (already set in CSS)
+        cookieBanner.classList.remove('visible');
+      } else if (sessionFlag === 'declined') {
+        // Remove background image to prevent loading
+        heroSection.style.backgroundImage = 'none';
+        heroSection.style.backgroundColor = '#0A0C10';
+        cookieBanner.classList.remove('visible');
+      } else {
+        // No consent yet: show banner, background loads by default but we'll keep it
+        // (the image is already loaded in CSS, but we want to show banner)
+        cookieBanner.classList.add('visible');
+      }
+
+      // Accept: store session flag, keep background
+      acceptBtn.addEventListener('click', function() {
+        sessionStorage.setItem('cookieConsent', 'accepted');
+        cookieBanner.classList.remove('visible');
+        // Ensure hero background is visible (it already is)
+        heroSection.style.backgroundImage = ''; // reset to CSS default
+        heroSection.style.backgroundColor = '';
+        // Re-apply the background from CSS (it's already there)
+        // Force a reflow to re-apply the background
+        heroSection.style.display = 'none';
+        setTimeout(() => { heroSection.style.display = 'flex'; }, 10);
+        console.log('🍪 Cookie accepted: hero image will load on subsequent visits.');
+      });
+
+      // Decline: remove background to avoid loading
+      declineBtn.addEventListener('click', function() {
+        sessionStorage.setItem('cookieConsent', 'declined');
+        cookieBanner.classList.remove('visible');
+        // Remove the background image to prevent loading on this and future visits
+        heroSection.style.backgroundImage = 'none';
+        heroSection.style.backgroundColor = '#0A0C10';
+        console.log('🍪 Cookie declined: hero image will not load.');
+      });
     });
   </script>
 
