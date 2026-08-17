@@ -11,7 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <!-- Tailwind CSS via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
 
   <style>
     /* ═══════════════════════════════════════════════════════════════════════════
@@ -292,14 +293,30 @@
       opacity: 0;
       animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    .hero-animate.delay-1 { animation-delay: 0.05s; }
-    .hero-animate.delay-2 { animation-delay: 0.25s; }
-    .hero-animate.delay-3 { animation-delay: 0.4s; }
-    .hero-animate.delay-4 { animation-delay: 0.55s; }
-    .hero-animate.delay-5 { animation-delay: 0.7s; }
+    .hero-animate.delay-1 {
+      animation-delay: 0.05s;
+    }
+    .hero-animate.delay-2 {
+      animation-delay: 0.25s;
+    }
+    .hero-animate.delay-3 {
+      animation-delay: 0.4s;
+    }
+    .hero-animate.delay-4 {
+      animation-delay: 0.55s;
+    }
+    .hero-animate.delay-5 {
+      animation-delay: 0.7s;
+    }
     @keyframes fadeUp {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .hero-pre-title {
@@ -334,9 +351,15 @@
 
     /* Hero Buttons */
     @keyframes fireflyPulse {
-      0% { box-shadow: 0 0 0 0 rgba(43, 214, 123, 0.9), 0 0 12px rgba(43, 214, 123, 0.6); }
-      50% { box-shadow: 0 0 0 16px rgba(43, 214, 123, 0), 0 0 26px rgba(43, 214, 123, 0.9); }
-      100% { box-shadow: 0 0 0 0 rgba(43, 214, 123, 0.9), 0 0 12px rgba(43, 214, 123, 0.6); }
+      0% {
+        box-shadow: 0 0 0 0 rgba(43, 214, 123, 0.9), 0 0 12px rgba(43, 214, 123, 0.6);
+      }
+      50% {
+        box-shadow: 0 0 0 16px rgba(43, 214, 123, 0), 0 0 26px rgba(43, 214, 123, 0.9);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(43, 214, 123, 0.9), 0 0 12px rgba(43, 214, 123, 0.6);
+      }
     }
     .hero-btn-primary {
       background: #2BD67B;
@@ -408,13 +431,11 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(
-        135deg,
-        rgba(10, 12, 16, 0.75) 0%,
-        rgba(10, 12, 16, 0.55) 35%,
-        rgba(10, 12, 16, 0.4) 65%,
-        rgba(10, 12, 16, 0.25) 100%
-      );
+      background: linear-gradient(135deg,
+          rgba(10, 12, 16, 0.75) 0%,
+          rgba(10, 12, 16, 0.55) 35%,
+          rgba(10, 12, 16, 0.4) 65%,
+          rgba(10, 12, 16, 0.25) 100%);
       z-index: 1;
     }
 
@@ -424,7 +445,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: 
+      background:
         radial-gradient(ellipse at 75% 45%, rgba(43, 214, 123, 0.12) 0%, transparent 50%),
         radial-gradient(ellipse at 20% 80%, rgba(43, 214, 123, 0.06) 0%, transparent 40%);
       pointer-events: none;
@@ -486,27 +507,57 @@
     }
 
     @media (min-width: 480px) {
-      .hero-stat-item { min-width: 80px; }
-      .hero-stat-number { font-size: 1.4rem; }
-      .hero-stat-label { font-size: 0.58rem; }
-      .hero-stats { gap: 2rem; }
+      .hero-stat-item {
+        min-width: 80px;
+      }
+      .hero-stat-number {
+        font-size: 1.4rem;
+      }
+      .hero-stat-label {
+        font-size: 0.58rem;
+      }
+      .hero-stats {
+        gap: 2rem;
+      }
     }
     @media (min-width: 640px) {
-      .hero-stats { justify-content: flex-start; }
-      .hero-stat-number { font-size: 1.6rem; }
+      .hero-stats {
+        justify-content: flex-start;
+      }
+      .hero-stat-number {
+        font-size: 1.6rem;
+      }
     }
     @media (max-width: 768px) {
-      .hero-section { min-height: auto; padding-top: 6rem; padding-bottom: 4rem; }
+      .hero-section {
+        min-height: auto;
+        padding-top: 6rem;
+        padding-bottom: 4rem;
+      }
       .hero-overlay {
-        background: linear-gradient(180deg, rgba(10,12,16,0.85) 0%, rgba(10,12,16,0.7) 50%, rgba(10,12,16,0.55) 100%);
+        background: linear-gradient(180deg, rgba(10, 12, 16, 0.85) 0%, rgba(10, 12, 16, 0.7) 50%, rgba(10, 12, 16, 0.55) 100%);
       }
     }
     @media (max-width: 480px) {
-      .hero-btn-primary, .hero-btn-secondary { width: 100%; justify-content: center; padding: 14px 24px; font-size: 0.7rem; }
-      .hero-stat-item { min-width: 60px; }
-      .hero-stat-number { font-size: 1.1rem; }
-      .hero-stat-label { font-size: 0.45rem; }
-      .hero-stats { gap: 1rem; }
+      .hero-btn-primary,
+      .hero-btn-secondary {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 24px;
+        font-size: 0.7rem;
+      }
+      .hero-stat-item {
+        min-width: 60px;
+      }
+      .hero-stat-number {
+        font-size: 1.1rem;
+      }
+      .hero-stat-label {
+        font-size: 0.45rem;
+      }
+      .hero-stats {
+        gap: 1rem;
+      }
     }
 
     /* ═══════════════════════════════════════════════════════════════════════════
@@ -600,13 +651,12 @@
       left: 0;
       right: 0;
       padding: 44px 30px 30px 30px;
-      background: linear-gradient(0deg, 
-        rgba(0,0,0,0.92) 0%, 
-        rgba(0,0,0,0.75) 30%, 
-        rgba(0,0,0,0.45) 55%, 
-        rgba(0,0,0,0.15) 80%, 
-        transparent 100%
-      );
+      background: linear-gradient(0deg,
+          rgba(0, 0, 0, 0.92) 0%,
+          rgba(0, 0, 0, 0.75) 30%,
+          rgba(0, 0, 0, 0.45) 55%,
+          rgba(0, 0, 0, 0.15) 80%,
+          transparent 100%);
       display: flex;
       flex-direction: column;
       gap: 4px;
@@ -614,13 +664,12 @@
       transition: all 0.3s ease;
     }
     .project-row:hover .project-image-wrap .image-overlay {
-      background: linear-gradient(0deg, 
-        rgba(0,0,0,0.95) 0%, 
-        rgba(0,0,0,0.80) 30%, 
-        rgba(0,0,0,0.50) 55%, 
-        rgba(0,0,0,0.20) 80%, 
-        transparent 100%
-      );
+      background: linear-gradient(0deg,
+          rgba(0, 0, 0, 0.95) 0%,
+          rgba(0, 0, 0, 0.80) 30%,
+          rgba(0, 0, 0, 0.50) 55%,
+          rgba(0, 0, 0, 0.20) 80%,
+          transparent 100%);
     }
     .project-row .project-image-wrap .image-overlay .overlay-title {
       font-family: 'JetBrains Mono', monospace;
@@ -629,14 +678,14 @@
       color: #ffffff;
       letter-spacing: -0.02em;
       line-height: 1.2;
-      text-shadow: 0 2px 24px rgba(0,0,0,0.8);
+      text-shadow: 0 2px 24px rgba(0, 0, 0, 0.8);
     }
     .project-row .project-image-wrap .image-overlay .overlay-sub {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.95rem;
       color: var(--green);
       font-weight: 500;
-      text-shadow: 0 2px 16px rgba(0,0,0,0.7);
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.7);
     }
     .project-row .project-image-wrap .image-overlay .overlay-tag {
       font-family: 'JetBrains Mono', monospace;
@@ -651,7 +700,7 @@
       display: inline-block;
       width: fit-content;
       margin-top: 4px;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
       backdrop-filter: blur(4px);
     }
 
@@ -808,7 +857,7 @@
     /* ═══════════════════════════════════════════════════════════════════════════
        REVIEWS / TESTIMONIALS SECTION — MOBILE-FIRST APPROACH
        ═══════════════════════════════════════════════════════════════════════════ */
-    
+
     /* Premium background texture with subtle blueprint/code elements */
     .reviews-premium-bg {
       position: relative;
@@ -819,17 +868,16 @@
       content: '';
       position: absolute;
       inset: 0;
-      background-image: 
+      background-image:
         linear-gradient(rgba(43, 214, 123, 0.012) 1px, transparent 1px),
         linear-gradient(90deg, rgba(43, 214, 123, 0.012) 1px, transparent 1px),
         radial-gradient(circle at 20% 30%, rgba(43, 214, 123, 0.008) 0%, transparent 50%),
         radial-gradient(circle at 80% 70%, rgba(43, 214, 123, 0.006) 0%, transparent 40%),
-        repeating-linear-gradient(45deg, 
-          transparent 0px, 
-          transparent 40px, 
-          rgba(43, 214, 123, 0.005) 40px, 
-          rgba(43, 214, 123, 0.005) 41px
-        );
+        repeating-linear-gradient(45deg,
+          transparent 0px,
+          transparent 40px,
+          rgba(43, 214, 123, 0.005) 40px,
+          rgba(43, 214, 123, 0.005) 41px);
       background-size: 60px 60px, 60px 60px, 100% 100%, 100% 100%, 100% 100%;
       pointer-events: none;
       z-index: 0;
@@ -890,7 +938,7 @@
       right: -50%;
       width: 100%;
       height: 100%;
-      background: radial-gradient(ellipse at 70% 20%, rgba(255,255,255,0.015) 0%, transparent 60%);
+      background: radial-gradient(ellipse at 70% 20%, rgba(255, 255, 255, 0.015) 0%, transparent 60%);
       pointer-events: none;
       border-radius: 50%;
     }
@@ -957,7 +1005,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0.30) 100%);
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.15) 60%, rgba(0, 0, 0, 0.30) 100%);
       pointer-events: none;
       z-index: 1;
       border-radius: 14px;
@@ -972,7 +1020,7 @@
     .testimonial-premium .video-wrapper .vignette {
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.25) 100%);
+      background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.25) 100%);
       pointer-events: none;
       z-index: 2;
       border-radius: 14px;
@@ -1019,15 +1067,15 @@
       align-items: center;
       justify-content: center;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 8px 32px rgba(43, 214, 123, 0.3), inset 0 1px 0 rgba(255,255,255,0.2);
-      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 8px 32px rgba(43, 214, 123, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
     .testimonial-premium .play-btn .play-icon svg {
       width: 24px;
       height: 24px;
       color: #0A0C10;
       margin-left: 3px;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
     }
     @media (min-width: 768px) {
       .testimonial-premium .play-btn .play-icon {
@@ -1042,7 +1090,7 @@
     }
     .testimonial-premium .play-btn:hover .play-icon {
       transform: scale(1.08);
-      box-shadow: 0 12px 48px rgba(43, 214, 123, 0.4), inset 0 1px 0 rgba(255,255,255,0.25);
+      box-shadow: 0 12px 48px rgba(43, 214, 123, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
       background: #2BD67B;
     }
     .testimonial-premium .video-wrapper.playing .play-btn {
@@ -1058,12 +1106,12 @@
       z-index: 6;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.5rem;
-      color: rgba(255,255,255,0.7);
-      background: rgba(0,0,0,0.5);
+      color: rgba(255, 255, 255, 0.7);
+      background: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(8px);
       padding: 3px 10px;
       border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.06);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       letter-spacing: 0.04em;
       display: flex;
       align-items: center;
@@ -1072,7 +1120,7 @@
     .testimonial-premium .duration-badge svg {
       width: 10px;
       height: 10px;
-      fill: rgba(255,255,255,0.6);
+      fill: rgba(255, 255, 255, 0.6);
     }
     @media (min-width: 768px) {
       .testimonial-premium .duration-badge {
@@ -1522,8 +1570,8 @@
   <div id="cookieBanner" class="cookie-banner" role="dialog" aria-label="Cookie consent">
     <div class="cookie-inner">
       <p class="cookie-text">
-        <strong>🍪 Hey there!</strong> This site uses cookies for analytics and to remember your preferences. 
-        By clicking "Accept", you allow us to store a session cookie so the hero image doesn't reload on every page visit. 
+        <strong>🍪 Hey there!</strong> This site uses cookies for analytics and to remember your preferences.
+        By clicking "Accept", you allow us to store a session cookie so the hero image doesn't reload on every page visit.
         We don't track you across the web.
       </p>
       <div class="cookie-actions">
@@ -1668,7 +1716,7 @@
         </div>
       </div>
 
-      <!-- Project 2: AJL-Handicraft -->
+      <!-- Project 2: AJL-Handicraft — image set to project2.png -->
       <div class="project-row reverse scroll-reveal mb-12">
         <div class="row-inner">
           <div class="project-image-wrap">
@@ -1706,594 +1754,594 @@
         </div>
       </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════════════════
+      <!-- ═══════════════════════════════════════════════════════════════════════════
        SERVICES SECTION
        ═══════════════════════════════════════════════════════════════════════════ -->
-  <section id="services" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
-    <div class="container-custom">
-      <div class="mb-10 scroll-reveal">
-        <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Capabilities</h2>
-        <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Tech Solutions for Merchants //</p>
-      </div>
-      <p class="font-mono bg-[#0B0E13] px-6 py-[18px] border-l-3 border-[#2BD67B] rounded-xl mb-10 text-[#9AA4BF] scroll-reveal">
-        I prioritize "Clean Implementation." A store that looks good but is difficult to maintain is a liability. I build systems that are developer-friendly and merchant-empowering.
-      </p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
-          <div class="service-icon-wrap">
-            <span class="service-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
-            <div>
-              <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Custom Sections &amp; Blocks</h3>
-              <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Building reusable and flexible Liquid sections that empower your team to manage content without touching code.</p>
-            </div>
+      <section id="services" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
+        <div class="container-custom">
+          <div class="mb-10 scroll-reveal">
+            <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Capabilities</h2>
+            <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Tech Solutions for Merchants //</p>
           </div>
-        </div>
-        <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
-          <div class="service-icon-wrap">
-            <span class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 3L12 7M12 17L12 21M3 12L7 12M17 12L21 12M6 6L8 8M16 16L18 18M18 6L16 8M8 16L6 18" stroke-linecap="round"/></svg></span>
-            <div>
-              <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Tech Debt Elimination</h3>
-              <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Replacing high-latency apps with native frontend logic to slash load times and monthly overhead costs.</p>
-            </div>
-          </div>
-        </div>
-        <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
-          <div class="service-icon-wrap">
-            <span class="service-icon"><svg viewBox="0 0 24 24"><path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z"/><circle cx="12" cy="12" r="3"/></svg></span>
-            <div>
-              <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">UI/UX Improvements</h3>
-              <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Refining the customer journey with high-performance animations and mobile-first interface.</p>
-            </div>
-          </div>
-        </div>
-        <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
-          <div class="service-icon-wrap">
-            <span class="service-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8L12 12L15 15"/><path d="M3 12L5 12M19 12L21 12M12 3L12 5M12 19L12 21"/></svg></span>
-            <div>
-              <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Core Web Vitals Audit</h3>
-              <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Deep-layer optimization targeting LCP and CLS to ensure your store ranks higher and retains users.</p>
-            </div>
-          </div>
-        </div>
-        <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
-          <div class="service-icon-wrap">
-            <span class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 2C12 2 9 6 9 11C9 14 10 17 12 19C14 17 15 14 15 11C15 6 12 2 12 2Z"/><path d="M9 11C9 11 3 13 3 18C7 15 9 14 9 14"/><path d="M15 11C15 11 21 13 21 18C17 15 15 14 15 14"/><path d="M12 19L12 22"/></svg></span>
-            <div>
-              <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Custom Landing Systems</h3>
-              <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Engineered for paid traffic. High-performance, custom-coded pages that convert better than generic templates.</p>
-            </div>
-          </div>
-        </div>
-        <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
-          <div class="service-icon-wrap">
-            <span class="service-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1L12 4M12 20L12 23M1 12L4 12M20 12L23 12M4.22 4.22L6.34 6.34M17.66 17.66L19.78 19.78M19.78 4.22L17.66 6.34M6.34 17.66L4.22 19.78"/></svg></span>
-            <div>
-              <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Bug Fixes &amp; Enhancements</h3>
-              <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Technical troubleshooting and continuous store improvements to keep things running smoothly.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-
-  <!-- ═══════════════════════════════════════════════════════════════════════════
-   REVIEWS / TESTIMONIALS SECTION — MOBILE-FIRST
-   ═══════════════════════════════════════════════════════════════════════════ -->
-  <section id="reviews" class="relative z-10 w-full border-y border-[#1E252D] reviews-premium-bg py-12 md:py-16">
-    <div class="container-custom relative z-10">
-      <!-- SECTION HEADER -->
-      <div class="mb-8 md:mb-10 scroll-reveal">
-        <h2 class="font-mono text-[1.6rem] md:text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Client Reviews</h2>
-        <p class="text-[#2BD67B] font-mono text-[0.7rem] md:text-[0.75rem] mt-2">What merchants say about working with me //</p>
-      </div>
-
-      <!-- TWO COLUMN GRID — Mobile-First (single column on mobile) -->
-      <div class="testimonial-grid">
-        
-        <!-- ─── LEFT CARD: VIDEO TESTIMONIAL ─── -->
-        <div class="testimonial-premium scroll-reveal">
-          <span class="quote-mark">&#8220;</span>
-          
-          <!-- Stars -->
-          <div class="stars relative z-10">
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-          </div>
-
-          <!-- Video Wrapper -->
-          <div class="video-wrapper" id="videoWrapper">
-            <div class="vignette"></div>
-            <video 
-              id="reviewVideo"
-              poster="brandon-beck.webp"
-              playsinline
-              preload="metadata"
-            >
-              <source src="testimonial-video.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-            <!-- Play Button -->
-            <button class="play-btn" aria-label="Play video review">
-              <div class="play-icon">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <polygon points="5,3 19,12 5,21" />
-                </svg>
-              </div>
-            </button>
-            <!-- Duration Badge -->
-            <div class="duration-badge">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg>
-              2:13
-            </div>
-          </div>
-
-          <!-- Review Text with highlighted keywords -->
-          <p class="review-text">
-            "Anton was super easy to communicate with, unbelievably <span class="highlight-keyword">professional</span>, and worked on everything really fast. He built a beautiful web app that gives our customers full control and is going to take a ton of headache off our customer support team."
+          <p class="font-mono bg-[#0B0E13] px-6 py-[18px] border-l-3 border-[#2BD67B] rounded-xl mb-10 text-[#9AA4BF] scroll-reveal">
+            I prioritize "Clean Implementation." A store that looks good but is difficult to maintain is a liability. I build systems that are developer-friendly and merchant-empowering.
           </p>
-
-          <!-- Footer with client info -->
-          <div class="review-footer">
-            <div class="review-avatar">
-              <img src="brandon-beck.webp" alt="Brandon Beck" loading="lazy" onerror="this.parentElement.outerHTML='&lt;div class=&quot;review-avatar-fallback&quot;&gt;SM&lt;/div&gt;'" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+              <div class="service-icon-wrap">
+                <span class="service-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
+                <div>
+                  <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Custom Sections &amp; Blocks</h3>
+                  <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Building reusable and flexible Liquid sections that empower your team to manage content without touching code.</p>
+                </div>
+              </div>
             </div>
-            <div class="review-meta">
-              <h4>Brandon Beck</h4>
-              <p>Founder, MEA Custom Suit</p>
+            <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+              <div class="service-icon-wrap">
+                <span class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 3L12 7M12 17L12 21M3 12L7 12M17 12L21 12M6 6L8 8M16 16L18 18M18 6L16 8M8 16L6 18" stroke-linecap="round"/></svg></span>
+                <div>
+                  <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Tech Debt Elimination</h3>
+                  <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Replacing high-latency apps with native frontend logic to slash load times and monthly overhead costs.</p>
+                </div>
+              </div>
             </div>
-            <span class="verified-pill">
-              <svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              Verified
-            </span>
+            <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+              <div class="service-icon-wrap">
+                <span class="service-icon"><svg viewBox="0 0 24 24"><path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z"/><circle cx="12" cy="12" r="3"/></svg></span>
+                <div>
+                  <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">UI/UX Improvements</h3>
+                  <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Refining the customer journey with high-performance animations and mobile-first interface.</p>
+                </div>
+              </div>
+            </div>
+            <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+              <div class="service-icon-wrap">
+                <span class="service-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8L12 12L15 15"/><path d="M3 12L5 12M19 12L21 12M12 3L12 5M12 19L12 21"/></svg></span>
+                <div>
+                  <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Core Web Vitals Audit</h3>
+                  <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Deep-layer optimization targeting LCP and CLS to ensure your store ranks higher and retains users.</p>
+                </div>
+              </div>
+            </div>
+            <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+              <div class="service-icon-wrap">
+                <span class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 2C12 2 9 6 9 11C9 14 10 17 12 19C14 17 15 14 15 11C15 6 12 2 12 2Z"/><path d="M9 11C9 11 3 13 3 18C7 15 9 14 9 14"/><path d="M15 11C15 11 21 13 21 18C17 15 15 14 15 14"/><path d="M12 19L12 22"/></svg></span>
+                <div>
+                  <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Custom Landing Systems</h3>
+                  <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Engineered for paid traffic. High-performance, custom-coded pages that convert better than generic templates.</p>
+                </div>
+              </div>
+            </div>
+            <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+              <div class="service-icon-wrap">
+                <span class="service-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1L12 4M12 20L12 23M1 12L4 12M20 12L23 12M4.22 4.22L6.34 6.34M17.66 17.66L19.78 19.78M19.78 4.22L17.66 6.34M6.34 17.66L4.22 19.78"/></svg></span>
+                <div>
+                  <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Bug Fixes &amp; Enhancements</h3>
+                  <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Technical troubleshooting and continuous store improvements to keep things running smoothly.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <!-- ─── RIGHT CARD: WRITTEN TESTIMONIAL ─── -->
-        <div class="testimonial-premium scroll-reveal">
-          <span class="quote-mark">&#8220;</span>
-          
-          <!-- Stars -->
-          <div class="stars relative z-10">
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+
+
+      <!-- ═══════════════════════════════════════════════════════════════════════════
+       REVIEWS / TESTIMONIALS SECTION — MOBILE-FIRST
+       ═══════════════════════════════════════════════════════════════════════════ -->
+      <section id="reviews" class="relative z-10 w-full border-y border-[#1E252D] reviews-premium-bg py-12 md:py-16">
+        <div class="container-custom relative z-10">
+          <!-- SECTION HEADER -->
+          <div class="mb-8 md:mb-10 scroll-reveal">
+            <h2 class="font-mono text-[1.6rem] md:text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Client Reviews</h2>
+            <p class="text-[#2BD67B] font-mono text-[0.7rem] md:text-[0.75rem] mt-2">What merchants say about working with me //</p>
           </div>
 
-          <!-- Testimonial Screenshot (cropped to focus on review) -->
-          <div class="testimonial-img-wrapper">
-            <img src="testimonial-2.png" alt="Roger Porto testimonial screenshot" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlJPUEVSIFBPUlRPPC90ZXh0Pjwvc3ZnPg=='" />
-          </div>
+          <!-- TWO COLUMN GRID — Mobile-First (single column on mobile) -->
+          <div class="testimonial-grid">
 
-          <!-- Strongest quote only -->
-          <blockquote class="review-text text-[0.95rem] md:text-[1.1rem] font-medium leading-[1.6] text-[#EDF2F7] not-italic">
-            "Anton Jay Hermo was quickly able to understand complex requirements from non-technical personnel and develop the algorithms to achieve the goals to develop our expanding marketing platform."
-          </blockquote>
+            <!-- ─── LEFT CARD: VIDEO TESTIMONIAL ─── -->
+            <div class="testimonial-premium scroll-reveal">
+              <span class="quote-mark">&#8220;</span>
 
-          <!-- Footer with client info -->
-          <div class="review-footer">
-            <div class="review-avatar">
-              <img src="roger-porto.webp" alt="Roger Porto" loading="lazy" onerror="this.parentElement.outerHTML='&lt;div class=&quot;review-avatar-fallback&quot;&gt;RP&lt;/div&gt;'" />
+              <!-- Stars -->
+              <div class="stars relative z-10">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+              </div>
+
+              <!-- Video Wrapper -->
+              <div class="video-wrapper" id="videoWrapper">
+                <div class="vignette"></div>
+                <video id="reviewVideo" poster="brandon-beck.webp" playsinline preload="metadata">
+                  <source src="testimonial-video.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <!-- Play Button -->
+                <button class="play-btn" aria-label="Play video review">
+                  <div class="play-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="5,3 19,12 5,21" />
+                    </svg>
+                  </div>
+                </button>
+                <!-- Duration Badge -->
+                <div class="duration-badge">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg>
+                  2:13
+                </div>
+              </div>
+
+              <!-- Review Text with highlighted keywords -->
+              <p class="review-text">
+                "Anton was super easy to communicate with, unbelievably <span class="highlight-keyword">professional</span>, and worked on everything really fast. He built a beautiful web app that gives our customers full control and is going to take a ton of headache off our customer support team."
+              </p>
+
+              <!-- Footer with client info -->
+              <div class="review-footer">
+                <div class="review-avatar">
+                  <img src="brandon-beck.webp" alt="Brandon Beck" loading="lazy" onerror="this.parentElement.outerHTML='&lt;div class=&quot;review-avatar-fallback&quot;&gt;SM&lt;/div&gt;'" />
+                </div>
+                <div class="review-meta">
+                  <h4>Brandon Beck</h4>
+                  <p>Founder, MEA Custom Suit</p>
+                </div>
+                <span class="verified-pill">
+                  <svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  Verified
+                </span>
+              </div>
             </div>
-            <div class="review-meta">
-              <h4>Roger Porto</h4>
-              <p>CEO, Arkonor LLC.</p>
+
+            <!-- ─── RIGHT CARD: WRITTEN TESTIMONIAL ─── -->
+            <div class="testimonial-premium scroll-reveal">
+              <span class="quote-mark">&#8220;</span>
+
+              <!-- Stars -->
+              <div class="stars relative z-10">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+              </div>
+
+              <!-- Testimonial Screenshot (cropped to focus on review) -->
+              <div class="testimonial-img-wrapper">
+                <img src="testimonial-2.png" alt="Roger Porto testimonial screenshot" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlJPUEVSIFBPUlRPPC90ZXh0Pjwvc3ZnPg=='" />
+              </div>
+
+              <!-- Strongest quote only -->
+              <blockquote class="review-text text-[0.95rem] md:text-[1.1rem] font-medium leading-[1.6] text-[#EDF2F7] not-italic">
+                "Anton Jay Hermo was quickly able to understand complex requirements from non-technical personnel and develop the algorithms to achieve the goals to develop our expanding marketing platform."
+              </blockquote>
+
+              <!-- Footer with client info -->
+              <div class="review-footer">
+                <div class="review-avatar">
+                  <img src="roger-porto.webp" alt="Roger Porto" loading="lazy" onerror="this.parentElement.outerHTML='&lt;div class=&quot;review-avatar-fallback&quot;&gt;RP&lt;/div&gt;'" />
+                </div>
+                <div class="review-meta">
+                  <h4>Roger Porto</h4>
+                  <p>CEO, Arkonor LLC.</p>
+                </div>
+                <span class="verified-pill">
+                  <svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  Verified
+                </span>
+              </div>
             </div>
-            <span class="verified-pill">
-              <svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              Verified
-            </span>
           </div>
+
+          <p class="text-center text-[#5F6C84] font-mono text-[0.65rem] md:text-[0.72rem] mt-6 md:mt-8 scroll-reveal">More reviews added as new projects launch — see the case studies above for full project breakdowns.</p>
         </div>
-      </div>
+      </section>
 
-      <p class="text-center text-[#5F6C84] font-mono text-[0.65rem] md:text-[0.72rem] mt-6 md:mt-8 scroll-reveal">More reviews added as new projects launch — see the case studies above for full project breakdowns.</p>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════════════
+      <!-- ═══════════════════════════════════════════════════════════════════════════
        ABOUT SECTION
        ═══════════════════════════════════════════════════════════════════════════ -->
-  <section id="about" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
-    <div class="container-custom">
-      <div class="mb-10 scroll-reveal">
-        <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Behind the Systems</h2>
-        <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Personal Profile //</p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-12 items-center scroll-reveal">
-        <div class="about-img">
-          <img src="me.webp" alt="Anton Jay L. Hermo" class="w-full rounded-[28px] border border-[#2BD67B] transition-transform hover:scale-[1.02] hover:shadow-[0_12px_40px_-10px_rgba(43,214,123,0.15)]" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNDAwIDUwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5PVFouREVWPC90ZXh0Pjwvc3ZnPg=='" loading="lazy" />
+      <section id="about" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
+        <div class="container-custom">
+          <div class="mb-10 scroll-reveal">
+            <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Behind the Systems</h2>
+            <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Personal Profile //</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-12 items-center scroll-reveal">
+            <div class="about-img">
+              <img src="me.webp" alt="Anton Jay L. Hermo" class="w-full rounded-[28px] border border-[#2BD67B] transition-transform hover:scale-[1.02] hover:shadow-[0_12px_40px_-10px_rgba(43,214,123,0.15)]" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNDAwIDUwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5PVFouREVWPC90ZXh0Pjwvc3ZnPg=='" loading="lazy" />
+            </div>
+            <div>
+              <h3 class="font-mono text-[1.9rem] text-[#EDF2F7]">Anton Jay L. Hermo</h3>
+              <span class="text-[#2BD67B] font-mono inline-block mb-5">Shopify Developer // Albay, PH</span>
+              <p class="text-[#9AA4BF] mb-3 leading-[1.7]">I build reliable, well-structured Shopify stores with a strong focus on long-term stability and performance. I prioritize clean architecture and practical solutions that support sustainable growth.</p>
+              <p class="text-[#9AA4BF] mb-3 leading-[1.7]">I approach each project as a system of connected parts that need to work seamlessly behind the scenes. I aim to ensure everything runs smoothly and efficiently.</p>
+              <p class="text-[#9AA4BF] leading-[1.7]">Through clean, thoughtful code and careful attention to detail, I help turn complex requirements into simple, intuitive experiences—so your store operates with confidence and your results speak for themselves.</p>
+            </div>
+          </div>
         </div>
-        <div>
-          <h3 class="font-mono text-[1.9rem] text-[#EDF2F7]">Anton Jay L. Hermo</h3>
-          <span class="text-[#2BD67B] font-mono inline-block mb-5">Shopify Developer // Albay, PH</span>
-          <p class="text-[#9AA4BF] mb-3 leading-[1.7]">I build reliable, well-structured Shopify stores with a strong focus on long-term stability and performance. I prioritize clean architecture and practical solutions that support sustainable growth.</p>
-          <p class="text-[#9AA4BF] mb-3 leading-[1.7]">I approach each project as a system of connected parts that need to work seamlessly behind the scenes. I aim to ensure everything runs smoothly and efficiently.</p>
-          <p class="text-[#9AA4BF] leading-[1.7]">Through clean, thoughtful code and careful attention to detail, I help turn complex requirements into simple, intuitive experiences—so your store operates with confidence and your results speak for themselves.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-    <!-- ═══════════════════════════════════════════════════════════════════════════
+      <!-- ═══════════════════════════════════════════════════════════════════════════
        SKILLS / TECHNICAL ARSENAL SECTION — UPDATED
        ═══════════════════════════════════════════════════════════════════════════ -->
-  <section id="technical-arsenal" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
-    <div class="container-custom">
-      <div class="mb-10 scroll-reveal">
-        <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Technical Arsenal</h2>
-        <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Skills &amp; Tech Stack //</p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
-        <!-- Shopify Card — Now visually balanced with Frontend -->
-        <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-[26px] scroll-reveal">
-          <h3 class="font-mono mb-4 text-[#EDF2F7]">Shopify</h3>
-          <ul class="flex flex-col gap-2.5 list-none p-0">
-            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Liquid Templating</li>
-            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Shopify CLI</li>
-            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Metafields &amp; Metaobjects</li>
-            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Online Store 2.0 Architecture</li>
-            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Custom Liquid &amp; JSON Schemas</li>
-          </ul>
+      <section id="technical-arsenal" class="py-[80px] md:py-[60px] sm:py-[45px] bg-transparent relative z-10 w-full">
+        <div class="container-custom">
+          <div class="mb-10 scroll-reveal">
+            <h2 class="font-mono text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Technical Arsenal</h2>
+            <p class="text-[#2BD67B] font-mono text-[0.75rem] mt-2">Skills &amp; Tech Stack //</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+            <!-- Shopify Card — Now visually balanced with Frontend -->
+            <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-[26px] scroll-reveal">
+              <h3 class="font-mono mb-4 text-[#EDF2F7]">Shopify</h3>
+              <ul class="flex flex-col gap-2.5 list-none p-0">
+                <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Liquid Templating</li>
+                <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Shopify CLI</li>
+                <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Metafields &amp; Metaobjects</li>
+                <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Online Store 2.0 Architecture</li>
+                <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Custom Liquid &amp; JSON Schemas</li>
+              </ul>
+            </div>
+            <!-- Frontend Card — Now with corrected naming -->
+            <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-[26px] scroll-reveal">
+              <h3 class="font-mono mb-4 text-[#EDF2F7]">Frontend</h3>
+              <ul class="flex flex-col gap-2.5 list-none p-0">
+                <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> HTML5</li>
+                <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> CSS3</li>
+                <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Modern JS (ES6+)</li>
+                <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Tailwind CSS</li>
+                <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> jQuery</li>
+                <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> AJAX / Fetch API</li>
+              </ul>
+            </div>
+            <!-- Tools Card — Now with corrected naming -->
+            <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-[26px] scroll-reveal">
+              <h3 class="font-mono mb-4 text-[#EDF2F7]">Tools</h3>
+              <ul class="flex flex-col gap-2.5 list-none p-0">
+                <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Node.js</li>
+                <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Git Version Control</li>
+                <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> VS Code</li>
+                <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Google Lighthouse</li>
+                <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Chrome DevTools</li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <!-- Frontend Card — Now with corrected naming -->
-        <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-[26px] scroll-reveal">
-          <h3 class="font-mono mb-4 text-[#EDF2F7]">Frontend</h3>
-          <ul class="flex flex-col gap-2.5 list-none p-0">
-            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> HTML5</li>
-            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> CSS3</li>
-            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Modern JS (ES6+)</li>
-            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Tailwind CSS</li>
-            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> jQuery</li>
-            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> AJAX / Fetch API</li>
-          </ul>
-        </div>
-        <!-- Tools Card — Now with corrected naming -->
-        <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-[26px] scroll-reveal">
-          <h3 class="font-mono mb-4 text-[#EDF2F7]">Tools</h3>
-          <ul class="flex flex-col gap-2.5 list-none p-0">
-            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Node.js</li>
-            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Git Version Control</li>
-            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> VS Code</li>
-            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Google Lighthouse</li>
-            <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Chrome DevTools</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <!-- ═══════════════════════════════════════════════════════════════════════════
-   STORE AUDIT SECTION
-   ═══════════════════════════════════════════════════════════════════════════ -->
-  <section id="audit" class="relative z-10 w-full border-y border-[#1E252D] bg-[#0B0E13] py-16 md:py-20">
-    <div class="container-custom">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-        <div class="scroll-reveal">
-          <div class="mb-10">
-            <span class="font-mono text-[0.7rem] bg-[rgba(43,214,123,0.12)] px-4 py-1.5 rounded-[20px] text-[#2BD67B] inline-block mb-4">FREE CONSULTATION</span>
-            <h2 class="font-mono text-[2rem] md:text-[2.4rem] font-semibold tracking-[-0.5px] text-[#EDF2F7] mb-3">Request a <span class="text-[#2BD67B]">Store Audit</span></h2>
-            <p class="text-[#9AA4BF] text-[1rem] leading-[1.7]">I'll analyze your Shopify store's performance, identify bottlenecks, and provide a detailed report with actionable recommendations — completely free.</p>
-          </div>
-          <div class="flex flex-col gap-4">
-            <div class="audit-benefit-item">
-              <span class="audit-benefit-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg></span>
-              <div>
-                <h4 class="text-[#EDF2F7] font-semibold text-[0.95rem] mb-1">Core Web Vitals Analysis</h4>
-                <p class="text-[#9AA4BF] text-[0.82rem] leading-[1.6]">Deep dive into LCP, FID, and CLS metrics to pinpoint exactly what's slowing your store down.</p>
+      <!-- ═══════════════════════════════════════════════════════════════════════════
+       STORE AUDIT SECTION
+       ═══════════════════════════════════════════════════════════════════════════ -->
+      <section id="audit" class="relative z-10 w-full border-y border-[#1E252D] bg-[#0B0E13] py-16 md:py-20">
+        <div class="container-custom">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            <div class="scroll-reveal">
+              <div class="mb-10">
+                <span class="font-mono text-[0.7rem] bg-[rgba(43,214,123,0.12)] px-4 py-1.5 rounded-[20px] text-[#2BD67B] inline-block mb-4">FREE CONSULTATION</span>
+                <h2 class="font-mono text-[2rem] md:text-[2.4rem] font-semibold tracking-[-0.5px] text-[#EDF2F7] mb-3">Request a <span class="text-[#2BD67B]">Store Audit</span></h2>
+                <p class="text-[#9AA4BF] text-[1rem] leading-[1.7]">I'll analyze your Shopify store's performance, identify bottlenecks, and provide a detailed report with actionable recommendations — completely free.</p>
+              </div>
+              <div class="flex flex-col gap-4">
+                <div class="audit-benefit-item">
+                  <span class="audit-benefit-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg></span>
+                  <div>
+                    <h4 class="text-[#EDF2F7] font-semibold text-[0.95rem] mb-1">Core Web Vitals Analysis</h4>
+                    <p class="text-[#9AA4BF] text-[0.82rem] leading-[1.6]">Deep dive into LCP, FID, and CLS metrics to pinpoint exactly what's slowing your store down.</p>
+                  </div>
+                </div>
+                <div class="audit-benefit-item">
+                  <span class="audit-benefit-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></svg></span>
+                  <div>
+                    <h4 class="text-[#EDF2F7] font-semibold text-[0.95rem] mb-1">Code Quality Assessment</h4>
+                    <p class="text-[#9AA4BF] text-[0.82rem] leading-[1.6]">Liquid, CSS, and JavaScript optimization review to eliminate render-blocking resources.</p>
+                  </div>
+                </div>
+                <div class="audit-benefit-item">
+                  <span class="audit-benefit-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" /></svg></span>
+                  <div>
+                    <h4 class="text-[#EDF2F7] font-semibold text-[0.95rem] mb-1">App Dependency Audit</h4>
+                    <p class="text-[#9AA4BF] text-[0.82rem] leading-[1.6]">Identify redundant apps eating your profits — replace them with native, lightweight code.</p>
+                  </div>
+                </div>
+                <div class="audit-benefit-item">
+                  <span class="audit-benefit-icon"><svg viewBox="0 0 24 24"><path d="M12 20V10" /><path d="M18 20V4" /><path d="M6 20v-4" /></svg></span>
+                  <div>
+                    <h4 class="text-[#EDF2F7] font-semibold text-[0.95rem] mb-1">Conversion Roadmap</h4>
+                    <p class="text-[#9AA4BF] text-[0.82rem] leading-[1.6]">Actionable steps to improve your conversion rate based on real data and UX best practices.</p>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="audit-benefit-item">
-              <span class="audit-benefit-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></svg></span>
-              <div>
-                <h4 class="text-[#EDF2F7] font-semibold text-[0.95rem] mb-1">Code Quality Assessment</h4>
-                <p class="text-[#9AA4BF] text-[0.82rem] leading-[1.6]">Liquid, CSS, and JavaScript optimization review to eliminate render-blocking resources.</p>
-              </div>
-            </div>
-            <div class="audit-benefit-item">
-              <span class="audit-benefit-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" /></svg></span>
-              <div>
-                <h4 class="text-[#EDF2F7] font-semibold text-[0.95rem] mb-1">App Dependency Audit</h4>
-                <p class="text-[#9AA4BF] text-[0.82rem] leading-[1.6]">Identify redundant apps eating your profits — replace them with native, lightweight code.</p>
-              </div>
-            </div>
-            <div class="audit-benefit-item">
-              <span class="audit-benefit-icon"><svg viewBox="0 0 24 24"><path d="M12 20V10" /><path d="M18 20V4" /><path d="M6 20v-4" /></svg></span>
-              <div>
-                <h4 class="text-[#EDF2F7] font-semibold text-[0.95rem] mb-1">Conversion Roadmap</h4>
-                <p class="text-[#9AA4BF] text-[0.82rem] leading-[1.6]">Actionable steps to improve your conversion rate based on real data and UX best practices.</p>
+            <div class="audit-form scroll-reveal" id="auditFormContainer">
+              <form id="auditForm" action="#" method="POST" class="bg-[#0F1217] border border-[#1E252D] rounded-[24px] p-8">
+                <div class="mb-5">
+                  <label for="auditName" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Full Name</label>
+                  <input type="text" id="auditName" name="name" placeholder="e.g., Juan Dela Cruz" required />
+                </div>
+                <div class="mb-5">
+                  <label for="auditEmail" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Email Address</label>
+                  <input type="email" id="auditEmail" name="email" placeholder="you@yourstore.com" required />
+                </div>
+                <div class="mb-5">
+                  <label for="auditStore" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Store URL</label>
+                  <input type="url" id="auditStore" name="store_url" placeholder="https://yourstore.myshopify.com" required />
+                </div>
+                <div class="mb-5">
+                  <label for="auditPlatform" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Current Platform</label>
+                  <select id="auditPlatform" name="platform">
+                    <option value="shopify">Shopify (Standard)</option>
+                    <option value="shopify_plus">Shopify Plus</option>
+                    <option value="other">Other / Not Sure</option>
+                  </select>
+                </div>
+                <div class="mb-6">
+                  <label for="auditChallenges" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">What challenges are you facing?</label>
+                  <textarea id="auditChallenges" name="challenges" placeholder="e.g., slow loading, low conversion, app conflicts, etc."></textarea>
+                </div>
+                <button type="submit" class="audit-submit-btn">
+                  REQUEST FREE AUDIT
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                </button>
+              </form>
+              <div class="form-success bg-[#0F1217] border border-[#1E252D] rounded-[24px] p-8" id="formSuccess">
+                <svg class="w-16 h-16 stroke-[#2BD67B] fill-none stroke-2 mx-auto mb-5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M9 12l2 2 4-4" /></svg>
+                <h3 class="font-mono text-[1.4rem] text-[#2BD67B] mb-3">🎉 Audit Request Sent!</h3>
+                <p class="text-[#9AA4BF] text-[0.9rem]">I'll review your store and get back to you within 24–48 hours with a detailed report and actionable recommendations.</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="audit-form scroll-reveal" id="auditFormContainer">
-          <form id="auditForm" action="#" method="POST" class="bg-[#0F1217] border border-[#1E252D] rounded-[24px] p-8">
-            <div class="mb-5">
-              <label for="auditName" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Full Name</label>
-              <input type="text" id="auditName" name="name" placeholder="e.g., Juan Dela Cruz" required />
-            </div>
-            <div class="mb-5">
-              <label for="auditEmail" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Email Address</label>
-              <input type="email" id="auditEmail" name="email" placeholder="you@yourstore.com" required />
-            </div>
-            <div class="mb-5">
-              <label for="auditStore" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Store URL</label>
-              <input type="url" id="auditStore" name="store_url" placeholder="https://yourstore.myshopify.com" required />
-            </div>
-            <div class="mb-5">
-              <label for="auditPlatform" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">Current Platform</label>
-              <select id="auditPlatform" name="platform">
-                <option value="shopify">Shopify (Standard)</option>
-                <option value="shopify_plus">Shopify Plus</option>
-                <option value="other">Other / Not Sure</option>
-              </select>
-            </div>
-            <div class="mb-6">
-              <label for="auditChallenges" class="block font-mono text-[0.7rem] font-semibold text-[#5F6C84] tracking-[0.05em] uppercase mb-1.5">What challenges are you facing?</label>
-              <textarea id="auditChallenges" name="challenges" placeholder="e.g., slow loading, low conversion, app conflicts, etc."></textarea>
-            </div>
-            <button type="submit" class="audit-submit-btn">
-              REQUEST FREE AUDIT
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-            </button>
-          </form>
-          <div class="form-success bg-[#0F1217] border border-[#1E252D] rounded-[24px] p-8" id="formSuccess">
-            <svg class="w-16 h-16 stroke-[#2BD67B] fill-none stroke-2 mx-auto mb-5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M9 12l2 2 4-4" /></svg>
-            <h3 class="font-mono text-[1.4rem] text-[#2BD67B] mb-3">🎉 Audit Request Sent!</h3>
-            <p class="text-[#9AA4BF] text-[0.9rem]">I'll review your store and get back to you within 24–48 hours with a detailed report and actionable recommendations.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <!-- ═══════════════════════════════════════════════════════════════════════════
+      <!-- ═══════════════════════════════════════════════════════════════════════════
        FOOTER
        ═══════════════════════════════════════════════════════════════════════════ -->
-  <footer class="border-t border-[#1E252D] pt-[80px] pb-5 md:pt-[60px] sm:pt-[45px]">
-    <div class="container-custom">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="footer-brand">
-          <h3><a href="#" class="font-mono text-[1.4rem] font-semibold text-[#EDF2F7] tracking-tight no-underline">NOTZ<span class="text-[#2BD67B]">.DEV</span></a></h3>
-          <p class="text-[#9AA4BF] text-[0.85rem] mt-3.5 leading-[1.7]">I believe every successful Shopify store starts with a strong, well-structured foundation. My goal isn't to create the most complex solution, but the most effective one—building clean, efficient systems that remove technical friction and keep your business running smoothly.</p>
-        </div>
-        <div class="footer-col">
-          <h4 class="font-mono mb-5 text-[0.9rem] text-[#EDF2F7]">Site Navigation</h4>
-          <ul class="list-none">
-            <li class="mb-2.5"><a href="#work" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Case Studies</a></li>
-            <li class="mb-2.5"><a href="#services" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Capabilities</a></li>
-            <li class="mb-2.5"><a href="#technical-arsenal" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Stack</a></li>
-            <li class="mb-2.5"><a href="#about" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">About</a></li>
-            <li class="mb-2.5"><a href="#reviews" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Reviews</a></li>
-            <li class="mb-2.5"><a href="#audit" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Store Audit</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4 class="font-mono mb-5 text-[0.9rem] text-[#EDF2F7]">Direct Channels</h4>
-          <ul class="list-none">
-            <li class="mb-2.5"><a href="mailto:hermo.antonjay.personal@gmail.com" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Direct Email</a></li>
-            <li class="mb-2.5"><a href="https://github.com/BoyLado" target="_blank" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">GitHub</a></li>
-            <li class="mb-2.5"><a href="https://v2.onlinejobs.ph/jobseekers/info/1616842" target="_blank" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">OnlineJobs PH</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4 class="font-mono mb-5 text-[0.9rem] text-[#EDF2F7]">Social</h4>
-          <div class="flex gap-3.5 flex-wrap mt-1">
-            <a href="https://www.facebook.com/yourpage" target="_blank" aria-label="Facebook" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
-            </a>
-            <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg>
-            </a>
-            <a href="https://x.com/yourprofile" target="_blank" aria-label="X (Twitter)" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
-            </a>
-            <a href="https://www.linkedin.com/in/anton-jay-hermo/" target="_blank" aria-label="LinkedIn" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
-            </a>
+      <footer class="border-t border-[#1E252D] pt-[80px] pb-5 md:pt-[60px] sm:pt-[45px]">
+        <div class="container-custom">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="footer-brand">
+              <h3><a href="#" class="font-mono text-[1.4rem] font-semibold text-[#EDF2F7] tracking-tight no-underline">NOTZ<span class="text-[#2BD67B]">.DEV</span></a></h3>
+              <p class="text-[#9AA4BF] text-[0.85rem] mt-3.5 leading-[1.7]">I believe every successful Shopify store starts with a strong, well-structured foundation. My goal isn't to create the most complex solution, but the most effective one—building clean, efficient systems that remove technical friction and keep your business running smoothly.</p>
+            </div>
+            <div class="footer-col">
+              <h4 class="font-mono mb-5 text-[0.9rem] text-[#EDF2F7]">Site Navigation</h4>
+              <ul class="list-none">
+                <li class="mb-2.5"><a href="#work" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Case Studies</a></li>
+                <li class="mb-2.5"><a href="#services" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Capabilities</a></li>
+                <li class="mb-2.5"><a href="#technical-arsenal" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Stack</a></li>
+                <li class="mb-2.5"><a href="#about" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">About</a></li>
+                <li class="mb-2.5"><a href="#reviews" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Reviews</a></li>
+                <li class="mb-2.5"><a href="#audit" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Store Audit</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4 class="font-mono mb-5 text-[0.9rem] text-[#EDF2F7]">Direct Channels</h4>
+              <ul class="list-none">
+                <li class="mb-2.5"><a href="mailto:hermo.antonjay.personal@gmail.com" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Direct Email</a></li>
+                <li class="mb-2.5"><a href="https://github.com/BoyLado" target="_blank" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">GitHub</a></li>
+                <li class="mb-2.5"><a href="https://v2.onlinejobs.ph/jobseekers/info/1616842" target="_blank" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">OnlineJobs PH</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4 class="font-mono mb-5 text-[0.9rem] text-[#EDF2F7]">Social</h4>
+              <div class="flex gap-3.5 flex-wrap mt-1">
+                <a href="https://www.facebook.com/yourpage" target="_blank" aria-label="Facebook" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
+                  <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
+                </a>
+                <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
+                  <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg>
+                </a>
+                <a href="https://x.com/yourprofile" target="_blank" aria-label="X (Twitter)" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
+                  <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/anton-jay-hermo/" target="_blank" aria-label="LinkedIn" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
+                  <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row justify-between items-center mt-8 pt-4 text-[0.7rem] text-[#5F6C84] font-mono border-t border-[#1E252D]">
+            <div>&copy; 2026 // ESTABLISHED IN PH</div>
+            <div id="clock">LOCAL_TIME // --:-- --</div>
           </div>
         </div>
-      </div>
-      <div class="flex flex-col sm:flex-row justify-between items-center mt-8 pt-4 text-[0.7rem] text-[#5F6C84] font-mono border-t border-[#1E252D]">
-        <div>&copy; 2026 // ESTABLISHED IN PH</div>
-        <div id="clock">LOCAL_TIME // --:-- --</div>
-      </div>
-    </div>
-  </footer>
+      </footer>
 
-  <!-- ═══════════════════════════════════════════════════════════════════════════
+      <!-- ═══════════════════════════════════════════════════════════════════════════
        SCRIPTS
        ═══════════════════════════════════════════════════════════════════════════ -->
-  <script>
-    /* ─────────────────────────────────────────────
-       SCROLL PROGRESS BAR
-       ───────────────────────────────────────────── */
-    const progressBar = document.getElementById('scroll-progress-bar');
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (scrollTop / scrollHeight) * 100;
-      progressBar.style.width = scrolled + '%';
-    });
+      <script>
+        /* ─────────────────────────────────────────────
+           SCROLL PROGRESS BAR
+           ───────────────────────────────────────────── */
+        const progressBar = document.getElementById('scroll-progress-bar');
+        window.addEventListener('scroll', () => {
+          const scrollTop = window.scrollY || document.documentElement.scrollTop;
+          const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          const scrolled = (scrollTop / scrollHeight) * 100;
+          progressBar.style.width = scrolled + '%';
+        });
 
-    /* ─────────────────────────────────────────────
-       SCROLL REVEAL (Intersection Observer)
-       ───────────────────────────────────────────── */
-    const reveals = document.querySelectorAll('.scroll-reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); });
-    }, { threshold: 0.12 });
-    reveals.forEach(el => observer.observe(el));
+        /* ─────────────────────────────────────────────
+           SCROLL REVEAL (Intersection Observer)
+           ───────────────────────────────────────────── */
+        const reveals = document.querySelectorAll('.scroll-reveal');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); });
+        }, { threshold: 0.12 });
+        reveals.forEach(el => observer.observe(el));
 
-    /* ─────────────────────────────────────────────
-       MOBILE MENU TOGGLE
-       ───────────────────────────────────────────── */
-    const burgerBtn = document.getElementById('burgerBtn');
-    const mobileOverlay = document.getElementById('mobileOverlay');
-    const closeBtn = document.getElementById('mobileCloseBtn');
+        /* ─────────────────────────────────────────────
+           MOBILE MENU TOGGLE
+           ───────────────────────────────────────────── */
+        const burgerBtn = document.getElementById('burgerBtn');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const closeBtn = document.getElementById('mobileCloseBtn');
 
-    function openMenu() {
-      mobileOverlay.classList.add('open');
-      burgerBtn.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeMenu() {
-      mobileOverlay.classList.remove('open');
-      burgerBtn.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-    burgerBtn.addEventListener('click', () => {
-      if (mobileOverlay.classList.contains('open')) closeMenu(); else openMenu();
-    });
-    closeBtn.addEventListener('click', closeMenu);
-    document.querySelectorAll('.mobile-link, .mobile-cta').forEach(link => link.addEventListener('click', closeMenu));
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) closeMenu();
-    });
+        function openMenu() {
+          mobileOverlay.classList.add('open');
+          burgerBtn.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }
 
-    /* ─────────────────────────────────────────────
-       LIVE CLOCK (Footer)
-       ───────────────────────────────────────────── */
-    function updateClock() {
-      const now = new Date();
-      const timeStr = now.toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Manila' });
-      document.getElementById('clock').innerHTML = `LOCAL_TIME // ${timeStr.toUpperCase()}`;
-    }
-    updateClock();
-    setInterval(updateClock, 1000);
+        function closeMenu() {
+          mobileOverlay.classList.remove('open');
+          burgerBtn.classList.remove('open');
+          document.body.style.overflow = '';
+        }
+        burgerBtn.addEventListener('click', () => {
+          if (mobileOverlay.classList.contains('open')) closeMenu();
+          else openMenu();
+        });
+        closeBtn.addEventListener('click', closeMenu);
+        document.querySelectorAll('.mobile-link, .mobile-cta').forEach(link => link.addEventListener('click', closeMenu));
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) closeMenu();
+        });
 
-    /* ─────────────────────────────────────────────
-       SMOOTH SCROLL FOR ANCHOR LINKS
-       ───────────────────────────────────────────── */
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const targetId = this.getAttribute('href');
-        if (targetId === "#") return;
-        const targetEl = document.querySelector(targetId);
-        if (!targetEl) return;
-        e.preventDefault();
-        const navHeight = document.querySelector('.nav-sticky').offsetHeight;
-        const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight;
-        window.scrollTo({ top: Math.max(0, targetPosition), behavior: 'smooth' });
-      });
-    });
+        /* ─────────────────────────────────────────────
+           LIVE CLOCK (Footer)
+           ───────────────────────────────────────────── */
+        function updateClock() {
+          const now = new Date();
+          const timeStr = now.toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit', hour12: true,
+            timeZone: 'Asia/Manila' });
+          document.getElementById('clock').innerHTML = `LOCAL_TIME // ${timeStr.toUpperCase()}`;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
 
-    /* ─────────────────────────────────────────────
-       STORE AUDIT FORM HANDLING
-       ───────────────────────────────────────────── */
-    const form = document.getElementById('auditForm');
-    const successMessage = document.getElementById('formSuccess');
-    if (form) {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const formData = new FormData(form);
-        console.log('📋 Store Audit Request:', Object.fromEntries(formData));
-        form.style.display = 'none';
-        successMessage.classList.add('show');
-        setTimeout(() => { form.reset(); form.style.display = 'block'; successMessage.classList.remove('show'); }, 5000);
-      });
-    }
+        /* ─────────────────────────────────────────────
+           SMOOTH SCROLL FOR ANCHOR LINKS
+           ───────────────────────────────────────────── */
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === "#") return;
+            const targetEl = document.querySelector(targetId);
+            if (!targetEl) return;
+            e.preventDefault();
+            const navHeight = document.querySelector('.nav-sticky').offsetHeight;
+            const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight;
+            window.scrollTo({ top: Math.max(0, targetPosition), behavior: 'smooth' });
+          });
+        });
 
-    /* ─────────────────────────────────────────────
-       VIDEO REVIEW CONTROLS
-       ───────────────────────────────────────────── */
-    document.addEventListener('DOMContentLoaded', function() {
-      const video = document.getElementById('reviewVideo');
-      const playBtn = document.querySelector('.play-btn');
-      const videoWrapper = document.getElementById('videoWrapper');
-      
-      if (video && playBtn) {
-        playBtn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          if (video.paused) {
-            video.play();
-            videoWrapper.classList.add('playing');
+        /* ─────────────────────────────────────────────
+           STORE AUDIT FORM HANDLING
+           ───────────────────────────────────────────── */
+        const form = document.getElementById('auditForm');
+        const successMessage = document.getElementById('formSuccess');
+        if (form) {
+          form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            console.log('📋 Store Audit Request:', Object.fromEntries(formData));
+            form.style.display = 'none';
+            successMessage.classList.add('show');
+            setTimeout(() => { form.reset();
+              form.style.display = 'block';
+              successMessage.classList.remove('show'); }, 5000);
+          });
+        }
+
+        /* ─────────────────────────────────────────────
+           VIDEO REVIEW CONTROLS
+           ───────────────────────────────────────────── */
+        document.addEventListener('DOMContentLoaded', function() {
+          const video = document.getElementById('reviewVideo');
+          const playBtn = document.querySelector('.play-btn');
+          const videoWrapper = document.getElementById('videoWrapper');
+
+          if (video && playBtn) {
+            playBtn.addEventListener('click', function(e) {
+              e.stopPropagation();
+              if (video.paused) {
+                video.play();
+                videoWrapper.classList.add('playing');
+              } else {
+                video.pause();
+                videoWrapper.classList.remove('playing');
+              }
+            });
+            video.addEventListener('click', function() {
+              if (video.paused) {
+                video.play();
+                videoWrapper.classList.add('playing');
+              } else {
+                video.pause();
+                videoWrapper.classList.remove('playing');
+              }
+            });
+            video.addEventListener('ended', function() {
+              videoWrapper.classList.remove('playing');
+            });
+            video.addEventListener('play', function() {
+              videoWrapper.classList.add('playing');
+            });
+            video.addEventListener('pause', function() {
+              if (!video.ended) {
+                videoWrapper.classList.remove('playing');
+              }
+            });
+          }
+        });
+
+        /* ─────────────────────────────────────────────
+           COOKIE CONSENT & HERO BACKGROUND CONTROL
+           ───────────────────────────────────────────── */
+        document.addEventListener('DOMContentLoaded', function() {
+          const cookieBanner = document.getElementById('cookieBanner');
+          const acceptBtn = document.getElementById('cookieAccept');
+          const declineBtn = document.getElementById('cookieDecline');
+          const heroSection = document.getElementById('heroSection');
+
+          // Check for session flag
+          const sessionFlag = sessionStorage.getItem('cookieConsent');
+
+          if (sessionFlag === 'accepted') {
+            // Hero background stays (already set in CSS)
+            cookieBanner.classList.remove('visible');
+          } else if (sessionFlag === 'declined') {
+            // Remove background image to prevent loading
+            heroSection.style.backgroundImage = 'none';
+            heroSection.style.backgroundColor = '#0A0C10';
+            cookieBanner.classList.remove('visible');
           } else {
-            video.pause();
-            videoWrapper.classList.remove('playing');
+            // No consent yet: show banner, background loads by default but we'll keep it
+            // (the image is already loaded in CSS, but we want to show banner)
+            cookieBanner.classList.add('visible');
           }
-        });
-        video.addEventListener('click', function() {
-          if (video.paused) {
-            video.play();
-            videoWrapper.classList.add('playing');
-          } else {
-            video.pause();
-            videoWrapper.classList.remove('playing');
-          }
-        });
-        video.addEventListener('ended', function() {
-          videoWrapper.classList.remove('playing');
-        });
-        video.addEventListener('play', function() {
-          videoWrapper.classList.add('playing');
-        });
-        video.addEventListener('pause', function() {
-          if (!video.ended) {
-            videoWrapper.classList.remove('playing');
-          }
-        });
-      }
-    });
 
-    /* ─────────────────────────────────────────────
-       COOKIE CONSENT & HERO BACKGROUND CONTROL
-       ───────────────────────────────────────────── */
-    document.addEventListener('DOMContentLoaded', function() {
-      const cookieBanner = document.getElementById('cookieBanner');
-      const acceptBtn = document.getElementById('cookieAccept');
-      const declineBtn = document.getElementById('cookieDecline');
-      const heroSection = document.getElementById('heroSection');
+          // Accept: store session flag, keep background
+          acceptBtn.addEventListener('click', function() {
+            sessionStorage.setItem('cookieConsent', 'accepted');
+            cookieBanner.classList.remove('visible');
+            // Ensure hero background is visible (it already is)
+            heroSection.style.backgroundImage = ''; // reset to CSS default
+            heroSection.style.backgroundColor = '';
+            // Re-apply the background from CSS (it's already there)
+            // Force a reflow to re-apply the background
+            heroSection.style.display = 'none';
+            setTimeout(() => { heroSection.style.display = 'flex'; }, 10);
+            console.log('🍪 Cookie accepted: hero image will load on subsequent visits.');
+          });
 
-      // Check for session flag
-      const sessionFlag = sessionStorage.getItem('cookieConsent');
-
-      if (sessionFlag === 'accepted') {
-        // Hero background stays (already set in CSS)
-        cookieBanner.classList.remove('visible');
-      } else if (sessionFlag === 'declined') {
-        // Remove background image to prevent loading
-        heroSection.style.backgroundImage = 'none';
-        heroSection.style.backgroundColor = '#0A0C10';
-        cookieBanner.classList.remove('visible');
-      } else {
-        // No consent yet: show banner, background loads by default but we'll keep it
-        // (the image is already loaded in CSS, but we want to show banner)
-        cookieBanner.classList.add('visible');
-      }
-
-      // Accept: store session flag, keep background
-      acceptBtn.addEventListener('click', function() {
-        sessionStorage.setItem('cookieConsent', 'accepted');
-        cookieBanner.classList.remove('visible');
-        // Ensure hero background is visible (it already is)
-        heroSection.style.backgroundImage = ''; // reset to CSS default
-        heroSection.style.backgroundColor = '';
-        // Re-apply the background from CSS (it's already there)
-        // Force a reflow to re-apply the background
-        heroSection.style.display = 'none';
-        setTimeout(() => { heroSection.style.display = 'flex'; }, 10);
-        console.log('🍪 Cookie accepted: hero image will load on subsequent visits.');
-      });
-
-      // Decline: remove background to avoid loading
-      declineBtn.addEventListener('click', function() {
-        sessionStorage.setItem('cookieConsent', 'declined');
-        cookieBanner.classList.remove('visible');
-        // Remove the background image to prevent loading on this and future visits
-        heroSection.style.backgroundImage = 'none';
-        heroSection.style.backgroundColor = '#0A0C10';
-        console.log('🍪 Cookie declined: hero image will not load.');
-      });
-    });
-  </script>
+          // Decline: remove background to avoid loading
+          declineBtn.addEventListener('click', function() {
+            sessionStorage.setItem('cookieConsent', 'declined');
+            cookieBanner.classList.remove('visible');
+            // Remove the background image to prevent loading on this and future visits
+            heroSection.style.backgroundImage = 'none';
+            heroSection.style.backgroundColor = '#0A0C10';
+            console.log('🍪 Cookie declined: hero image will not load.');
+          });
+        });
+      </script>
 
 </body>
 </html>
