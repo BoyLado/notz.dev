@@ -12,10 +12,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-    <!-- Tailwind CSS via CDN -->
-    <script src="https://cdn.tailwindcss.com">
-    </script>
-
     <!-- Google Analytics 4 (GA4) — Measurement ID: G-FGV8MK80R1 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FGV8MK80R1">
     </script>
@@ -323,10 +319,10 @@
                 height: 17px;
             }
         }
-    </style>
 
-    <!-- NAVIGATION CSS -->
-    <style>
+        /* ═══════════════════════════════════════════════════════════════════════
+           NAVIGATION
+           ═══════════════════════════════════════════════════════════════════════ */
         .nav-sticky {
             position: sticky;
             top: 0;
@@ -336,6 +332,71 @@
             border-bottom: 1px solid var(--border);
             z-index: 100;
             transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 72px;
+        }
+
+        .nav-logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: -0.025em;
+            text-decoration: none;
+        }
+        .nav-logo span {
+            color: var(--green);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-links-desktop {
+            display: none;
+            align-items: center;
+            gap: 2rem;
+        }
+        @media (min-width: 1024px) {
+            .nav-links-desktop { display: flex; }
+        }
+
+        .nav-link {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .nav-link:hover {
+            color: var(--green);
+        }
+
+        .nav-cta {
+            border: 1px solid var(--green);
+            background: transparent;
+            padding: 6px 20px;
+            border-radius: 30px;
+            color: var(--green);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+        .nav-cta:hover {
+            background: rgba(43, 214, 123, 0.1);
+        }
+        [data-theme="light"] .nav-cta:hover {
+            background: rgba(5, 150, 105, 0.1);
         }
 
         .theme-toggle {
@@ -493,14 +554,16 @@
             transform: translateY(-7.5px) rotate(-45deg);
             width: 26px;
         }
-
+        @media (min-width: 1024px) {
+            .burger-btn { display: none; }
+        }
         @media (max-width: 600px) {
             .mobile-menu { max-width: 100%; }
         }
-    </style>
 
-    <!-- HERO SECTION CSS (no card wrapper) -->
-    <style>
+        /* ═══════════════════════════════════════════════════════════════════════
+           HERO SECTION
+           ═══════════════════════════════════════════════════════════════════════ */
         .hero-animate {
             opacity: 0;
             animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -527,10 +590,13 @@
         }
 
         .hero-headline {
-            font-size: clamp(1.85rem, 5.5vw, 4.2rem);
+            font-size: clamp(1.5rem, 4.5vw, 3.5rem);
             line-height: 1.12;
             letter-spacing: -0.04em;
             text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: var(--text);
         }
         .hero-headline .highlight {
             background: linear-gradient(135deg, var(--green), var(--green-dim));
@@ -538,6 +604,10 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             filter: brightness(1.05);
+        }
+        .hero-headline .br-mobile { display: none; }
+        @media (max-width: 640px) {
+            .hero-headline .br-mobile { display: inline; }
         }
 
         .hero-sub-text {
@@ -548,6 +618,10 @@
             text-align: center;
             margin-left: auto;
             margin-right: auto;
+        }
+        .hero-sub-text strong {
+            color: var(--green);
+            font-weight: 600;
         }
 
         @keyframes fireflyPulse {
@@ -604,6 +678,16 @@
             box-shadow: 0 8px 28px -12px rgba(43, 214, 123, 0.4);
         }
 
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.25rem;
+            justify-content: center;
+            width: 100%;
+        }
+
         /* ─── HERO ─── */
         .hero-section {
             position: relative;
@@ -652,7 +736,6 @@
             transition: background 0.35s ease;
         }
 
-        /* Hero content — fully centered, no card */
         .hero-content-center {
             display: flex;
             flex-direction: column;
@@ -730,10 +813,49 @@
             .hero-stat-label { font-size: 0.45rem; }
             .hero-stats { gap: 1rem; }
         }
-    </style>
 
-    <!-- SERVICES SECTION CSS -->
-    <style>
+        /* ═══════════════════════════════════════════════════════════════════════
+           SERVICES
+           ═══════════════════════════════════════════════════════════════════════ */
+        .services-intro {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--code-bg);
+            padding: 18px 24px;
+            border-left: 3px solid var(--green);
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            color: var(--text-dim);
+            text-align: center;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        @media (min-width: 640px) {
+            .services-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (min-width: 1024px) {
+            .services-grid { grid-template-columns: 1fr 1fr 1fr; }
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, background 0.35s ease;
+        }
+        .service-card:hover {
+            border-color: var(--green);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.5);
+        }
+        [data-theme="light"] .service-card:hover {
+            box-shadow: 0 16px 32px -12px rgba(15, 23, 42, 0.12);
+        }
+
         .service-icon {
             display: inline-flex;
             align-items: center;
@@ -766,10 +888,23 @@
             align-items: flex-start;
             gap: 16px;
         }
-    </style>
+        .service-icon-wrap h3 {
+            font-size: 1.15rem;
+            margin-top: 0.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            line-height: 1.25;
+            font-weight: 600;
+        }
+        .service-icon-wrap p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
 
-    <!-- PROJECTS / CASE STUDIES SECTION CSS -->
-    <style>
+        /* ═══════════════════════════════════════════════════════════════════════
+           PROJECTS / CASE STUDIES
+           ═══════════════════════════════════════════════════════════════════════ */
         #work {
             background: var(--bg-elevated);
             border-top: 1px solid var(--border);
@@ -1000,6 +1135,7 @@
 
         .tab-panels {
             min-height: 120px;
+            margin-top: 16px;
         }
         .tab-panel {
             display: none;
@@ -1202,10 +1338,10 @@
                 gap: 10px;
             }
         }
-    </style>
 
-    <!-- REVIEWS / TESTIMONIALS SECTION CSS -->
-    <style>
+        /* ═══════════════════════════════════════════════════════════════════════
+           REVIEWS / TESTIMONIALS
+           ═══════════════════════════════════════════════════════════════════════ */
         .reviews-premium-bg {
             position: relative;
             background: var(--bg-elevated);
@@ -1227,6 +1363,13 @@
             background-image:
                 linear-gradient(rgba(5, 150, 105, 0.04) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(5, 150, 105, 0.04) 1px, transparent 1px);
+        }
+
+        .reviews-section-pad {
+            padding: 48px 0;
+        }
+        @media (min-width: 768px) {
+            .reviews-section-pad { padding: 64px 0; }
         }
 
         .testimonial-premium {
@@ -1562,6 +1705,8 @@
             display: flex;
             gap: 2px;
             margin-bottom: 10px;
+            position: relative;
+            z-index: 10;
         }
         .testimonial-premium .stars svg {
             width: 14px;
@@ -1584,10 +1729,188 @@
                 gap: 2rem;
             }
         }
-    </style>
 
-    <!-- STORE AUDIT SECTION CSS -->
-    <style>
+        .reviews-section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            color: var(--text);
+            margin-bottom: 0;
+        }
+        @media (min-width: 768px) {
+            .reviews-section-title { font-size: 1.8rem; }
+        }
+
+        .reviews-header {
+            margin-bottom: 32px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        @media (min-width: 768px) {
+            .reviews-header { margin-bottom: 40px; }
+        }
+
+        .reviews-footnote {
+            text-align: center;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            margin-top: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .reviews-footnote {
+                font-size: 0.72rem;
+                margin-top: 2rem;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           ABOUT
+           ═══════════════════════════════════════════════════════════════════════ */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        @media (min-width: 768px) {
+            .about-grid {
+                grid-template-columns: 0.8fr 1.2fr;
+            }
+        }
+
+        .about-img img {
+            width: 100%;
+            border-radius: 28px;
+            border: 1px solid var(--green);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .about-img img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 40px -10px rgba(43, 214, 123, 0.15);
+        }
+
+        .about-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.9rem;
+            color: var(--text);
+        }
+        .about-tagline {
+            color: var(--green);
+            font-family: 'JetBrains Mono', monospace;
+            display: inline-block;
+            margin-bottom: 1.25rem;
+        }
+        .about-bio p {
+            color: var(--text-dim);
+            margin-bottom: 0.75rem;
+            line-height: 1.7;
+        }
+        .about-bio p:last-child {
+            margin-bottom: 0;
+        }
+
+        .resume-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: var(--bg);
+            background: var(--green);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+            box-shadow: 0 0 0 0 rgba(43, 214, 123, 0);
+        }
+        .resume-download-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 14px 34px -10px rgba(43, 214, 123, 0.6), 0 0 0 3px rgba(43, 214, 123, 0.3);
+            background: var(--green-dim);
+        }
+        .resume-download-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+        [data-theme="light"] .resume-download-btn {
+            color: #FFFFFF;
+        }
+        @media (max-width: 480px) {
+            .resume-download-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 14px 20px;
+                font-size: 0.7rem;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           TECHNICAL ARSENAL
+           ═══════════════════════════════════════════════════════════════════════ */
+        .arsenal-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.75rem;
+        }
+        @media (min-width: 768px) {
+            .arsenal-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .arsenal-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 26px;
+            transition: background 0.35s ease, border-color 0.35s ease;
+        }
+        .arsenal-card h3 {
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 1rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+        .arsenal-card ul {
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
+            list-style: none;
+            padding: 0;
+        }
+        .arsenal-card li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .arsenal-card li .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: inline-block;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           STORE AUDIT
+           ═══════════════════════════════════════════════════════════════════════ */
         .audit-section {
             position: relative;
             z-index: 10;
@@ -1988,6 +2311,10 @@
             line-height: 1.6;
             margin-top: 0.5rem;
         }
+        .form-error a {
+            color: var(--green);
+            text-decoration: underline;
+        }
         .retry-btn {
             margin-top: 1rem;
             padding: 10px 24px;
@@ -2067,79 +2394,145 @@
             .audit-benefit-text h4 { font-size: 0.72rem; }
             .audit-benefit-text p { font-size: 0.65rem; }
         }
-    </style>
 
-    <!-- RESUME DOWNLOAD BUTTON CSS -->
-    <style>
-        .resume-download-btn {
+        /* ═══════════════════════════════════════════════════════════════════════
+           FOOTER
+           ═══════════════════════════════════════════════════════════════════════ */
+        .footer-section {
+            border-top: 1px solid var(--border);
+            padding: 80px 0 20px;
+        }
+        @media (max-width: 768px) {
+            .footer-section { padding: 60px 0 20px; }
+        }
+        @media (max-width: 640px) {
+            .footer-section { padding: 45px 0 20px; }
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        @media (min-width: 768px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (min-width: 1024px) {
+            .footer-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        .footer-brand-logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: -0.025em;
+            text-decoration: none;
+        }
+        .footer-brand-logo span {
+            color: var(--green);
+        }
+
+        .footer-brand p {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 0.875rem;
+            line-height: 1.7;
+        }
+
+        .footer-col h4 {
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 1.25rem;
+            font-size: 0.9rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-col li {
+            margin-bottom: 0.625rem;
+        }
+        .footer-col a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            transition: color 0.2s ease;
+        }
+        .footer-col a:hover {
+            color: var(--green);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.875rem;
+            flex-wrap: wrap;
+            margin-top: 0.25rem;
+        }
+        .social-links a {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            margin-top: 20px;
-            padding: 14px 32px;
-            border-radius: 40px;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            color: var(--text-dim);
+            transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .social-links a:hover {
+            border-color: var(--green);
+            color: var(--green);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px -8px rgba(43, 214, 123, 0.2);
+        }
+        .social-links a svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .footer-bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            font-size: 0.7rem;
+            color: var(--text-muted);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            color: var(--bg);
-            background: var(--green);
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            text-decoration: none;
-            box-shadow: 0 0 0 0 rgba(43, 214, 123, 0);
+            border-top: 1px solid var(--border);
+            gap: 6px;
         }
-        .resume-download-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 14px 34px -10px rgba(43, 214, 123, 0.6), 0 0 0 3px rgba(43, 214, 123, 0.3);
-            background: var(--green-dim);
+        @media (min-width: 640px) {
+            .footer-bottom {
+                flex-direction: row;
+                gap: 0;
+            }
         }
-        .resume-download-btn svg {
-            width: 18px;
-            height: 18px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2.5;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            flex-shrink: 0;
-        }
-        @media (max-width: 480px) {
-            .resume-download-btn {
-                width: 100%;
-                justify-content: center;
-                padding: 14px 20px;
-                font-size: 0.7rem;
+
+        @media (max-width: 767px) {
+            .footer-grid { text-align: center; gap: 2rem; }
+            .footer-brand p {
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 400px;
+            }
+            .footer-col ul {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .footer-col li { text-align: center; }
+            .social-links { justify-content: center; }
+            .footer-bottom {
+                align-items: center;
+                text-align: center;
             }
         }
     </style>
-
-    <!-- LIGHT-THEME ADJUSTMENTS for inline Tailwind utility classes -->
-    <style>
-        [data-theme="light"] .service-card {
-            background: #FFFFFF !important;
-            border-color: #E2E8F0 !important;
-        }
-        [data-theme="light"] .service-card:hover {
-            border-color: var(--green) !important;
-        }
-        [data-theme="light"] .bg-\[\#0F1217\] { background-color: #FFFFFF !important; }
-        [data-theme="light"] .border-\[\#1E252D\] { border-color: #E2E8F0 !important; }
-        [data-theme="light"] .text-\[\#EDF2F7\] { color: #0F172A !important; }
-        [data-theme="light"] .text-\[\#9AA4BF\] { color: #475569 !important; }
-        [data-theme="light"] .text-\[\#5F6C84\] { color: #94A3B8 !important; }
-        [data-theme="light"] .bg-\[\#0B0E13\] { background-color: #F1F5F9 !important; }
-        [data-theme="light"] .border-\[\#2BD67B\] { border-color: #059669 !important; }
-        [data-theme="light"] .text-\[\#2BD67B\] { color: #059669 !important; }
-        [data-theme="light"] .hover\:border-\[\#2BD67B\]:hover { border-color: #059669 !important; }
-        [data-theme="light"] .hover\:text-\[\#2BD67B\]:hover { color: #059669 !important; }
-        [data-theme="light"] .hover\:bg-\[rgba\(43\,214\,123\,0\.1\)\]:hover { background-color: rgba(5,150,105,0.1) !important; }
-        [data-theme="light"] footer { border-color: #E2E8F0 !important; }
-        [data-theme="light"] .about-img img { border-color: #059669 !important; }
-        [data-theme="light"] .resume-download-btn { color: #FFFFFF; }
-    </style>
-
 </head>
 <body>
 
@@ -2155,24 +2548,22 @@
 
     <!-- NAVIGATION SECTION -->
     <nav class="nav-sticky">
-        <div class="container-custom flex items-center justify-between min-h-[72px]">
-            <a href="#" class="font-mono text-2xl font-semibold text-[#EDF2F7] tracking-tight no-underline">
-                NOTZ<span class="text-[#2BD67B]">.DEV</span>
-            </a>
-            <div class="flex items-center gap-4">
-                <div class="hidden lg:flex items-center gap-8">
-                    <a href="#work" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// PROJECTS</a>
-                    <a href="#services" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// EXPERTISE</a>
-                    <a href="#reviews" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// REVIEWS</a>
-                    <a href="#technical-arsenal" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// STACK</a>
-                    <a href="#audit" class="font-mono text-xs font-medium text-[#9AA4BF] no-underline hover:text-[#2BD67B] transition-colors">// STORE AUDIT</a>
-                    <a href="#about" class="border border-[#2BD67B] bg-transparent px-5 py-1.5 rounded-[30px] text-[#2BD67B] font-mono text-xs font-semibold no-underline hover:bg-[rgba(43,214,123,0.1)] transition-colors">DEVELOPERS PROFILE</a>
+        <div class="container-custom nav-inner">
+            <a href="#" class="nav-logo">NOTZ<span>.DEV</span></a>
+            <div class="nav-right">
+                <div class="nav-links-desktop">
+                    <a href="#work" class="nav-link">// PROJECTS</a>
+                    <a href="#services" class="nav-link">// EXPERTISE</a>
+                    <a href="#reviews" class="nav-link">// REVIEWS</a>
+                    <a href="#technical-arsenal" class="nav-link">// STACK</a>
+                    <a href="#audit" class="nav-link">// STORE AUDIT</a>
+                    <a href="#about" class="nav-cta">DEVELOPERS PROFILE</a>
                 </div>
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
                     <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
                     <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                 </button>
-                <button class="burger-btn lg:hidden" id="burgerBtn" aria-label="Toggle menu">
+                <button class="burger-btn" id="burgerBtn" aria-label="Toggle menu">
                     <span class="line"></span>
                     <span class="line"></span>
                     <span class="line"></span>
@@ -2192,23 +2583,23 @@
         <a href="#about" class="mobile-cta">My Profile</a>
     </div>
 
-    <!-- HERO SECTION (no card wrapper, content centered) -->
+    <!-- HERO SECTION -->
     <section class="hero-section" id="heroSection">
         <div class="hero-overlay"></div>
         <div class="hero-grain"></div>
         <div class="hero-accent-glow"></div>
 
-        <div class="container-custom w-full relative z-10">
+        <div class="container-custom" style="width:100%; position:relative; z-index:10;">
             <div class="hero-content-center">
                 <p class="hero-pre-title hero-animate delay-1">BUILT FOR SPEED. DESIGNED TO CONVERT.</p>
-                <h1 class="hero-headline hero-animate delay-2 font-mono font-semibold text-[#EDF2F7] tracking-tight" style="font-size: clamp(1.5rem, 4.5vw, 3.5rem);">
-                    BUILD A SHOPIFY STORE <br class="sm:hidden" />
+                <h1 class="hero-headline hero-animate delay-2">
+                    BUILD A SHOPIFY STORE <br class="br-mobile" />
                     THAT<span class="highlight"> CONVERTS BETTER.</span>
                 </h1>
                 <p class="hero-sub-text hero-animate delay-3">
-                    I help merchants replace slow, app‑dependent <strong class="text-[#2BD67B] font-semibold">Shopify</strong> stores with clean, native architecture — so your site loads faster, converts better, and stays reliable for years.
+                    I help merchants replace slow, app‑dependent <strong>Shopify</strong> stores with clean, native architecture — so your site loads faster, converts better, and stays reliable for years.
                 </p>
-                <div class="flex flex-wrap items-center gap-4 hero-animate delay-4 mt-1 justify-center w-full">
+                <div class="hero-buttons hero-animate delay-4">
                     <a href="#work" class="hero-btn-primary">
                         SEE CASE STUDIES
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
@@ -2241,7 +2632,7 @@
     </section>
 
     <!-- FEATURED CASE STUDIES / PROJECTS SECTION -->
-    <section id="work" class="section-pad relative z-10 w-full">
+    <section id="work" class="section-pad" style="position:relative; z-index:10; width:100%;">
         <div class="container-custom">
             <div class="section-header section-header-center scroll-reveal">
                 <h2 class="section-title">Featured Case Studies</h2>
@@ -2293,7 +2684,7 @@
                                     <button class="tab-btn" role="tab" data-target="mea-result">Results</button>
                                 </div>
 
-                                <div class="tab-panels" style="margin-top: 16px;">
+                                <div class="tab-panels">
                                     <div id="mea-problem" class="tab-panel active">
                                         <p class="problem-text">
                                             <strong>The Challenge:</strong> The store was built using static Liquid templates, which prevented the merchant from updating layouts through the Shopify Theme Editor. Additionally, they required a custom Size Finder and a flexible Giveaway Form—but no existing app matched their exact workflow.
@@ -2397,7 +2788,7 @@
                                     <button class="tab-btn" role="tab" data-target="ajl-result">Results</button>
                                 </div>
 
-                                <div class="tab-panels" style="margin-top: 16px;">
+                                <div class="tab-panels">
                                     <div id="ajl-problem" class="tab-panel active">
                                         <p class="problem-text">
                                             <strong>The Challenge:</strong> Started from a static HTML design that was completely non-dynamic and required manual code changes for any update. The goal was to rebuild it as a Shopify Online Store 2.0 theme using native Liquid, without relying on third-party apps, to demonstrate clean architecture and merchant empowerment.
@@ -2504,7 +2895,7 @@
                                     <button class="tab-btn" role="tab" data-target="nolters-result">Results</button>
                                 </div>
 
-                                <div class="tab-panels" style="margin-top: 16px;">
+                                <div class="tab-panels">
                                     <div id="nolters-problem" class="tab-panel active">
                                         <p class="problem-text">
                                             <strong>Sample Problem:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Replace this text with the real challenge description for the Nolters project.
@@ -2569,67 +2960,67 @@
     </section>
 
     <!-- SERVICES SECTION -->
-    <section id="services" class="section-pad bg-transparent relative z-10 w-full">
+    <section id="services" class="section-pad" style="background: transparent; position:relative; z-index:10; width:100%;">
         <div class="container-custom">
             <div class="section-header section-header-center scroll-reveal">
                 <h2 class="section-title">Capabilities</h2>
                 <p class="section-eyebrow-center">Tech Solutions for Merchants</p>
             </div>
-            <p class="font-mono bg-[#0B0E13] px-6 py-[18px] border-l-3 border-[#2BD67B] rounded-xl mb-10 text-[#9AA4BF] scroll-reveal text-center">
+            <p class="services-intro scroll-reveal">
                 I prioritize "Clean Implementation." A store that looks good but is difficult to maintain is a liability. I build systems that are developer-friendly and merchant-empowering.
             </p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+            <div class="services-grid">
+                <div class="service-card scroll-reveal">
                     <div class="service-icon-wrap">
                         <span class="service-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
                         <div>
-                            <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Custom Sections &amp; Blocks</h3>
-                            <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Building reusable and flexible Liquid sections that empower your team to manage content without touching code.</p>
+                            <h3>Custom Sections &amp; Blocks</h3>
+                            <p>Building reusable and flexible Liquid sections that empower your team to manage content without touching code.</p>
                         </div>
                     </div>
                 </div>
-                <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+                <div class="service-card scroll-reveal">
                     <div class="service-icon-wrap">
                         <span class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 3L12 7M12 17L12 21M3 12L7 12M17 12L21 12M6 6L8 8M16 16L18 18M18 6L16 8M8 16L6 18" stroke-linecap="round"/></svg></span>
                         <div>
-                            <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Tech Debt Elimination</h3>
-                            <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Replacing high-latency apps with native frontend logic to slash load times and monthly overhead costs.</p>
+                            <h3>Tech Debt Elimination</h3>
+                            <p>Replacing high-latency apps with native frontend logic to slash load times and monthly overhead costs.</p>
                         </div>
                     </div>
                 </div>
-                <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+                <div class="service-card scroll-reveal">
                     <div class="service-icon-wrap">
                         <span class="service-icon"><svg viewBox="0 0 24 24"><path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z"/><circle cx="12" cy="12" r="3"/></svg></span>
                         <div>
-                            <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">UI/UX Improvements</h3>
-                            <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Refining the customer journey with high-performance animations and mobile-first interface.</p>
+                            <h3>UI/UX Improvements</h3>
+                            <p>Refining the customer journey with high-performance animations and mobile-first interface.</p>
                         </div>
                     </div>
                 </div>
-                <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+                <div class="service-card scroll-reveal">
                     <div class="service-icon-wrap">
                         <span class="service-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8L12 12L15 15"/><path d="M3 12L5 12M19 12L21 12M12 3L12 5M12 19L12 21"/></svg></span>
                         <div>
-                            <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Core Web Vitals Audit</h3>
-                            <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Deep-layer optimization targeting LCP and CLS to ensure your store ranks higher and retains users.</p>
+                            <h3>Core Web Vitals Audit</h3>
+                            <p>Deep-layer optimization targeting LCP and CLS to ensure your store ranks higher and retains users.</p>
                         </div>
                     </div>
                 </div>
-                <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+                <div class="service-card scroll-reveal">
                     <div class="service-icon-wrap">
                         <span class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 2C12 2 9 6 9 11C9 14 10 17 12 19C14 17 15 14 15 11C15 6 12 2 12 2Z"/><path d="M9 11C9 11 3 13 3 18C7 15 9 14 9 14"/><path d="M15 11C15 11 21 13 21 18C17 15 15 14 15 14"/><path d="M12 19L12 22"/></svg></span>
                         <div>
-                            <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Custom Landing Systems</h3>
-                            <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Engineered for paid traffic. High-performance, custom-coded pages that convert better than generic templates.</p>
+                            <h3>Custom Landing Systems</h3>
+                            <p>Engineered for paid traffic. High-performance, custom-coded pages that convert better than generic templates.</p>
                         </div>
                     </div>
                 </div>
-                <div class="service-card bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-7 transition-all hover:border-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)] scroll-reveal">
+                <div class="service-card scroll-reveal">
                     <div class="service-icon-wrap">
                         <span class="service-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1L12 4M12 20L12 23M1 12L4 12M20 12L23 12M4.22 4.22L6.34 6.34M17.66 17.66L19.78 19.78M19.78 4.22L17.66 6.34M6.34 17.66L4.22 19.78"/></svg></span>
                         <div>
-                            <h3 class="text-[1.15rem] mt-1 mb-2 text-[#EDF2F7] leading-tight">Bug Fixes &amp; Enhancements</h3>
-                            <p class="text-[#9AA4BF] text-[0.9rem] leading-[1.6]">Technical troubleshooting and continuous store improvements to keep things running smoothly.</p>
+                            <h3>Bug Fixes &amp; Enhancements</h3>
+                            <p>Technical troubleshooting and continuous store improvements to keep things running smoothly.</p>
                         </div>
                     </div>
                 </div>
@@ -2638,17 +3029,17 @@
     </section>
 
     <!-- REVIEWS / TESTIMONIALS SECTION -->
-    <section id="reviews" class="relative z-10 w-full border-y border-[#1E252D] reviews-premium-bg py-12 md:py-16">
-        <div class="container-custom relative z-10">
-            <div class="mb-8 md:mb-10 section-header-center scroll-reveal">
-                <h2 class="font-mono text-[1.6rem] md:text-[1.8rem] font-semibold tracking-[-0.5px] text-[#EDF2F7]">Client Reviews</h2>
+    <section id="reviews" class="reviews-premium-bg reviews-section-pad" style="position:relative; z-index:10; width:100%; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+        <div class="container-custom" style="position:relative; z-index:10;">
+            <div class="reviews-header scroll-reveal">
+                <h2 class="reviews-section-title">Client Reviews</h2>
                 <p class="section-eyebrow-center">What merchants say about me</p>
             </div>
 
             <div class="testimonial-grid">
                 <div class="testimonial-premium scroll-reveal">
                     <span class="quote-mark">&#8220;</span>
-                    <div class="stars relative z-10">
+                    <div class="stars">
                         <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
                         <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
                         <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
@@ -2692,7 +3083,7 @@
 
                 <div class="testimonial-premium scroll-reveal">
                     <span class="quote-mark">&#8220;</span>
-                    <div class="stars relative z-10">
+                    <div class="stars">
                         <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
                         <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
                         <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
@@ -2702,7 +3093,7 @@
                     <div class="testimonial-img-wrapper">
                         <img src="testimonials-2.png" alt="Roger Porto testimonial screenshot" loading="lazy" />
                     </div>
-                    <blockquote class="review-text text-[0.95rem] md:text-[1.1rem] font-medium leading-[1.6] text-[#EDF2F7] not-italic">
+                    <blockquote class="review-text" style="font-size:0.95rem; font-weight:500; line-height:1.6; font-style:normal;">
                         "Anton Jay Hermo was quickly able to understand complex requirements from non-technical personnel and develop the algorithms to achieve the goals to develop our expanding marketing platform."
                     </blockquote>
                     <div class="review-footer">
@@ -2721,27 +3112,27 @@
                 </div>
             </div>
 
-            <p class="text-center text-[#5F6C84] font-mono text-[0.65rem] md:text-[0.72rem] mt-6 md:mt-8 scroll-reveal">More reviews added as new projects launch — see the case studies above for full project breakdowns.</p>
+            <p class="reviews-footnote scroll-reveal">More reviews added as new projects launch — see the case studies above for full project breakdowns.</p>
         </div>
     </section>
 
     <!-- ABOUT SECTION -->
-    <section id="about" class="section-pad bg-transparent relative z-10 w-full">
+    <section id="about" class="section-pad" style="background: transparent; position:relative; z-index:10; width:100%;">
         <div class="container-custom">
             <div class="section-header section-header-center scroll-reveal">
                 <h2 class="section-title">Behind the Systems</h2>
                 <p class="section-eyebrow-center">Personal Profile</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-12 items-center scroll-reveal">
+            <div class="about-grid scroll-reveal">
                 <div class="about-img">
-                    <img src="me.webp" alt="Anton Jay L. Hermo" class="w-full rounded-[28px] border border-[#2BD67B] transition-transform hover:scale-[1.02] hover:shadow-[0_12px_40px_-10px_rgba(43,214,123,0.15)]" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNDAwIDUwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5PVFouREVWPC90ZXh0Pjwvc3ZnPg=='" loading="lazy" />
+                    <img src="me.webp" alt="Anton Jay L. Hermo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNDAwIDUwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5PVFouREVWPC90ZXh0Pjwvc3ZnPg=='" loading="lazy" />
                 </div>
-                <div>
-                    <h3 class="font-mono text-[1.9rem] text-[#EDF2F7]">Anton Jay L. Hermo</h3>
-                    <span class="text-[#2BD67B] font-mono inline-block mb-5">Shopify Developer // Albay, PH</span>
-                    <p class="text-[#9AA4BF] mb-3 leading-[1.7]">I build reliable, well-structured Shopify stores with a strong focus on long-term stability and performance. I prioritize clean architecture and practical solutions that support sustainable growth.</p>
-                    <p class="text-[#9AA4BF] mb-3 leading-[1.7]">I approach each project as a system of connected parts that need to work seamlessly behind the scenes. I aim to ensure everything runs smoothly and efficiently.</p>
-                    <p class="text-[#9AA4BF] leading-[1.7]">Through clean, thoughtful code and careful attention to detail, I help turn complex requirements into simple, intuitive experiences—so your store operates with confidence and your results speak for themselves.</p>
+                <div class="about-bio">
+                    <h3 class="about-name">Anton Jay L. Hermo</h3>
+                    <span class="about-tagline">Shopify Developer // Albay, PH</span>
+                    <p>I build reliable, well-structured Shopify stores with a strong focus on long-term stability and performance. I prioritize clean architecture and practical solutions that support sustainable growth.</p>
+                    <p>I approach each project as a system of connected parts that need to work seamlessly behind the scenes. I aim to ensure everything runs smoothly and efficiently.</p>
+                    <p>Through clean, thoughtful code and careful attention to detail, I help turn complex requirements into simple, intuitive experiences—so your store operates with confidence and your results speak for themselves.</p>
                     <a href="AntonJay.pdf" target="_blank" download class="resume-download-btn">
                         <svg viewBox="0 0 24 24">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -2756,43 +3147,43 @@
     </section>
 
     <!-- TECHNICAL ARSENAL SECTION -->
-    <section id="technical-arsenal" class="section-pad bg-transparent relative z-10 w-full">
+    <section id="technical-arsenal" class="section-pad" style="background: transparent; position:relative; z-index:10; width:100%;">
         <div class="container-custom">
             <div class="section-header section-header-center scroll-reveal">
                 <h2 class="section-title">Technical Arsenal</h2>
                 <p class="section-eyebrow-center">Skills &amp; Tech Stack</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
-                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-[26px] scroll-reveal">
-                    <h3 class="font-mono mb-4 text-[#EDF2F7]">Shopify</h3>
-                    <ul class="flex flex-col gap-2.5 list-none p-0">
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Liquid Templating</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Shopify CLI</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Metafields &amp; Metaobjects</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Online Store 2.0 Architecture</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Custom Liquid &amp; JSON Schemas</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Shopify Flow Automation</li>
+            <div class="arsenal-grid">
+                <div class="arsenal-card scroll-reveal">
+                    <h3>Shopify</h3>
+                    <ul>
+                        <li><span class="dot"></span> Liquid Templating</li>
+                        <li><span class="dot"></span> Shopify CLI</li>
+                        <li><span class="dot"></span> Metafields &amp; Metaobjects</li>
+                        <li><span class="dot"></span> Online Store 2.0 Architecture</li>
+                        <li><span class="dot"></span> Custom Liquid &amp; JSON Schemas</li>
+                        <li><span class="dot"></span> Shopify Flow Automation</li>
                     </ul>
                 </div>
-                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-[26px] scroll-reveal">
-                    <h3 class="font-mono mb-4 text-[#EDF2F7]">Frontend</h3>
-                    <ul class="flex flex-col gap-2.5 list-none p-0">
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> HTML5</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> CSS3</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Modern JS (ES6+)</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Tailwind CSS</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> jQuery</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> AJAX / Fetch API</li>
+                <div class="arsenal-card scroll-reveal">
+                    <h3>Frontend</h3>
+                    <ul>
+                        <li><span class="dot"></span> HTML5</li>
+                        <li><span class="dot"></span> CSS3</li>
+                        <li><span class="dot"></span> Modern JS (ES6+)</li>
+                        <li><span class="dot"></span> Tailwind CSS</li>
+                        <li><span class="dot"></span> jQuery</li>
+                        <li><span class="dot"></span> AJAX / Fetch API</li>
                     </ul>
                 </div>
-                <div class="bg-[#0F1217] border border-[#1E252D] rounded-[20px] p-[26px] scroll-reveal">
-                    <h3 class="font-mono mb-4 text-[#EDF2F7]">Tools</h3>
-                    <ul class="flex flex-col gap-2.5 list-none p-0">
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Node.js</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Git Version Control</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> VS Code</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Google Lighthouse</li>
-                        <li class="flex items-center gap-2 text-[#9AA4BF] text-[0.8rem] font-mono"><span class="w-1.5 h-1.5 bg-[#2BD67B] rounded-full flex-shrink-0"></span> Chrome DevTools</li>
+                <div class="arsenal-card scroll-reveal">
+                    <h3>Tools</h3>
+                    <ul>
+                        <li><span class="dot"></span> Node.js</li>
+                        <li><span class="dot"></span> Git Version Control</li>
+                        <li><span class="dot"></span> VS Code</li>
+                        <li><span class="dot"></span> Google Lighthouse</li>
+                        <li><span class="dot"></span> Chrome DevTools</li>
                     </ul>
                 </div>
             </div>
@@ -2801,10 +3192,10 @@
 
     <!-- STORE AUDIT SECTION -->
     <section id="audit" class="audit-section">
-        <div class="container-custom w-full relative z-10">
+        <div class="container-custom" style="width:100%; position:relative; z-index:10;">
             <div class="audit-grid">
 
-                <!-- LEFT: HEADING + BENEFITS (centered) -->
+                <!-- LEFT: HEADING + BENEFITS -->
                 <div class="audit-left scroll-reveal">
                     <div>
                         <span class="audit-eyebrow">
@@ -2918,7 +3309,7 @@
                         <div class="form-error" id="formError">
                             <div class="error-icon">⚠️</div>
                             <h3>Something went wrong</h3>
-                            <p>Your request could not be sent. Please try again later or contact me directly at <a href="mailto:hermo.antonjay.personal@gmail.com" style="color: var(--green); text-decoration: underline;">hermo.antonjay.personal@gmail.com</a>.</p>
+                            <p>Your request could not be sent. Please try again later or contact me directly at <a href="mailto:hermo.antonjay.personal@gmail.com">hermo.antonjay.personal@gmail.com</a>.</p>
                             <button id="retryBtn" class="retry-btn">Try Again</button>
                         </div>
                     </div>
@@ -2929,51 +3320,51 @@
     </section>
 
     <!-- FOOTER SECTION -->
-    <footer class="border-t border-[#1E252D] pt-[80px] pb-5 md:pt-[60px] sm:pt-[45px]">
+    <footer class="footer-section">
         <div class="container-custom">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="footer-grid">
                 <div class="footer-brand">
-                    <h3><a href="#" class="font-mono text-[1.4rem] font-semibold text-[#EDF2F7] tracking-tight no-underline">NOTZ<span class="text-[#2BD67B]">.DEV</span></a></h3>
-                    <p class="text-[#9AA4BF] text-[0.85rem] mt-3.5 leading-[1.7]">I believe every successful Shopify store starts with a strong, well-structured foundation. My goal isn't to create the most complex solution, but the most effective one—building clean, efficient systems that remove technical friction and keep your business running smoothly.</p>
+                    <a href="#" class="footer-brand-logo">NOTZ<span>.DEV</span></a>
+                    <p>I believe every successful Shopify store starts with a strong, well-structured foundation. My goal isn't to create the most complex solution, but the most effective one—building clean, efficient systems that remove technical friction and keep your business running smoothly.</p>
                 </div>
                 <div class="footer-col">
-                    <h4 class="font-mono mb-5 text-[0.9rem] text-[#EDF2F7]">Site Navigation</h4>
-                    <ul class="list-none">
-                        <li class="mb-2.5"><a href="#work" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Case Studies</a></li>
-                        <li class="mb-2.5"><a href="#services" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Capabilities</a></li>
-                        <li class="mb-2.5"><a href="#technical-arsenal" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Stack</a></li>
-                        <li class="mb-2.5"><a href="#about" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">About</a></li>
-                        <li class="mb-2.5"><a href="#reviews" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Reviews</a></li>
-                        <li class="mb-2.5"><a href="#audit" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Store Audit</a></li>
+                    <h4>Site Navigation</h4>
+                    <ul>
+                        <li><a href="#work">Case Studies</a></li>
+                        <li><a href="#services">Capabilities</a></li>
+                        <li><a href="#technical-arsenal">Stack</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#reviews">Reviews</a></li>
+                        <li><a href="#audit">Store Audit</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4 class="font-mono mb-5 text-[0.9rem] text-[#EDF2F7]">Direct Channels</h4>
-                    <ul class="list-none">
-                        <li class="mb-2.5"><a href="mailto:hermo.antonjay.personal@gmail.com" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">Direct Email</a></li>
-                        <li class="mb-2.5"><a href="https://github.com/BoyLado" target="_blank" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">GitHub</a></li>
-                        <li class="mb-2.5"><a href="https://v2.onlinejobs.ph/jobseekers/info/1616842" target="_blank" class="no-underline text-[#9AA4BF] text-[0.85rem] transition-colors hover:text-[#2BD67B]">OnlineJobs PH</a></li>
+                    <h4>Direct Channels</h4>
+                    <ul>
+                        <li><a href="mailto:hermo.antonjay.personal@gmail.com">Direct Email</a></li>
+                        <li><a href="https://github.com/BoyLado" target="_blank">GitHub</a></li>
+                        <li><a href="https://v2.onlinejobs.ph/jobseekers/info/1616842" target="_blank">OnlineJobs PH</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4 class="font-mono mb-5 text-[0.9rem] text-[#EDF2F7]">Social</h4>
-                    <div class="flex gap-3.5 flex-wrap mt-1">
-                        <a href="https://www.facebook.com/AntonJayHermo" target="_blank" aria-label="Facebook" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
+                    <h4>Social</h4>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/AntonJayHermo" target="_blank" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
                         </a>
-                        <a href="https://www.instagram.com/antonjayhermo/" target="_blank" aria-label="Instagram" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg>
+                        <a href="https://www.instagram.com/antonjayhermo/" target="_blank" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg>
                         </a>
-                        <a href="https://x.com/yourprofile" target="_blank" aria-label="X (Twitter)" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
+                        <a href="https://x.com/yourprofile" target="_blank" aria-label="X (Twitter)">
+                            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
                         </a>
-                        <a href="https://www.linkedin.com/in/anton-jay-hermo/" target="_blank" aria-label="LinkedIn" class="inline-flex items-center justify-center w-10 h-10 border border-[#1E252D] rounded-full text-[#9AA4BF] transition-colors hover:border-[#2BD67B] hover:text-[#2BD67B] hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(43,214,123,0.2)]">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                        <a href="https://www.linkedin.com/in/anton-jay-hermo/" target="_blank" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col sm:flex-row justify-between items-center mt-8 pt-4 text-[0.7rem] text-[#5F6C84] font-mono border-t border-[#1E252D]">
+            <div class="footer-bottom">
                 <div>&copy; 2026 // ESTABLISHED IN PH</div>
                 <div id="clock">LOCAL_TIME // --:-- --</div>
             </div>
