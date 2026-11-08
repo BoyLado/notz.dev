@@ -752,33 +752,36 @@
 
         .hero-stats {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
+            flex-wrap: nowrap; /* Pinalitan mula wrap patungong nowrap para pilitin silang magtabi */
+            justify-content: space-between; /* Pantay-pantay ang distansya nila sa gilid */
+            gap: 0.5rem; /* Binawasan ang espasyo para magkasya sa mobile */
             margin-top: 1.5rem;
             padding-top: 1.5rem;
             border-top: 1px solid rgba(43, 214, 123, 0.18);
             width: 100%;
+            overflow-x: auto; /* Para may scroll pakanan kung sakaling kulang pa rin ang screen width */
         }
         .hero-stat-item {
             text-align: center;
-            flex: 0 0 auto;
-            min-width: 70px;
+            flex: 1; 
+            min-width: unset; /* Tinanggal ang min-width para sumakto sa maliit na screen */
         }
         .hero-stat-number {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1.2rem;
+            font-size: 1.1rem; /* Medyo binawasan nang konti para masya */
             font-weight: 700;
             color: var(--green);
             line-height: 1;
+            white-space: nowrap;
         }
         .hero-stat-label {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.5rem;
+            font-size: 0.45rem; /* Binawasan din ang font-size para hindi mag-wrap ang text */
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.03em;
             margin-top: 4px;
+            white-space: nowrap; /* Sinisigurong isang linya lang ang "COMPLETED PROJECTS" */
         }
 
         @media (min-width: 480px) {
@@ -1033,7 +1036,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            gap: 28px;
+            gap: 20px;
         }
 
         .card-tag {
@@ -1065,41 +1068,6 @@
             color: var(--green);
             font-weight: 500;
             opacity: 0.85;
-        }
-
-        .metrics-row {
-            display: flex;
-            gap: 0;
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            overflow: hidden;
-            background: var(--bg);
-        }
-        .metric-item {
-            flex: 1;
-            padding: 14px 16px;
-            text-align: center;
-            position: relative;
-        }
-        .metric-item+.metric-item {
-            border-left: 1px solid var(--border);
-        }
-        .metric-value {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--green);
-            line-height: 1;
-            display: block;
-        }
-        .metric-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--text-muted);
-            margin-top: 5px;
-            display: block;
         }
 
         .tab-nav {
@@ -1331,7 +1299,6 @@
             .content-pane { padding: 24px 20px 28px; }
             .image-pane { min-height: 200px; }
             .card-title { font-size: 1.3rem; }
-            .metric-value { font-size: 1.1rem; }
             .card-footer {
                 flex-direction: column;
                 align-items: flex-start;
@@ -2411,14 +2378,21 @@
 
         .footer-grid {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr; /* 1 column muna para sa mobile */
             gap: 2rem;
         }
+
         @media (min-width: 768px) {
-            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .footer-grid { 
+                grid-template-columns: 2fr 1fr; /* 2 columns pagdating sa tablet */
+            }
         }
+
         @media (min-width: 1024px) {
-            .footer-grid { grid-template-columns: repeat(4, 1fr); }
+            .footer-grid { 
+                /* 4 columns: Mas malaki ang 1st column, pare-pareho ang huling tatlo */
+                grid-template-columns: 1.5fr 1fr 1fr 1fr; 
+            }
         }
 
         .footer-brand-logo {
@@ -2616,15 +2590,11 @@
                     </div>
                     <div class="hero-stat-item">
                         <div class="hero-stat-number">1.2</div>
-                        <div class="hero-stat-label">Years Exp.</div>
+                        <div class="hero-stat-label">Years Experience</div>
                     </div>
                     <div class="hero-stat-item">
                         <div class="hero-stat-number">3</div>
-                        <div class="hero-stat-label">Projects</div>
-                    </div>
-                    <div class="hero-stat-item">
-                        <div class="hero-stat-number">100%</div>
-                        <div class="hero-stat-label">Merchant Friendly</div>
+                        <div class="hero-stat-label">Completed Projects</div>
                     </div>
                 </div>
             </div>
@@ -2660,21 +2630,6 @@
                                 <span class="card-tag">★ Real Client — Flagship</span>
                                 <h3 class="card-title">MEA Custom Suits</h3>
                                 <p class="card-subtitle">Shopify Theme Modernization</p>
-                            </div>
-
-                            <div class="metrics-row">
-                                <div class="metric-item">
-                                    <span class="metric-value">100%</span>
-                                    <span class="metric-label">Merchant Control</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-value">85%</span>
-                                    <span class="metric-label">Faster Loading</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-value">+89%</span>
-                                    <span class="metric-label">Traffic Growth</span>
-                                </div>
                             </div>
 
                             <div>
@@ -2764,21 +2719,6 @@
                                 <span class="card-tag" style="color: #60A5FA; background: rgba(96,165,250,0.08); border-color: rgba(96,165,250,0.2);">Practice Concept</span>
                                 <h3 class="card-title">AJL-Handicraft</h3>
                                 <p class="card-subtitle">Static HTML → OS 2.0 Custom Theme</p>
-                            </div>
-
-                            <div class="metrics-row">
-                                <div class="metric-item">
-                                    <span class="metric-value">100%</span>
-                                    <span class="metric-label">Custom Code</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-value">0</span>
-                                    <span class="metric-label">Apps Used</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-value">$0</span>
-                                    <span class="metric-label">Monthly Fees</span>
-                                </div>
                             </div>
 
                             <div>
@@ -2871,21 +2811,6 @@
                                 <span class="card-tag">★ Real Client — Flagship</span>
                                 <h3 class="card-title">Nolters Gold</h3>
                                 <p class="card-subtitle">Shopify Theme Customization</p>
-                            </div>
-
-                            <div class="metrics-row">
-                                <div class="metric-item">
-                                    <span class="metric-value">PASSED</span>
-                                    <span class="metric-label">Core Web Vital Assessment</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-value">100%</span>
-                                    <span class="metric-label">Search Engine Optimization</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-value">+10%</span>
-                                    <span class="metric-label">MONTHLY SALES</span>
-                                </div>
                             </div>
 
                             <div>
@@ -3126,14 +3051,14 @@
             </div>
             <div class="about-grid scroll-reveal">
                 <div class="about-img">
-                    <img src="me.webp" alt="Anton Jay L. Hermo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNDAwIDUwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5PVFouREVWPC90ZXh0Pjwvc3ZnPg=='" loading="lazy" />
+                    <img src="me.webp" alt="Anton Jay Hermo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNDAwIDUwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiMxMTE4MjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJEYjY3QiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5PVFouREVWPC90ZXh0Pjwvc3ZnPg=='" loading="lazy" />
                 </div>
                 <div class="about-bio">
-                    <h3 class="about-name">Anton Jay L. Hermo</h3>
+                    <h3 class="about-name">Anton Jay Hermo</h3>
                     <span class="about-tagline">Shopify Developer // Albay, PH</span>
                     <p>I build reliable, well-structured Shopify stores with a strong focus on long-term stability and performance. I prioritize clean architecture and practical solutions that support sustainable growth.</p>
                     <p>I approach each project as a system of connected parts that need to work seamlessly behind the scenes. I aim to ensure everything runs smoothly and efficiently.</p>
-                    <p>Through clean, thoughtful code and careful attention to detail, I help turn complex requirements into simple, intuitive experiences—so your store operates with confidence and your results speak for themselves.</p>
+                    <p>Through clean, thoughtful code and careful attention to detail, I help turn complex requirements into simple, intuitive experiences so your store operates with confidence and your results speak for themselves.</p>
                     <a href="AntonJay.pdf" target="_blank" download class="resume-download-btn">
                         <svg viewBox="0 0 24 24">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -3326,7 +3251,7 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <a href="#" class="footer-brand-logo">NOTZ<span>.DEV</span></a>
-                    <p>I believe every successful Shopify store starts with a strong, well-structured foundation. My goal isn't to create the most complex solution, but the most effective one—building clean, efficient systems that remove technical friction and keep your business running smoothly.</p>
+                    <p>I believe every successful Shopify store starts with a strong, well-structured foundation. My goal isn't to create the most complex solution, but the most effective one building clean, efficient systems that remove technical friction and keep your business running smoothly.</p>
                 </div>
                 <div class="footer-col">
                     <h4>Site Navigation</h4>
